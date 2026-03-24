@@ -86,10 +86,10 @@ const OPENING_LINES=[
   "\"남김없이 죽여라.\"",
 ];
 
-/* ══════════ TITLE SVG (with ornament) ══════════ */
+/* ══════════ TITLE SVG ══════════ */
 function TitleVisual(){
   return(
-    <svg viewBox="0 0 600 160" style={{width:"min(540px,80vw)",height:"auto"}}>
+    <svg viewBox="0 0 600 100" style={{width:"min(540px,80vw)",height:"auto"}}>
       <defs>
         <linearGradient id="tg" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#D4A54A"/>
@@ -98,16 +98,7 @@ function TitleVisual(){
         </linearGradient>
         <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feComposite in="SourceGraphic" in2="b" operator="over"/></filter>
       </defs>
-      {/* Top ornamental lines */}
-      <line x1="120" y1="55" x2="200" y2="55" stroke="#A8873A" strokeWidth="0.5" opacity="0.6"/>
-      <line x1="400" y1="55" x2="480" y2="55" stroke="#A8873A" strokeWidth="0.5" opacity="0.6"/>
-      <polygon points="210,55 215,50 220,55 215,60" fill="#A8873A" opacity="0.5"/>
-      <polygon points="380,55 385,50 390,55 385,60" fill="#A8873A" opacity="0.5"/>
-      {/* Title */}
-      <text x="300" y="105" textAnchor="middle" fontFamily="'Noto Serif KR',serif" fontSize="86" fontWeight="900" fill="url(#tg)" filter="url(#glow)" letterSpacing="14">약탈신부</text>
-      {/* Bottom ornament */}
-      <line x1="200" y1="130" x2="400" y2="130" stroke="#A8873A" strokeWidth="0.5" opacity="0.4"/>
-      <polygon points="295,130 300,125 305,130 300,135" fill="#A8873A" opacity="0.4"/>
+      <text x="300" y="75" textAnchor="middle" fontFamily="'Noto Serif KR',serif" fontSize="86" fontWeight="900" fill="url(#tg)" filter="url(#glow)" letterSpacing="14">약탈신부</text>
     </svg>
   );
 }
@@ -158,7 +149,7 @@ function Opening({onCinematicEnd}){
 
       {/* GIF background for cinematic — dragon flight */}
       {phase>=2&&(
-        <video autoPlay loop muted playsInline style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",opacity:0.2,filter:"blur(3px)",zIndex:0}}>
+        <video autoPlay muted playsInline style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",opacity:0.2,filter:"blur(3px)",zIndex:0}}>
           <source src="dragon-flight.webm" type="video/webm"/>
         </video>
       )}
@@ -256,7 +247,7 @@ function HeroSection(){
   return(
     <div style={{height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",position:"relative",overflow:"hidden"}}>
       {/* Dragon breath GIF background */}
-      <video autoPlay loop muted playsInline style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",opacity:0.15,filter:"blur(3px)",zIndex:0}}>
+      <video autoPlay muted playsInline style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",opacity:0.15,filter:"blur(3px)",zIndex:0}}>
         <source src="dragon-breath.webm" type="video/webm"/>
       </video>
       <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 70% 50% at 50% 45%,rgba(212,165,74,0.04) 0%,transparent 70%)",zIndex:1}}/>
