@@ -147,9 +147,11 @@ function Opening({onCinematicEnd}){
     <div style={{position:"fixed",inset:0,zIndex:1000,background:"var(--bg)",overflow:"hidden",opacity:fadeOut?0:1,transition:"opacity 0.8s ease"}}>
       <audio ref={audioRef} loop src="bgm.mp3"/>
 
-      {/* GIF background for cinematic — dragon flight */}
+      {/* GIF background for cinematic — dragon flight, fades to black on end */}
       {phase>=2&&(
-        <video autoPlay muted playsInline style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",opacity:0.2,filter:"blur(3px)",zIndex:0}}>
+        <video autoPlay muted playsInline
+          onEnded={e=>{e.target.style.opacity="0"}}
+          style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",opacity:0.2,filter:"blur(3px)",zIndex:0,transition:"opacity 2s ease"}}>
           <source src="dragon-flight.webm" type="video/webm"/>
         </video>
       )}
