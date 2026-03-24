@@ -55,17 +55,17 @@ const LOCATIONS=[
   {name:"카슈닥 설산",desc:"용족에게 치명적인 만년설",icon:"🏔"},
 ];
 const MAIN_CHARS=[
-  {name:"하칸",title:"타야르 대왕",route:true,appear:["흑요석 눈","장대한 체격","구릿빛","용 비늘 갑주"],personality:"냉철, 적에게 잔혹, 플레이어 한정 다정·소유욕, 책임감",speech:"명령조, 무뚝뚝, 플레이어 한정 애틋·열정, 직설",intro:"드래곤의 땅을 다스리는 젊은 대왕. 냉혹한 정복자의 얼굴 아래, 한 번도 꺼내본 적 없는 감정이 잠들어 있다.",detail:"형 라이칸이 대신 사망한 것에 대한 죄책감을 안고 있다. 형수 가레트와의 혼인을 거부하며 후계 압박을 받고 있다. 10년 전 용 형태의 자신을 치유해 준 소녀의 기억을 간직하고 있다.",color:"#D4A54A"},
-  {name:"길라이",title:"귀족 · 학자",route:true,appear:["흑단 머리","호리호리","비단 가운"],personality:"계산적, 냉소, 지적",speech:"비아냥, 논리적",intro:"비단 가운 아래 날카로운 계산을 숨긴 학자. 냉소 뒤에 감춘 것이 경멸인지 다른 무언가인지는 가까이 가봐야 안다.",detail:"가레트의 동생. 흑주술 부작용으로 심장병을 앓고 있으며, 플레이어만이 그를 치유할 수 있다.",color:"#8FA07A"},
-  {name:"안드레아",title:"브리온 성황",route:true,appear:["금발","푸른 눈","백색 제복"],personality:"신비, 희생, 통찰",speech:"우아한 말투",intro:"달의 여신을 대리하는 브리온의 성황. 우아한 미소 너머로, 무언가를 찾아 타야르까지 온 사람.",detail:"카메르교의 수장으로서 치유와 정화의 신성력을 지닌다. 타야르까지 찾아온 진짜 이유는 아직 밝혀지지 않았다.",color:"#5A7D9E"},
-  {name:"가레트",title:"선왕비",route:false,appear:["눈부신 미모"],personality:"권력욕, 질투, 교활, 잔혹",speech:"비아냥, 명령조",intro:"왕궁에서 가장 아름답고 가장 위험한 여자. 왕비의 자리를 되찾기 위해서라면 무엇이든 한다.",detail:"하칸의 형수. 재혼 왕비를 노리며 플레이어를 제거하려 한다. 시녀 티티를 매수하여 공작을 꾸미기도 한다.",color:"#A83A25"},
-  {name:"마리사",title:"드래곤슬레이어 수장",route:false,appear:["하얀 갑주","검은 화살"],personality:"잔혹, 교활, 집착",speech:"현혹하는 말투",intro:"낯익은 얼굴로 나타난 드래곤슬레이어의 수장. 그녀가 들고 온 검은 화살은 용족의 비늘을 관통하는 유일한 무기다.",detail:"환술과 흑주술을 다루며, 리에르바와 동일한 얼굴을 하고 있다. 그녀의 진짜 정체와 목적은 이야기 속에서 밝혀진다.",color:"#6E4D80"},
+  {name:"하칸",title:"타야르 대왕",route:true,img:"/images/chars/hakan.webp",appear:["흑요석 눈","장대한 체격","구릿빛","용 비늘 갑주"],personality:"냉철, 적에게 잔혹, 플레이어 한정 다정·소유욕, 책임감",speech:"명령조, 무뚝뚝, 플레이어 한정 애틋·열정, 직설",intro:"드래곤의 땅을 다스리는 젊은 대왕. 냉혹한 정복자의 얼굴 아래, 한 번도 꺼내본 적 없는 감정이 잠들어 있다.",detail:"형 라이칸이 대신 사망한 것에 대한 죄책감을 안고 있다. 형수 가레트와의 혼인을 거부하며 후계 압박을 받고 있다. 10년 전 용 형태의 자신을 치유해 준 소녀의 기억을 간직하고 있다.",color:"#D4A54A"},
+  {name:"길라이",title:"귀족 · 학자",route:true,img:"/images/chars/gilai.webp",appear:["흑단 머리","호리호리","비단 가운"],personality:"계산적, 냉소, 지적",speech:"비아냥, 논리적",intro:"비단 가운 아래 날카로운 계산을 숨긴 학자. 냉소 뒤에 감춘 것이 경멸인지 다른 무언가인지는 가까이 가봐야 안다.",detail:"가레트의 동생. 흑주술 부작용으로 심장병을 앓고 있으며, 플레이어만이 그를 치유할 수 있다.",color:"#8FA07A"},
+  {name:"안드레아",title:"브리온 성황",route:true,img:"/images/chars/andrea.webp",appear:["금발","푸른 눈","백색 제복"],personality:"신비, 희생, 통찰",speech:"우아한 말투",intro:"달의 여신을 대리하는 브리온의 성황. 우아한 미소 너머로, 무언가를 찾아 타야르까지 온 사람.",detail:"카메르교의 수장으로서 치유와 정화의 신성력을 지닌다. 타야르까지 찾아온 진짜 이유는 아직 밝혀지지 않았다.",color:"#5A7D9E"},
+  {name:"가레트",title:"선왕비",route:false,img:"/images/chars/garet.webp",appear:["눈부신 미모"],personality:"권력욕, 질투, 교활, 잔혹",speech:"비아냥, 명령조",intro:"왕궁에서 가장 아름답고 가장 위험한 여자. 왕비의 자리를 되찾기 위해서라면 무엇이든 한다.",detail:"하칸의 형수. 재혼 왕비를 노리며 플레이어를 제거하려 한다. 시녀 티티를 매수하여 공작을 꾸미기도 한다.",color:"#A83A25"},
+  {name:"마리사",title:"드래곤슬레이어 수장",route:false,img:"/images/chars/marisa.webp",appear:["하얀 갑주","검은 화살"],personality:"잔혹, 교활, 집착",speech:"현혹하는 말투",intro:"낯익은 얼굴로 나타난 드래곤슬레이어의 수장. 그녀가 들고 온 검은 화살은 용족의 비늘을 관통하는 유일한 무기다.",detail:"환술과 흑주술을 다루며, 리에르바와 동일한 얼굴을 하고 있다. 그녀의 진짜 정체와 목적은 이야기 속에서 밝혀진다.",color:"#6E4D80"},
 ];
 const SUB_CHARS=[
-  {name:"투란",title:"군단장",appear:["흉포 외모"],personality:"충성, 다혈질",speech:"군대식, 농담 투덜",intro:"하칸의 가장 오래된 칼. 험상궂은 얼굴로 투덜대면서도 누구보다 먼저 전장에 선다.",detail:"하칸의 최측근 군단장. 거친 외모와 다혈질적 성격이지만, 하칸에 대한 충성심은 누구에게도 뒤지지 않는다.",color:"#D4A54A"},
-  {name:"티티",title:"전속 시녀",appear:["곱슬머리","색실"],personality:"충직, 현실적",speech:"경어",intro:"타야르 왕궁에서의 첫 안내자. 낯선 땅의 규칙을 가장 현실적으로 알려주는 시녀.",detail:"원래 가레트 소속이었으나 플레이어의 시녀로 배정되었다. 타야르 왕궁의 정보를 알려주는 안내자 역할.",color:"#D4A54A"},
-  {name:"푸카",title:"숲 정령",appear:["통통한 꼬마","박새 변신"],personality:"장난, 통찰",speech:"반말",intro:"브리온과 타야르 사이 숲에 사는 정령. 땅콩을 바치면 도와주고, 아니면 폭풍이 온다.",detail:"날씨를 조작할 수 있는 숲의 정령. 통통한 꼬마와 박새 변신을 오가며, 땅콩을 대가로 도움을 준다.",color:"#6DA06D"},
-  {name:"아다르",title:"대왕비",appear:["쇠약한 모습","초점 없는 눈"],personality:"정신불안, 후회",speech:"유아퇴행 ↔ 회복 시 호통",intro:"왕궁 깊숙이 잊힌 대왕비. 흐려진 눈 속에 아직 꺼지지 않은 후회가 남아 있다.",detail:"하칸의 모이자 대왕비. 라이칸을 편애하고 하칸에게 무관심했던 것을 후회하고 있다.",color:"#B5A790"},
+  {name:"투란",title:"군단장",img:"/images/chars/turan.webp",appear:["흉포 외모"],personality:"충성, 다혈질",speech:"군대식, 농담 투덜",intro:"하칸의 가장 오래된 칼. 험상궂은 얼굴로 투덜대면서도 누구보다 먼저 전장에 선다.",detail:"하칸의 최측근 군단장. 거친 외모와 다혈질적 성격이지만, 하칸에 대한 충성심은 누구에게도 뒤지지 않는다.",color:"#D4A54A"},
+  {name:"티티",title:"전속 시녀",img:"/images/chars/titi.webp",appear:["곱슬머리","색실"],personality:"충직, 현실적",speech:"경어",intro:"타야르 왕궁에서의 첫 안내자. 낯선 땅의 규칙을 가장 현실적으로 알려주는 시녀.",detail:"원래 가레트 소속이었으나 플레이어의 시녀로 배정되었다. 타야르 왕궁의 정보를 알려주는 안내자 역할.",color:"#D4A54A"},
+  {name:"푸카",title:"숲 정령",img:"/images/chars/puka.webp",appear:["통통한 꼬마","박새 변신"],personality:"장난, 통찰",speech:"반말",intro:"브리온과 타야르 사이 숲에 사는 정령. 땅콩을 바치면 도와주고, 아니면 폭풍이 온다.",detail:"날씨를 조작할 수 있는 숲의 정령. 통통한 꼬마와 박새 변신을 오가며, 땅콩을 대가로 도움을 준다.",color:"#6DA06D"},
+  {name:"아다르",title:"대왕비",img:"/images/chars/adar.webp",appear:["쇠약한 모습","초점 없는 눈"],personality:"정신불안, 후회",speech:"유아퇴행 ↔ 회복 시 호통",intro:"왕궁 깊숙이 잊힌 대왕비. 흐려진 눈 속에 아직 꺼지지 않은 후회가 남아 있다.",detail:"하칸의 모이자 대왕비. 라이칸을 편애하고 하칸에게 무관심했던 것을 후회하고 있다.",color:"#B5A790"},
 ];
 const CHAPTERS=[
   {n:1,title:"조우",mood:"이국적 긴장감 · 압도적 존재",teaser:"타야르에 발을 내딛는 순간, 모든 것이 바뀐다",branch:false},
@@ -340,9 +340,11 @@ function CharModal({char,onClose}){
     <div onClick={onClose} style={{position:"fixed",inset:0,zIndex:2000,background:"rgba(0,0,0,0.82)",backdropFilter:"blur(10px)",display:"flex",alignItems:"center",justifyContent:"center",animation:"fadeIn 0.3s ease",padding:"20px"}}>
       <div onClick={e=>e.stopPropagation()} style={{width:"100%",maxWidth:"480px",maxHeight:"85vh",overflowY:"auto",background:"var(--bg2)",border:`1px solid ${char.color}33`,padding:"36px 32px",position:"relative",animation:"fadeUp 0.4s ease"}} className="inner-scroll">
         <button onClick={onClose} style={{position:"absolute",top:"12px",right:"12px",background:"none",border:"none",color:"var(--tx2)",fontSize:"20px",cursor:"pointer",zIndex:10}}>✕</button>
-        <div style={{width:"100%",aspectRatio:"480/700",maxHeight:"280px",background:`linear-gradient(170deg,${char.color}15,var(--bgc))`,border:"1px solid var(--brd)",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:"24px",position:"relative"}}>
-          <span style={{fontFamily:"var(--fd)",fontSize:"42px",fontWeight:900,color:`${char.color}20`}}>{char.name[0]}</span>
-          <span style={{position:"absolute",bottom:"8px",fontSize:"10px",color:"var(--txd)",letterSpacing:"1px"}}>IMAGE</span>
+        <div style={{width:"100%",aspectRatio:"480/700",maxHeight:"280px",overflow:"hidden",border:"1px solid var(--brd)",marginBottom:"24px",position:"relative"}}>
+          {char.img?<img src={char.img} alt={char.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>:
+          <div style={{width:"100%",height:"100%",background:`linear-gradient(170deg,${char.color}15,var(--bgc))`,display:"flex",alignItems:"center",justifyContent:"center"}}>
+            <span style={{fontFamily:"var(--fd)",fontSize:"42px",fontWeight:900,color:`${char.color}20`}}>{char.name[0]}</span>
+          </div>}
         </div>
         <div style={{display:"flex",alignItems:"center",gap:"10px",marginBottom:"4px",flexWrap:"wrap"}}>
           <h3 style={{fontFamily:"var(--fd)",fontSize:"26px",fontWeight:700}}>{char.name}</h3>
@@ -396,58 +398,22 @@ function CharacterSection({onOpenModal}){
                 style={{width:"155px",height:"232px",cursor:"pointer",transform:isH&&!isFlipped?"translateY(-10px)":"translateY(0)",transition:"transform 0.35s cubic-bezier(0.16,1,0.3,1)"}}
               >
                 <div className={`card-flip-inner${isFlipped?" flipped":""}`}>
-                  {/* BACK (default visible) — decorative tarot back */}
+                  {/* BACK (default visible) — tarot back image */}
                   <div className="card-face card-front" style={{
-                    width:"100%",height:"100%",
-                    background:"linear-gradient(165deg,rgba(212,165,74,0.08) 0%,var(--bgc) 50%,rgba(212,165,74,0.04) 100%)",
+                    width:"100%",height:"100%",overflow:"hidden",
                     border:`1px solid ${isH?"rgba(212,165,74,0.5)":"rgba(212,165,74,0.2)"}`,
-                    display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",
-                    padding:"14px",position:"relative",overflow:"hidden",
                     boxShadow:isH?"0 14px 40px rgba(0,0,0,0.6), 0 0 20px rgba(212,165,74,0.1)":"0 4px 16px rgba(0,0,0,0.3)",
                     transition:"all 0.35s ease",
                   }}>
-                    {/* Corner marks */}
-                    {[["top","left"],["top","right"],["bottom","left"],["bottom","right"]].map(([v,h],ci)=>(
-                      <div key={ci} style={{position:"absolute",[v]:"8px",[h]:"8px",width:"14px",height:"14px",
-                        borderTop:v==="top"?"1px solid rgba(212,165,74,0.25)":"none",
-                        borderBottom:v==="bottom"?"1px solid rgba(212,165,74,0.25)":"none",
-                        borderLeft:h==="left"?"1px solid rgba(212,165,74,0.25)":"none",
-                        borderRight:h==="right"?"1px solid rgba(212,165,74,0.25)":"none",
-                      }}/>
-                    ))}
-                    {/* Central ornament */}
-                    <div style={{width:"50px",height:"50px",border:"1px solid rgba(212,165,74,0.3)",transform:"rotate(45deg)",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:"20px"}}>
-                      <div style={{width:"24px",height:"24px",border:"1px solid rgba(212,165,74,0.2)",background:"rgba(212,165,74,0.05)"}}>
-                        <div style={{width:"100%",height:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
-                          <div style={{width:"8px",height:"8px",background:"rgba(212,165,74,0.3)",transform:"rotate(45deg)"}}/>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Vertical decorative line */}
-                    <div style={{width:"1px",height:"30px",background:"linear-gradient(180deg,transparent,rgba(212,165,74,0.2),transparent)",marginBottom:"12px"}}/>
-                    {/* Placeholder text for card back image */}
-                    <span style={{fontSize:"10px",color:"var(--txd)",letterSpacing:"2px"}}>TAROT</span>
+                    <img src="/images/tarot-back.webp" alt="tarot" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
                   </div>
 
-                  {/* FRONT (visible after flip) — character info */}
+                  {/* FRONT (visible after flip) — character image */}
                   <div className="card-face card-back" style={{
-                    width:"100%",height:"100%",
-                    background:`linear-gradient(165deg,${c.color}18 0%,var(--bgc) 35%,${c.color}0A 100%)`,
+                    width:"100%",height:"100%",overflow:"hidden",
                     border:`1px solid ${c.color}55`,
-                    display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",
-                    padding:"14px",overflow:"hidden",
                   }}>
-                    {[["top","left"],["top","right"],["bottom","left"],["bottom","right"]].map(([v,h],ci)=>(
-                      <div key={ci} style={{position:"absolute",[v]:"6px",[h]:"6px",width:"10px",height:"10px",
-                        borderTop:v==="top"?`1px solid ${c.color}33`:"none",borderBottom:v==="bottom"?`1px solid ${c.color}33`:"none",
-                        borderLeft:h==="left"?`1px solid ${c.color}33`:"none",borderRight:h==="right"?`1px solid ${c.color}33`:"none",
-                      }}/>
-                    ))}
-                    <div style={{width:"30px",height:"30px",border:`1px solid ${c.color}55`,transform:"rotate(45deg)",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:"14px"}}>
-                      <div style={{width:"12px",height:"12px",background:`${c.color}22`,border:`1px solid ${c.color}33`}}/>
-                    </div>
-                    <div style={{fontFamily:"var(--fd)",fontSize:"21px",fontWeight:700,letterSpacing:"2px"}}>{c.name}</div>
-                    <div style={{fontSize:"12px",color:c.color,marginTop:"5px",letterSpacing:"1.5px",fontWeight:500,textAlign:"center"}}>{c.title}</div>
+                    <img src={c.img} alt={c.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
                   </div>
                 </div>
               </div>
@@ -468,30 +434,13 @@ function CharacterSection({onOpenModal}){
                 onMouseLeave={e=>e.currentTarget.style.transform="translateY(0)"}
               >
                 <div className={`card-flip-inner${isFlipped?" flipped":""}`}>
-                  {/* Back */}
-                  <div className="card-face card-front" style={{
-                    width:"100%",height:"100%",background:"var(--bgc)",border:"1px solid var(--brd)",
-                    display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",
-                    overflow:"hidden",
-                  }}>
-                    <div style={{width:"28px",height:"28px",border:"1px solid rgba(212,165,74,0.2)",transform:"rotate(45deg)",marginBottom:"12px"}}>
-                      <div style={{width:"100%",height:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
-                        <div style={{width:"6px",height:"6px",background:"rgba(212,165,74,0.2)"}}/>
-                      </div>
-                    </div>
-                    <span style={{fontSize:"9px",color:"var(--txd)",letterSpacing:"2px"}}>TAROT</span>
+                  {/* Back — tarot back image */}
+                  <div className="card-face card-front" style={{width:"100%",height:"100%",overflow:"hidden",border:"1px solid var(--brd)"}}>
+                    <img src="/images/tarot-back.webp" alt="tarot" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
                   </div>
-                  {/* Front */}
-                  <div className="card-face card-back" style={{
-                    width:"100%",height:"100%",background:"var(--bgc)",border:"1px solid var(--brd)",
-                    display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",
-                    padding:"12px",overflow:"hidden",
-                  }}>
-                    <div style={{width:"48px",height:"48px",margin:"0 auto 8px",background:"var(--bg)",border:"1px solid var(--brd)",display:"flex",alignItems:"center",justifyContent:"center"}}>
-                      <span style={{fontFamily:"var(--fd)",fontSize:"20px",fontWeight:700,color:"var(--txd)"}}>{c.name[0]}</span>
-                    </div>
-                    <div style={{fontFamily:"var(--fd)",fontSize:"15px",fontWeight:700,marginBottom:"2px"}}>{c.name}</div>
-                    <div style={{fontSize:"10px",color:"var(--tx2)",letterSpacing:"1px"}}>{c.title}</div>
+                  {/* Front — character image */}
+                  <div className="card-face card-back" style={{width:"100%",height:"100%",overflow:"hidden",border:"1px solid var(--brd)"}}>
+                    <img src={c.img} alt={c.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
                   </div>
                 </div>
               </div>
