@@ -44,7 +44,7 @@ document.head.appendChild(css);
 
 /* ══════════ DATA ══════════ */
 const FACTIONS=[
-  {name:"타야르",color:"var(--gold)",bg:"rgba(212,165,74,0.06)",kw:["용의 영역","절대왕권","형사취수제"],desc:"용의 후예가 통치하는 이교도의 땅. 화산의 열기와 황금의 광채가 뒤섞인 왕국. 대왕의 말은 곧 법이며, 용의 피가 모든 것을 결정한다."},
+  {name:"타야르",color:"var(--gold)",bg:"rgba(212,165,74,0.06)",kw:["용의 영역","절대왕권"],desc:"용의 후예가 통치하는 이교도의 땅. 화산의 열기와 황금의 광채가 뒤섞인 왕국. 대왕의 말은 곧 법이며, 용의 피가 모든 것을 결정한다."},
   {name:"브리온",color:"var(--blue)",bg:"rgba(90,125,158,0.06)",kw:["카메르교","이종배척"],desc:"달의 여신을 숭배하는 인간 왕국. 스스로를 문명의 중심이라 자부하며, 타야르를 야만족으로 멸시한다. 그 이면에는 폭정과 위선이 도사리고 있다."},
   {name:"쉬프터",color:"var(--purple)",bg:"rgba(110,77,128,0.06)",kw:["변신","외모 흡수","타야르 몰살"],desc:"눈으로 생각을 읽고, 심장을 찔러 외모와 영혼을 흡수하는 존재. 타야르를 몰살시키고 자신들의 왕국을 세우려 한다."},
 ];
@@ -74,8 +74,8 @@ const SUB_CHARS=[
 const CHAPTERS=[
   {n:1,title:"조우",mood:"이국적 긴장감 · 압도적 존재",teaser:"타야르에 발을 내딛는 순간, 모든 것이 바뀐다",branch:false},
   {n:2,title:"오해",mood:"신뢰 붕괴 · 진실을 향한 고통",teaser:"무너진 믿음 속에서 진짜 적을 찾아야 한다",branch:false},
-  {n:3,title:"진실과 화해",mood:"비밀 폭로 · 재건",teaser:"감춰진 진실이 드러날 때, 선택의 순간이 온다",branch:true},
-  {n:4,title:"정면 돌파",mood:"결전 · 새로운 시작",teaser:"마지막 전쟁. 그리고 그 너머의 이야기",branch:false},
+  {n:3,title:"진실",mood:"비밀 폭로 · 재건",teaser:"감춰진 진실이 드러날 때, 선택의 순간이 온다",branch:true},
+  {n:4,title:"돌파",mood:"결전 · 새로운 시작",teaser:"마지막 전쟁. 그리고 그 너머의 이야기",branch:false},
   {n:5,title:"그 후",mood:"일상 · 자유",teaser:"폭풍이 지나간 자리에서 이야기는 계속된다",branch:false},
 ];
 const OPENING_LINES=[
@@ -263,8 +263,7 @@ function HeroSection(){
             <h1 style={{fontFamily:"var(--fd)",fontSize:"clamp(40px,10vw,90px)",fontWeight:900,letterSpacing:"clamp(4px,1vw,8px)",textShadow:after?"0 0 80px rgba(212,165,74,0.25), 0 2px 30px rgba(0,0,0,0.5)":"none",transition:"text-shadow 0.5s ease"}}>약탈신부</h1>
           </div>
           <div style={{width:"clamp(60px,20vw,120px)",height:"1px",margin:"16px auto",background:"linear-gradient(90deg,transparent,var(--gold),transparent)",animation:after?"lineExpand 0.8s ease forwards":"none",opacity:after?undefined:0,transformOrigin:"center"}}/>
-          <p style={{fontFamily:"var(--fd)",fontSize:"clamp(13px,2vw,17px)",color:"var(--tx2)",letterSpacing:"3px",marginBottom:"8px",opacity:after?1:0,transition:"all 0.7s ease 0.1s",lineHeight:1.8,fontStyle:"italic"}}>불과 유황 냄새가 맴도는 이교도의 땅.</p>
-          <p style={{fontFamily:"var(--fd)",fontSize:"clamp(13px,2vw,17px)",color:"var(--tx2)",letterSpacing:"3px",opacity:after?1:0,transition:"all 0.7s ease 0.2s",lineHeight:1.8,fontStyle:"italic"}}>타야르에서 살아남기.</p>
+          <div style={{height:"clamp(20px,4vw,40px)"}}/>
         </div>
 
         {/* Story text (cinematic content, always visible) */}
