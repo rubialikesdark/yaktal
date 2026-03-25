@@ -531,9 +531,22 @@ export default function App(){
       if(s){const{scrollTop:t,scrollHeight:h,clientHeight:c}=s;if(e.deltaY>0&&t+c<h-2)return;if(e.deltaY<0&&t>2)return;}
       e.preventDefault();if(e.deltaY>0)goTo(cur+1);else if(e.deltaY<0)goTo(cur-1);
     };
-    let ty=0;
-    const tS=(e)=>{ty=e.touches[0].clientY};
-    const tE=(e)=>{if(modal)return;const d=ty-e.changedTouches[0].clientY;if(Math.abs(d)>60){d>0?goTo(cur+1):goTo(cur-1)}};
+    let ty=0;let touchEl=null;
+    const tS=(e)=>{ty=e.touches[0].clientY;touchEl=e.target};
+    const tE=(e)=>{
+      if(modal)return;
+      const d=ty-e.changedTouches[0].clientY;
+      if(Math.abs(d)<80)return; // higher threshold to prevent accidental swipes
+      // Check if touch was inside a scrollable area
+      const s=touchEl&&touchEl.closest&&touchEl.closest('.inner-scroll');
+      if(s){
+        const{scrollTop:t,scrollHeight:h,clientHeight:c}=s;
+        // Only allow section change if scrolled to boundary
+        if(d>0&&t+c<h-4)return; // swiping up but not at bottom
+        if(d<0&&t>4)return; // swiping down but not at top
+      }
+      if(d>0)goTo(cur+1);else goTo(cur-1);
+    };
     const kD=(e)=>{if(modal)return;if(e.key==="ArrowDown"||e.key===" "){e.preventDefault();goTo(cur+1)}if(e.key==="ArrowUp"){e.preventDefault();goTo(cur-1)}};
     window.addEventListener("wheel",onW,{passive:false});
     window.addEventListener("touchstart",tS,{passive:true});
