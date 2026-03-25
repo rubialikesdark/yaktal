@@ -49,14 +49,14 @@ const FACTIONS=[
   {name:"쉬프터",color:"var(--purple)",bg:"rgba(110,77,128,0.06)",kw:["변신","외모 흡수","타야르 몰살"],desc:"눈으로 생각을 읽고, 심장을 찔러 외모와 영혼을 흡수하는 존재. 타야르를 몰살시키고 자신들의 왕국을 세우려 한다."},
 ];
 const LOCATIONS=[
-  {name:"왕궁",desc:"대리석과 황금으로 이루어진 왕의 거처",icon:"🏛"},
-  {name:"왕의 노천탕",desc:"흑룡·백룡 조각상의 냉온수 욕탕. 총애하는 여인에게만 허락",icon:"♨"},
-  {name:"탄생의 동굴",desc:"번영기의 잉태 성역. 역대 왕의 탄생지",icon:"🕳"},
-  {name:"메잘륵",desc:"용족이 신성시하는 조상의 성역",icon:"⛩"},
-  {name:"불의 계곡",desc:"용암과 새장형 감옥의 처형장",icon:"🌋"},
-  {name:"푸카의 숲",desc:"장난스러운 정령의 보금자리",icon:"🌲"},
-  {name:"해츨링 요새",desc:"휴화산 동굴의 새끼 용 보호구역",icon:"🥚"},
-  {name:"카슈닥 설산",desc:"용족에게 치명적인 만년설",icon:"🏔"},
+  {name:"왕궁",desc:"대리석과 황금으로 이루어진 왕의 거처",icon:"🏛",img:"/images/locations/palace.webp"},
+  {name:"왕의 노천탕",desc:"흑룡·백룡 조각상의 냉온수 욕탕. 총애하는 여인에게만 허락",icon:"♨",img:"/images/locations/bath.webp"},
+  {name:"탄생의 동굴",desc:"번영기의 잉태 성역. 역대 왕의 탄생지",icon:"🕳",img:"/images/locations/cave.webp"},
+  {name:"메잘륵",desc:"용족이 신성시하는 조상의 성역",icon:"⛩",img:null},
+  {name:"불의 계곡",desc:"용암과 새장형 감옥의 처형장",icon:"🌋",img:"/images/locations/fire-valley.webp"},
+  {name:"푸카의 숲",desc:"장난스러운 정령의 보금자리",icon:"🌲",img:"/images/locations/puka-forest.webp"},
+  {name:"해츨링 요새",desc:"휴화산 동굴의 새끼 용 보호구역",icon:"🥚",img:"/images/locations/hatchling.webp"},
+  {name:"카슈닥 설산",desc:"용족에게 치명적인 만년설",icon:"🏔",img:"/images/locations/kashudak.webp"},
 ];
 const MAIN_CHARS=[
   {name:"하칸",title:"타야르 대왕",img:"/images/chars/hakan.webp",modalImg:"/images/chars/modal/hakan.webp",appear:["흑요석 눈","장대한 체격","구릿빛","용 비늘 갑주"],personality:"냉철, 적에게 잔혹, 플레이어 한정 다정·소유욕, 책임감",speech:"명령조, 무뚝뚝, 플레이어 한정 애틋·열정, 직설",intro:"드래곤의 땅을 다스리는 젊은 대왕. 냉혹한 정복자의 얼굴 아래, 한 번도 꺼내본 적 없는 감정이 잠들어 있다.",detail:"형 라이칸이 대신 사망한 것에 대한 죄책감을 안고 있다. 형수 가레트와의 혼인을 거부하며 후계 압박을 받고 있다. 10년 전 용 형태의 자신을 치유해 준 소녀의 기억을 간직하고 있다.",color:"#D4A54A"},
@@ -319,8 +319,11 @@ function WorldSection(){
             <div key={i} style={{background:"var(--bgc)",border:"1px solid var(--brd)",transition:"border-color 0.3s",overflow:"hidden"}}
             onMouseEnter={e=>e.currentTarget.style.borderColor="var(--goldd)"}
             onMouseLeave={e=>e.currentTarget.style.borderColor="rgba(212,165,74,0.18)"}>
-              <div style={{width:"100%",aspectRatio:"16/9",background:`linear-gradient(135deg,var(--bg2),${i%2===0?"rgba(212,165,74,0.05)":"rgba(139,45,26,0.05)"})`,display:"flex",alignItems:"center",justifyContent:"center",borderBottom:"1px solid var(--brd)"}}>
-                <span style={{fontSize:"clamp(22px,4vw,28px)",opacity:0.4}}>{l.icon}</span>
+              <div style={{width:"100%",aspectRatio:"16/9",overflow:"hidden",borderBottom:"1px solid var(--brd)",position:"relative"}}>
+                {l.img?<img src={l.img} alt={l.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>:
+                <div style={{width:"100%",height:"100%",background:`linear-gradient(135deg,var(--bg2),${i%2===0?"rgba(212,165,74,0.05)":"rgba(139,45,26,0.05)"})`,display:"flex",alignItems:"center",justifyContent:"center"}}>
+                  <span style={{fontSize:"clamp(22px,4vw,28px)",opacity:0.4}}>{l.icon}</span>
+                </div>}
               </div>
               <div style={{padding:"clamp(10px,2vw,14px) clamp(12px,2vw,16px)"}}>
                 <div style={{fontFamily:"var(--fd)",fontSize:"clamp(14px,2vw,16px)",fontWeight:700,marginBottom:"4px"}}>{l.name}</div>
