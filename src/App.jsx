@@ -52,7 +52,7 @@ const LOCATIONS=[
   {name:"왕궁",desc:"대리석과 황금으로 이루어진 왕의 거처",icon:"🏛",img:"/images/locations/palace.webp"},
   {name:"왕의 노천탕",desc:"흑룡·백룡 조각상의 냉온수 욕탕. 총애하는 여인에게만 허락",icon:"♨",img:"/images/locations/bath.webp"},
   {name:"탄생의 동굴",desc:"번영기의 잉태 성역. 역대 왕의 탄생지",icon:"🕳",img:"/images/locations/cave.webp"},
-  {name:"메잘륵",desc:"용족이 신성시하는 조상의 성역",icon:"⛩",img:null},
+  {name:"메잘륵",desc:"용족이 신성시하는 조상의 성역",icon:"⛩",img:"/images/locations/mejalluk.webp"},
   {name:"불의 계곡",desc:"용암과 새장형 감옥의 처형장",icon:"🌋",img:"/images/locations/fire-valley.webp"},
   {name:"푸카의 숲",desc:"장난스러운 정령의 보금자리",icon:"🌲",img:"/images/locations/puka-forest.webp"},
   {name:"해츨링 요새",desc:"휴화산 동굴의 새끼 용 보호구역",icon:"🥚",img:"/images/locations/hatchling.webp"},
