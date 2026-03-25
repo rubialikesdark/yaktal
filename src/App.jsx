@@ -18,7 +18,8 @@ css.textContent=`
   --fb:'Noto Sans KR',sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--bg);color:var(--tx);font-family:var(--fb);overflow:hidden;-webkit-font-smoothing:antialiased;}
+html{--vh:100vh;--vh:100dvh;}
+body{background:var(--bg);color:var(--tx);font-family:var(--fb);overflow:hidden;-webkit-font-smoothing:antialiased;height:var(--vh);}
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--goldd);border-radius:2px;}
 .inner-scroll{scrollbar-width:thin;scrollbar-color:var(--goldd) transparent;}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -528,43 +529,62 @@ export default function App(){
     const onW=(e)=>{
       if(modal)return;
       const s=e.target.closest('.inner-scroll');
-      if(s){const{scrollTop:t,scrollHeight:h,clientHeight:c}=s;if(e.deltaY>0&&t+c<h-2)return;if(e.deltaY<0&&t>2)return;}
+      if(s){const{scrollTop:t,scrollHeight:h,clientHeight:c}=s;if(e.deltaY>0&&t+c<h-4)return;if(e.deltaY<0&&t>4)return;}
       e.preventDefault();if(e.deltaY>0)goTo(cur+1);else if(e.deltaY<0)goTo(cur-1);
     };
-    let ty=0;let touchEl=null;
-    const tS=(e)=>{ty=e.touches[0].clientY;touchEl=e.target};
+
+    // Touch: track start position, element, and whether inner-scroll moved
+    let ty=0;let touchScrollEl=null;let scrolledDuringTouch=false;let startScrollTop=0;
+    const tS=(e)=>{
+      ty=e.touches[0].clientY;
+      touchScrollEl=e.target.closest?e.target.closest('.inner-scroll'):null;
+      scrolledDuringTouch=false;
+      startScrollTop=touchScrollEl?touchScrollEl.scrollTop:0;
+    };
+    const tM=(e)=>{
+      if(touchScrollEl){
+        // If scroll position changed, user is scrolling content
+        if(touchScrollEl.scrollTop!==startScrollTop)scrolledDuringTouch=true;
+      }
+    };
     const tE=(e)=>{
       if(modal)return;
       const d=ty-e.changedTouches[0].clientY;
-      if(Math.abs(d)<80)return; // higher threshold to prevent accidental swipes
-      // Check if touch was inside a scrollable area
-      const s=touchEl&&touchEl.closest&&touchEl.closest('.inner-scroll');
-      if(s){
-        const{scrollTop:t,scrollHeight:h,clientHeight:c}=s;
-        // Only allow section change if scrolled to boundary
-        if(d>0&&t+c<h-4)return; // swiping up but not at bottom
-        if(d<0&&t>4)return; // swiping down but not at top
+      if(Math.abs(d)<100)return; // high threshold
+
+      if(touchScrollEl){
+        const{scrollTop:t,scrollHeight:h,clientHeight:c}=touchScrollEl;
+        const atBottom=t+c>=h-8;
+        const atTop=t<=8;
+        // Only allow section change at scroll boundaries
+        if(d>0&&!atBottom)return; // swiping up, not at bottom
+        if(d<0&&!atTop)return;    // swiping down, not at top
+        // If user was actively scrolling content, don't also change section
+        if(scrolledDuringTouch)return;
       }
+
       if(d>0)goTo(cur+1);else goTo(cur-1);
     };
+
     const kD=(e)=>{if(modal)return;if(e.key==="ArrowDown"||e.key===" "){e.preventDefault();goTo(cur+1)}if(e.key==="ArrowUp"){e.preventDefault();goTo(cur-1)}};
     window.addEventListener("wheel",onW,{passive:false});
     window.addEventListener("touchstart",tS,{passive:true});
+    window.addEventListener("touchmove",tM,{passive:true});
     window.addEventListener("touchend",tE,{passive:true});
     window.addEventListener("keydown",kD);
-    return()=>{window.removeEventListener("wheel",onW);window.removeEventListener("touchstart",tS);window.removeEventListener("touchend",tE);window.removeEventListener("keydown",kD)};
+    return()=>{window.removeEventListener("wheel",onW);window.removeEventListener("touchstart",tS);window.removeEventListener("touchmove",tM);window.removeEventListener("touchend",tE);window.removeEventListener("keydown",kD)};
   },[entered,cur,goTo,modal]);
 
   return(
-    <div style={{width:"100vw",height:"100vh",overflow:"hidden",background:"var(--bg)",position:"relative"}}>
+    <div style={{width:"100vw",height:"var(--vh)",overflow:"hidden",background:"var(--bg)",position:"relative"}}>
       {showOp&&<Opening onCinematicEnd={done}/>}
       {entered&&(
         <>
           <BGMPlayer audioEl={audioEl}/>
           <SectionNav current={cur} total={SC} onGo={goTo}/>
-          <div style={{transform:`translateY(-${cur*100}vh)`,transition:"transform 0.8s cubic-bezier(0.65,0,0.35,1)",height:`${SC*100}vh`}}>
+          <div style={{transform:`translateY(calc(-${cur} * var(--vh)))`,transition:"transform 0.8s cubic-bezier(0.65,0,0.35,1)",height:`calc(${SC} * var(--vh))`}}>
             {SECS.map((S,i)=>(
-              <div key={i} style={{height:"100vh",width:"100vw"}}>
+              <div key={i} style={{height:"var(--vh)",width:"100vw"}}>
                 {i===1?<S onOpenModal={setModal}/>:<S/>}
               </div>
             ))}
