@@ -299,35 +299,35 @@ function WorldSection(){
       <div style={{padding:"clamp(32px,5vw,44px) clamp(12px,3vw,16px) 0",flexShrink:0}}><STitle sub="WORLD" main="세계관"/></div>
       <div style={{flex:1,overflowY:"auto",padding:"0 clamp(12px,3vw,16px) 44px",maxWidth:"960px",margin:"0 auto",width:"100%"}} className="inner-scroll">
         {/* Factions */}
-        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(260px,100%),1fr))",gap:"clamp(12px,2vw,16px)",marginBottom:"clamp(32px,5vw,48px)"}}>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(240px,100%),1fr))",gap:"clamp(8px,1.5vw,16px)",marginBottom:"clamp(24px,4vw,36px)"}}>
           {FACTIONS.map((f,i)=>(
-            <div key={i} style={{background:f.bg,border:`1px solid ${f.color}22`,padding:"clamp(16px,3vw,28px) clamp(14px,2.5vw,24px)",transition:"border-color 0.3s"}}
+            <div key={i} style={{background:f.bg,border:`1px solid ${f.color}22`,padding:"clamp(12px,2vw,24px) clamp(10px,2vw,20px)",transition:"border-color 0.3s"}}
             onMouseEnter={e=>e.currentTarget.style.borderColor=f.color+"55"}
             onMouseLeave={e=>e.currentTarget.style.borderColor=f.color+"22"}>
-              <h3 style={{fontFamily:"var(--fd)",fontSize:"clamp(18px,3vw,22px)",fontWeight:700,color:f.color,marginBottom:"10px",letterSpacing:"2px"}}>{f.name}</h3>
-              <div style={{display:"flex",flexWrap:"wrap",gap:"6px",marginBottom:"12px"}}>
-                {f.kw.map((k,j)=>(<span key={j} style={{padding:"2px 8px",border:`1px solid ${f.color}44`,fontSize:"clamp(10px,1.3vw,11px)",color:f.color,letterSpacing:"1px"}}>{k}</span>))}
+              <h3 style={{fontFamily:"var(--fd)",fontSize:"clamp(16px,2.5vw,22px)",fontWeight:700,color:f.color,marginBottom:"8px",letterSpacing:"2px"}}>{f.name}</h3>
+              <div style={{display:"flex",flexWrap:"wrap",gap:"4px",marginBottom:"10px"}}>
+                {f.kw.map((k,j)=>(<span key={j} style={{padding:"2px 7px",border:`1px solid ${f.color}44`,fontSize:"clamp(9px,1.2vw,11px)",color:f.color,letterSpacing:"1px"}}>{k}</span>))}
               </div>
-              <p style={{fontSize:"clamp(12px,1.4vw,13px)",lineHeight:1.8,fontWeight:300}}>{f.desc}</p>
+              <p style={{fontSize:"clamp(11px,1.3vw,13px)",lineHeight:1.7,fontWeight:300}}>{f.desc}</p>
             </div>
           ))}
         </div>
         {/* Locations */}
         <div style={{fontFamily:"var(--fd)",fontSize:"clamp(10px,1.3vw,12px)",letterSpacing:"4px",color:"var(--goldd)",textAlign:"center",marginBottom:"16px",fontWeight:600}}>LOCATIONS</div>
-        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(min(200px,100%),1fr))",gap:"12px"}}>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(min(160px,45%),1fr))",gap:"clamp(8px,1.5vw,12px)"}}>
           {LOCATIONS.map((l,i)=>(
             <div key={i} style={{background:"var(--bgc)",border:"1px solid var(--brd)",transition:"border-color 0.3s",overflow:"hidden"}}
             onMouseEnter={e=>e.currentTarget.style.borderColor="var(--goldd)"}
             onMouseLeave={e=>e.currentTarget.style.borderColor="rgba(212,165,74,0.18)"}>
-              <div style={{width:"100%",aspectRatio:"16/9",overflow:"hidden",borderBottom:"1px solid var(--brd)",position:"relative"}}>
+              <div style={{width:"100%",aspectRatio:"16/10",overflow:"hidden",borderBottom:"1px solid var(--brd)",position:"relative"}}>
                 {l.img?<img src={l.img} alt={l.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>:
                 <div style={{width:"100%",height:"100%",background:`linear-gradient(135deg,var(--bg2),${i%2===0?"rgba(212,165,74,0.05)":"rgba(139,45,26,0.05)"})`,display:"flex",alignItems:"center",justifyContent:"center"}}>
-                  <span style={{fontSize:"clamp(22px,4vw,28px)",opacity:0.4}}>{l.icon}</span>
+                  <span style={{fontSize:"clamp(18px,3vw,28px)",opacity:0.4}}>{l.icon}</span>
                 </div>}
               </div>
-              <div style={{padding:"clamp(10px,2vw,14px) clamp(12px,2vw,16px)"}}>
-                <div style={{fontFamily:"var(--fd)",fontSize:"clamp(14px,2vw,16px)",fontWeight:700,marginBottom:"4px"}}>{l.name}</div>
-                <p style={{fontSize:"clamp(11px,1.4vw,13px)",color:"var(--tx2)",lineHeight:1.6,fontWeight:300}}>{l.desc}</p>
+              <div style={{padding:"clamp(8px,1.5vw,14px) clamp(8px,1.5vw,16px)"}}>
+                <div style={{fontFamily:"var(--fd)",fontSize:"clamp(13px,1.8vw,16px)",fontWeight:700,marginBottom:"2px"}}>{l.name}</div>
+                <p style={{fontSize:"clamp(10px,1.2vw,13px)",color:"var(--tx2)",lineHeight:1.5,fontWeight:300}}>{l.desc}</p>
               </div>
             </div>
           ))}
@@ -365,8 +365,7 @@ function CharModal({char,onClose}){
   );
 }
 
-/* ══════════ SEC — CHARACTERS (single grid, no scroll) ══════════ */
-const ALL_CHARS=[...MAIN_CHARS,...SUB_CHARS];
+/* ══════════ SEC — CHARACTERS (main row + sub row, no scroll) ══════════ */
 function CharacterSection({onOpenModal}){
   const [hv,setHv]=useState(-1);
   const [tap,setTap]=useState(-1);
@@ -378,38 +377,50 @@ function CharacterSection({onOpenModal}){
     return()=>window.removeEventListener("touchstart",onTouch);
   },[]);
 
-  const handleClick=(i,c)=>{
+  const handleClick=(idx,c)=>{
     if(isTouchRef.current){
-      if(tap===i){onOpenModal(c);setTap(-1);}
-      else setTap(i);
+      if(tap===idx){onOpenModal(c);setTap(-1);}
+      else setTap(idx);
     } else {onOpenModal(c);}
   };
 
-  const isFlipped=(i)=>hv===i||tap===i;
-  const getBack=(i)=>i<MAIN_CHARS.length?"/images/tarot-back.webp":"/images/tarot-back-sub.webp";
+  const isFlipped=(idx)=>hv===idx||tap===idx;
+
+  const renderCard=(c,idx,backImg)=>(
+    <div key={idx}
+      onClick={()=>handleClick(idx,c)}
+      onMouseEnter={()=>{if(!isTouchRef.current)setHv(idx)}}
+      onMouseLeave={()=>{if(!isTouchRef.current)setHv(-1)}}
+      className="card-flip"
+      style={{width:"clamp(100px,28vw,175px)",height:"clamp(150px,42vw,262px)",cursor:"pointer",transition:"transform 0.3s",transform:isFlipped(idx)?"translateY(-8px)":"translateY(0)"}}>
+      <div className={`card-flip-inner${isFlipped(idx)?" flipped":""}`}>
+        <div className="card-face card-front" style={{width:"100%",height:"100%",overflow:"hidden",border:"1px solid rgba(212,165,74,0.2)",boxShadow:"0 4px 16px rgba(0,0,0,0.3)"}}>
+          <img src={backImg} alt="tarot" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
+        </div>
+        <div className="card-face card-back" style={{width:"100%",height:"100%",overflow:"hidden",border:`1px solid ${c.color}55`,boxShadow:`0 8px 30px rgba(0,0,0,0.5), 0 0 20px ${c.color}15`}}>
+          <img src={c.img} alt={c.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
+        </div>
+      </div>
+    </div>
+  );
 
   return(
-    <div style={{height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"clamp(24px,4vw,44px) clamp(12px,3vw,16px)"}}>
-      <STitle sub="CHARACTERS" main="등장인물"/>
-      <p style={{fontSize:"clamp(12px,1.5vw,14px)",color:"var(--tx2)",textAlign:"center",marginTop:"-20px",marginBottom:"clamp(16px,3vw,24px)",fontWeight:300}}>카드를 터치하여 인물을 확인하세요</p>
-      <div style={{display:"flex",justifyContent:"center",gap:"clamp(6px,1vw,12px)",flexWrap:"wrap",maxWidth:"1060px"}}>
-        {ALL_CHARS.map((c,i)=>(
-          <div key={i}
-            onClick={()=>handleClick(i,c)}
-            onMouseEnter={()=>{if(!isTouchRef.current)setHv(i)}}
-            onMouseLeave={()=>{if(!isTouchRef.current)setHv(-1)}}
-            className="card-flip"
-            style={{width:"clamp(90px,17vw,175px)",height:"clamp(135px,25.5vw,262px)",cursor:"pointer",transition:"transform 0.3s",transform:isFlipped(i)?"translateY(-8px)":"translateY(0)"}}>
-            <div className={`card-flip-inner${isFlipped(i)?" flipped":""}`}>
-              <div className="card-face card-front" style={{width:"100%",height:"100%",overflow:"hidden",border:"1px solid rgba(212,165,74,0.2)",boxShadow:"0 4px 16px rgba(0,0,0,0.3)"}}>
-                <img src={getBack(i)} alt="tarot" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-              </div>
-              <div className="card-face card-back" style={{width:"100%",height:"100%",overflow:"hidden",border:`1px solid ${c.color}55`,boxShadow:`0 8px 30px rgba(0,0,0,0.5), 0 0 20px ${c.color}15`}}>
-                <img src={c.img} alt={c.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-              </div>
-            </div>
-          </div>
-        ))}
+    <div style={{height:"100%",display:"flex",flexDirection:"column",overflow:"hidden"}}>
+      <div style={{padding:"clamp(24px,4vw,44px) clamp(12px,3vw,16px) 0",flexShrink:0}}>
+        <STitle sub="CHARACTERS" main="등장인물"/>
+        <p style={{fontSize:"clamp(12px,1.5vw,14px)",color:"var(--tx2)",textAlign:"center",marginTop:"-20px",marginBottom:"clamp(8px,1.5vw,16px)",fontWeight:300}}>카드를 터치하여 인물을 확인하세요</p>
+      </div>
+      <div style={{flex:1,overflowY:"auto",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"flex-start",padding:"clamp(8px,2vw,16px) clamp(12px,3vw,16px) 40px"}} className="inner-scroll">
+        {/* Main characters row */}
+        <div style={{display:"flex",justifyContent:"center",gap:"clamp(6px,1.2vw,12px)",flexWrap:"wrap",maxWidth:"1060px",marginBottom:"clamp(16px,3vw,24px)"}}>
+          {MAIN_CHARS.map((c,i)=>renderCard(c,i,"/images/tarot-back.webp"))}
+        </div>
+        {/* Divider */}
+        <div style={{width:"36px",height:"1px",background:"linear-gradient(90deg,transparent,var(--goldd),transparent)",marginBottom:"clamp(16px,3vw,24px)"}}/>
+        {/* Sub characters row */}
+        <div style={{display:"flex",justifyContent:"center",gap:"clamp(6px,1.2vw,12px)",flexWrap:"wrap",maxWidth:"1060px"}}>
+          {SUB_CHARS.map((c,i)=>renderCard(c,i+MAIN_CHARS.length,"/images/tarot-back-sub.webp"))}
+        </div>
       </div>
     </div>
   );
