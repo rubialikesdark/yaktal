@@ -217,7 +217,7 @@ function BGMPlayer({audioEl}){
 }
 
 /* ══════════ NAV ══════════ */
-const SEC_LABELS=["인트로","세력","장소","인물","스토리","시스템","입장"];
+const SEC_LABELS=["인트로","등장인물","세계관","스토리","시스템","입장"];
 function SectionNav({current,total,onGo}){
   return(
     <div className="sec-nav" style={{position:"fixed",right:"20px",top:"50%",transform:"translateY(-50%)",zIndex:800,display:"flex",flexDirection:"column",alignItems:"flex-end",gap:"14px"}}>
@@ -292,34 +292,28 @@ function HeroSection(){
   );
 }
 
-/* ══════════ SEC 2 — FACTIONS ══════════ */
-function FactionsSection(){
-  return(
-    <div style={{height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"clamp(32px,5vw,44px) clamp(12px,3vw,16px)"}}>
-      <STitle sub="WORLD" main="세력"/>
-      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(260px,100%),1fr))",gap:"clamp(12px,2vw,20px)",maxWidth:"960px",width:"100%"}}>
-        {FACTIONS.map((f,i)=>(
-          <div key={i} style={{background:f.bg,border:`1px solid ${f.color}22`,padding:"clamp(20px,4vw,36px) clamp(16px,3vw,28px)",transition:"border-color 0.3s"}}
-          onMouseEnter={e=>e.currentTarget.style.borderColor=f.color+"55"}
-          onMouseLeave={e=>e.currentTarget.style.borderColor=f.color+"22"}>
-            <h3 style={{fontFamily:"var(--fd)",fontSize:"clamp(18px,3vw,24px)",fontWeight:700,color:f.color,marginBottom:"14px",letterSpacing:"2px"}}>{f.name}</h3>
-            <div style={{display:"flex",flexWrap:"wrap",gap:"6px",marginBottom:"16px"}}>
-              {f.kw.map((k,j)=>(<span key={j} style={{padding:"3px 10px",border:`1px solid ${f.color}44`,fontSize:"clamp(10px,1.3vw,12px)",color:f.color,letterSpacing:"1px"}}>{k}</span>))}
-            </div>
-            <p style={{fontSize:"clamp(13px,1.5vw,14px)",lineHeight:1.9,fontWeight:300}}>{f.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ══════════ SEC 3 — LOCATIONS ══════════ */
-function LocationsSection(){
+/* ══════════ SEC — WORLD (세력 + 장소 합침) ══════════ */
+function WorldSection(){
   return(
     <div style={{height:"100%",display:"flex",flexDirection:"column",overflow:"hidden"}}>
-      <div style={{padding:"clamp(32px,5vw,44px) clamp(12px,3vw,16px) 0",flexShrink:0}}><STitle sub="TAYAR" main="주요 장소"/></div>
+      <div style={{padding:"clamp(32px,5vw,44px) clamp(12px,3vw,16px) 0",flexShrink:0}}><STitle sub="WORLD" main="세계관"/></div>
       <div style={{flex:1,overflowY:"auto",padding:"0 clamp(12px,3vw,16px) 44px",maxWidth:"960px",margin:"0 auto",width:"100%"}} className="inner-scroll">
+        {/* Factions */}
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(260px,100%),1fr))",gap:"clamp(12px,2vw,16px)",marginBottom:"clamp(32px,5vw,48px)"}}>
+          {FACTIONS.map((f,i)=>(
+            <div key={i} style={{background:f.bg,border:`1px solid ${f.color}22`,padding:"clamp(16px,3vw,28px) clamp(14px,2.5vw,24px)",transition:"border-color 0.3s"}}
+            onMouseEnter={e=>e.currentTarget.style.borderColor=f.color+"55"}
+            onMouseLeave={e=>e.currentTarget.style.borderColor=f.color+"22"}>
+              <h3 style={{fontFamily:"var(--fd)",fontSize:"clamp(18px,3vw,22px)",fontWeight:700,color:f.color,marginBottom:"10px",letterSpacing:"2px"}}>{f.name}</h3>
+              <div style={{display:"flex",flexWrap:"wrap",gap:"6px",marginBottom:"12px"}}>
+                {f.kw.map((k,j)=>(<span key={j} style={{padding:"2px 8px",border:`1px solid ${f.color}44`,fontSize:"clamp(10px,1.3vw,11px)",color:f.color,letterSpacing:"1px"}}>{k}</span>))}
+              </div>
+              <p style={{fontSize:"clamp(12px,1.4vw,13px)",lineHeight:1.8,fontWeight:300}}>{f.desc}</p>
+            </div>
+          ))}
+        </div>
+        {/* Locations */}
+        <div style={{fontFamily:"var(--fd)",fontSize:"clamp(10px,1.3vw,12px)",letterSpacing:"4px",color:"var(--goldd)",textAlign:"center",marginBottom:"16px",fontWeight:600}}>LOCATIONS</div>
         <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(min(200px,100%),1fr))",gap:"12px"}}>
           {LOCATIONS.map((l,i)=>(
             <div key={i} style={{background:"var(--bgc)",border:"1px solid var(--brd)",transition:"border-color 0.3s",overflow:"hidden"}}
@@ -368,27 +362,58 @@ function CharModal({char,onClose}){
   );
 }
 
-/* ══════════ SEC 4 — CHARACTERS (hover=flip, click=modal) ══════════ */
+/* ══════════ SEC — CHARACTERS (PC: hover flip, Mobile: tap flip, click: modal) ══════════ */
 function CharacterSection({onOpenModal}){
   const [hvMain,setHvMain]=useState(-1);
   const [hvSub,setHvSub]=useState(-1);
+  const [tapMain,setTapMain]=useState(-1);
+  const [tapSub,setTapSub]=useState(-1);
+  const isTouchRef=useRef(false);
+
+  useEffect(()=>{
+    const onTouch=()=>{isTouchRef.current=true};
+    window.addEventListener("touchstart",onTouch,{once:true});
+    return()=>window.removeEventListener("touchstart",onTouch);
+  },[]);
+
+  const handleMainClick=(i,c)=>{
+    if(isTouchRef.current){
+      if(tapMain===i){onOpenModal(c);setTapMain(-1);}
+      else setTapMain(i);
+    } else {
+      onOpenModal(c);
+    }
+  };
+
+  const handleSubClick=(i,c)=>{
+    if(isTouchRef.current){
+      if(tapSub===i){onOpenModal(c);setTapSub(-1);}
+      else setTapSub(i);
+    } else {
+      onOpenModal(c);
+    }
+  };
+
+  const isMainFlipped=(i)=>hvMain===i||tapMain===i;
+  const isSubFlipped=(i)=>hvSub===i||tapSub===i;
 
   return(
     <div style={{height:"100%",display:"flex",flexDirection:"column",overflow:"hidden"}}>
       <div style={{padding:"clamp(32px,5vw,44px) clamp(12px,3vw,16px) 0",flexShrink:0}}>
         <STitle sub="CHARACTERS" main="등장인물"/>
-        <p style={{fontSize:"clamp(12px,1.5vw,14px)",color:"var(--tx2)",textAlign:"center",marginTop:"-20px",marginBottom:"12px",fontWeight:300}}>카드에 마우스를 올려 인물을 확인하세요</p>
+        <p style={{fontSize:"clamp(12px,1.5vw,14px)",color:"var(--tx2)",textAlign:"center",marginTop:"-20px",marginBottom:"12px",fontWeight:300}}>카드를 터치하여 인물을 확인하세요</p>
       </div>
       <div style={{flex:1,overflowY:"auto",padding:"0 clamp(12px,3vw,16px) 40px",display:"flex",flexDirection:"column",alignItems:"center"}} className="inner-scroll">
         {/* Main */}
         <div style={{display:"flex",justifyContent:"center",gap:"clamp(8px,1.5vw,16px)",flexWrap:"wrap",maxWidth:"900px",marginBottom:"clamp(24px,4vw,32px)",paddingTop:"16px"}}>
           {MAIN_CHARS.map((c,i)=>(
             <div key={i}
-              onClick={()=>onOpenModal(c)}
-              onMouseEnter={()=>setHvMain(i)} onMouseLeave={()=>setHvMain(-1)}
+              onClick={()=>handleMainClick(i,c)}
+              onMouseEnter={()=>{if(!isTouchRef.current)setHvMain(i)}}
+              onMouseLeave={()=>{if(!isTouchRef.current)setHvMain(-1)}}
               className="card-flip"
-              style={{width:"clamp(100px,17vw,155px)",height:"clamp(150px,25.5vw,232px)",cursor:"pointer",transition:"transform 0.3s",transform:hvMain===i?"translateY(-8px)":"translateY(0)"}}>
-              <div className={`card-flip-inner${hvMain===i?" flipped":""}`}>
+              style={{width:"clamp(100px,17vw,155px)",height:"clamp(150px,25.5vw,232px)",cursor:"pointer",transition:"transform 0.3s",transform:isMainFlipped(i)?"translateY(-8px)":"translateY(0)"}}>
+              <div className={`card-flip-inner${isMainFlipped(i)?" flipped":""}`}>
                 <div className="card-face card-front" style={{width:"100%",height:"100%",overflow:"hidden",border:"1px solid rgba(212,165,74,0.2)",boxShadow:"0 4px 16px rgba(0,0,0,0.3)"}}>
                   <img src="/images/tarot-back.webp" alt="tarot" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
                 </div>
@@ -401,14 +426,15 @@ function CharacterSection({onOpenModal}){
         </div>
         {/* Sub */}
         <div style={{fontFamily:"var(--fd)",fontSize:"clamp(10px,1.3vw,12px)",letterSpacing:"4px",color:"var(--txd)",textAlign:"center",marginBottom:"16px",fontWeight:600}}>SUB CHARACTERS</div>
-        <div style={{display:"flex",justifyContent:"center",gap:"clamp(6px,1.5vw,12px)",flexWrap:"wrap",maxWidth:"700px"}}>
+        <div style={{display:"flex",justifyContent:"center",gap:"clamp(6px,1.5vw,12px)",flexWrap:"wrap",maxWidth:"900px"}}>
           {SUB_CHARS.map((c,i)=>(
             <div key={i}
-              onClick={()=>onOpenModal(c)}
-              onMouseEnter={()=>setHvSub(i)} onMouseLeave={()=>setHvSub(-1)}
+              onClick={()=>handleSubClick(i,c)}
+              onMouseEnter={()=>{if(!isTouchRef.current)setHvSub(i)}}
+              onMouseLeave={()=>{if(!isTouchRef.current)setHvSub(-1)}}
               className="card-flip"
-              style={{width:"clamp(80px,13vw,120px)",height:"clamp(120px,19.5vw,170px)",cursor:"pointer",transition:"transform 0.3s",transform:hvSub===i?"translateY(-6px)":"translateY(0)"}}>
-              <div className={`card-flip-inner${hvSub===i?" flipped":""}`}>
+              style={{width:"clamp(100px,17vw,155px)",height:"clamp(150px,25.5vw,232px)",cursor:"pointer",transition:"transform 0.3s",transform:isSubFlipped(i)?"translateY(-6px)":"translateY(0)"}}>
+              <div className={`card-flip-inner${isSubFlipped(i)?" flipped":""}`}>
                 <div className="card-face card-front" style={{width:"100%",height:"100%",overflow:"hidden",border:"1px solid var(--brd)"}}>
                   <img src="/images/tarot-back.webp" alt="tarot" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
                 </div>
@@ -507,7 +533,7 @@ function CTASection(){
 }
 
 /* ══════════ APP ══════════ */
-const SECS=[HeroSection,FactionsSection,LocationsSection,CharacterSection,RoadmapSection,SystemSection,CTASection];
+const SECS=[HeroSection,CharacterSection,WorldSection,RoadmapSection,SystemSection,CTASection];
 const SC=SECS.length;
 
 export default function App(){
@@ -550,7 +576,7 @@ export default function App(){
           <div style={{transform:`translateY(-${cur*100}vh)`,transition:"transform 0.8s cubic-bezier(0.65,0,0.35,1)",height:`${SC*100}vh`}}>
             {SECS.map((S,i)=>(
               <div key={i} style={{height:"100vh",width:"100vw"}}>
-                {i===3?<S onOpenModal={setModal}/>:<S/>}
+                {i===1?<S onOpenModal={setModal}/>:<S/>}
               </div>
             ))}
           </div>
