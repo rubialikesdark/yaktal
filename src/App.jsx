@@ -362,12 +362,11 @@ function CharModal({char,onClose}){
   );
 }
 
-/* ══════════ SEC — CHARACTERS (PC: hover flip, Mobile: tap flip, click: modal) ══════════ */
+/* ══════════ SEC — CHARACTERS (single grid, no scroll) ══════════ */
+const ALL_CHARS=[...MAIN_CHARS,...SUB_CHARS];
 function CharacterSection({onOpenModal}){
-  const [hvMain,setHvMain]=useState(-1);
-  const [hvSub,setHvSub]=useState(-1);
-  const [tapMain,setTapMain]=useState(-1);
-  const [tapSub,setTapSub]=useState(-1);
+  const [hv,setHv]=useState(-1);
+  const [tap,setTap]=useState(-1);
   const isTouchRef=useRef(false);
 
   useEffect(()=>{
@@ -376,75 +375,38 @@ function CharacterSection({onOpenModal}){
     return()=>window.removeEventListener("touchstart",onTouch);
   },[]);
 
-  const handleMainClick=(i,c)=>{
+  const handleClick=(i,c)=>{
     if(isTouchRef.current){
-      if(tapMain===i){onOpenModal(c);setTapMain(-1);}
-      else setTapMain(i);
-    } else {
-      onOpenModal(c);
-    }
+      if(tap===i){onOpenModal(c);setTap(-1);}
+      else setTap(i);
+    } else {onOpenModal(c);}
   };
 
-  const handleSubClick=(i,c)=>{
-    if(isTouchRef.current){
-      if(tapSub===i){onOpenModal(c);setTapSub(-1);}
-      else setTapSub(i);
-    } else {
-      onOpenModal(c);
-    }
-  };
-
-  const isMainFlipped=(i)=>hvMain===i||tapMain===i;
-  const isSubFlipped=(i)=>hvSub===i||tapSub===i;
+  const isFlipped=(i)=>hv===i||tap===i;
+  const getBack=(i)=>i<MAIN_CHARS.length?"/images/tarot-back.webp":"/images/tarot-back-sub.webp";
 
   return(
-    <div style={{height:"100%",display:"flex",flexDirection:"column",overflow:"hidden"}}>
-      <div style={{padding:"clamp(32px,5vw,44px) clamp(12px,3vw,16px) 0",flexShrink:0}}>
-        <STitle sub="CHARACTERS" main="등장인물"/>
-        <p style={{fontSize:"clamp(12px,1.5vw,14px)",color:"var(--tx2)",textAlign:"center",marginTop:"-20px",marginBottom:"12px",fontWeight:300}}>카드를 터치하여 인물을 확인하세요</p>
-      </div>
-      <div style={{flex:1,overflowY:"auto",padding:"0 clamp(12px,3vw,16px) 40px",display:"flex",flexDirection:"column",alignItems:"center"}} className="inner-scroll">
-        {/* Main */}
-        <div style={{display:"flex",justifyContent:"center",gap:"clamp(8px,1.5vw,16px)",flexWrap:"wrap",maxWidth:"900px",marginBottom:"clamp(24px,4vw,32px)",paddingTop:"16px"}}>
-          {MAIN_CHARS.map((c,i)=>(
-            <div key={i}
-              onClick={()=>handleMainClick(i,c)}
-              onMouseEnter={()=>{if(!isTouchRef.current)setHvMain(i)}}
-              onMouseLeave={()=>{if(!isTouchRef.current)setHvMain(-1)}}
-              className="card-flip"
-              style={{width:"clamp(100px,17vw,155px)",height:"clamp(150px,25.5vw,232px)",cursor:"pointer",transition:"transform 0.3s",transform:isMainFlipped(i)?"translateY(-8px)":"translateY(0)"}}>
-              <div className={`card-flip-inner${isMainFlipped(i)?" flipped":""}`}>
-                <div className="card-face card-front" style={{width:"100%",height:"100%",overflow:"hidden",border:"1px solid rgba(212,165,74,0.2)",boxShadow:"0 4px 16px rgba(0,0,0,0.3)"}}>
-                  <img src="/images/tarot-back.webp" alt="tarot" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-                </div>
-                <div className="card-face card-back" style={{width:"100%",height:"100%",overflow:"hidden",border:`1px solid ${c.color}55`,boxShadow:`0 8px 30px rgba(0,0,0,0.5), 0 0 20px ${c.color}15`}}>
-                  <img src={c.img} alt={c.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-                </div>
+    <div style={{height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"clamp(24px,4vw,44px) clamp(12px,3vw,16px)"}}>
+      <STitle sub="CHARACTERS" main="등장인물"/>
+      <p style={{fontSize:"clamp(12px,1.5vw,14px)",color:"var(--tx2)",textAlign:"center",marginTop:"-20px",marginBottom:"clamp(16px,3vw,24px)",fontWeight:300}}>카드를 터치하여 인물을 확인하세요</p>
+      <div style={{display:"flex",justifyContent:"center",gap:"clamp(6px,1vw,12px)",flexWrap:"wrap",maxWidth:"1060px"}}>
+        {ALL_CHARS.map((c,i)=>(
+          <div key={i}
+            onClick={()=>handleClick(i,c)}
+            onMouseEnter={()=>{if(!isTouchRef.current)setHv(i)}}
+            onMouseLeave={()=>{if(!isTouchRef.current)setHv(-1)}}
+            className="card-flip"
+            style={{width:"clamp(90px,17vw,175px)",height:"clamp(135px,25.5vw,262px)",cursor:"pointer",transition:"transform 0.3s",transform:isFlipped(i)?"translateY(-8px)":"translateY(0)"}}>
+            <div className={`card-flip-inner${isFlipped(i)?" flipped":""}`}>
+              <div className="card-face card-front" style={{width:"100%",height:"100%",overflow:"hidden",border:"1px solid rgba(212,165,74,0.2)",boxShadow:"0 4px 16px rgba(0,0,0,0.3)"}}>
+                <img src={getBack(i)} alt="tarot" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
+              </div>
+              <div className="card-face card-back" style={{width:"100%",height:"100%",overflow:"hidden",border:`1px solid ${c.color}55`,boxShadow:`0 8px 30px rgba(0,0,0,0.5), 0 0 20px ${c.color}15`}}>
+                <img src={c.img} alt={c.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
               </div>
             </div>
-          ))}
-        </div>
-        {/* Sub */}
-        <div style={{fontFamily:"var(--fd)",fontSize:"clamp(10px,1.3vw,12px)",letterSpacing:"4px",color:"var(--txd)",textAlign:"center",marginBottom:"16px",fontWeight:600}}>SUB CHARACTERS</div>
-        <div style={{display:"flex",justifyContent:"center",gap:"clamp(6px,1.5vw,12px)",flexWrap:"wrap",maxWidth:"900px"}}>
-          {SUB_CHARS.map((c,i)=>(
-            <div key={i}
-              onClick={()=>handleSubClick(i,c)}
-              onMouseEnter={()=>{if(!isTouchRef.current)setHvSub(i)}}
-              onMouseLeave={()=>{if(!isTouchRef.current)setHvSub(-1)}}
-              className="card-flip"
-              style={{width:"clamp(100px,17vw,155px)",height:"clamp(150px,25.5vw,232px)",cursor:"pointer",transition:"transform 0.3s",transform:isSubFlipped(i)?"translateY(-6px)":"translateY(0)"}}>
-              <div className={`card-flip-inner${isSubFlipped(i)?" flipped":""}`}>
-                <div className="card-face card-front" style={{width:"100%",height:"100%",overflow:"hidden",border:"1px solid var(--brd)"}}>
-                  <img src="/images/tarot-back.webp" alt="tarot" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-                </div>
-                <div className="card-face card-back" style={{width:"100%",height:"100%",overflow:"hidden",border:"1px solid var(--brd)"}}>
-                  <img src={c.img} alt={c.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );
