@@ -315,9 +315,9 @@ function WorldSection(){
         </div>
         {/* Locations */}
         <div style={{fontFamily:"var(--fd)",fontSize:"clamp(10px,1.3vw,12px)",letterSpacing:"4px",color:"var(--goldd)",textAlign:"center",marginBottom:"16px",fontWeight:600}}>LOCATIONS</div>
-        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(min(160px,45%),1fr))",gap:"clamp(8px,1.5vw,12px)"}}>
+        <div style={{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:"clamp(8px,1.5vw,12px)"}}>
           {LOCATIONS.map((l,i)=>(
-            <div key={i} style={{background:"var(--bgc)",border:"1px solid var(--brd)",transition:"border-color 0.3s",overflow:"hidden"}}
+            <div key={i} style={{flex:"0 0 clamp(160px, 22%, 220px)",background:"var(--bgc)",border:"1px solid var(--brd)",transition:"border-color 0.3s",overflow:"hidden"}}
             onMouseEnter={e=>e.currentTarget.style.borderColor="var(--goldd)"}
             onMouseLeave={e=>e.currentTarget.style.borderColor="rgba(212,165,74,0.18)"}>
               <div style={{width:"100%",aspectRatio:"16/10",overflow:"hidden",borderBottom:"1px solid var(--brd)",position:"relative"}}>
