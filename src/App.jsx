@@ -257,18 +257,16 @@ function HeroSection(){
 
       {/* Scrollable content */}
       <div style={{flex:1,overflowY:"auto",display:"flex",flexDirection:"column",alignItems:"center",position:"relative",zIndex:2}} className="inner-scroll">
-        <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"clamp(60px,10vw,100px) clamp(16px,4vw,28px) 40px",textAlign:"center",flexShrink:0}}>
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"clamp(80px,15vh,140px) clamp(16px,4vw,28px) 0",textAlign:"center",flexShrink:0}}>
           <div style={{width:"1px",height:"44px",background:"linear-gradient(180deg,transparent,var(--goldd))",marginBottom:"28px",opacity:after?1:0,transition:"opacity 0.8s ease"}}/>
           <div style={{animation:slam?"slam 0.6s cubic-bezier(0.16,1,0.3,1) forwards":"none",opacity:slam?undefined:0}}>
             <h1 style={{fontFamily:"var(--fd)",fontSize:"clamp(40px,10vw,90px)",fontWeight:900,letterSpacing:"clamp(4px,1vw,8px)",textShadow:after?"0 0 80px rgba(212,165,74,0.25), 0 2px 30px rgba(0,0,0,0.5)":"none",transition:"text-shadow 0.5s ease"}}>약탈신부</h1>
           </div>
-          <div style={{width:"clamp(60px,20vw,120px)",height:"1px",margin:"16px auto",background:"linear-gradient(90deg,transparent,var(--gold),transparent)",animation:after?"lineExpand 0.8s ease forwards":"none",opacity:after?undefined:0,transformOrigin:"center"}}/>
-          <div style={{height:"clamp(20px,4vw,40px)"}}/>
+          <div style={{width:"clamp(60px,20vw,120px)",height:"1px",margin:"16px auto 0",background:"linear-gradient(90deg,transparent,var(--gold),transparent)",animation:after?"lineExpand 0.8s ease forwards":"none",opacity:after?undefined:0,transformOrigin:"center"}}/>
         </div>
 
-        {/* Story text (cinematic content, always visible) */}
-        <div style={{maxWidth:"600px",width:"100%",padding:"0 clamp(20px,5vw,40px) clamp(60px,10vw,100px)",opacity:after?1:0,transition:"opacity 1.2s ease 0.5s"}}>
-          <div style={{width:"36px",height:"1px",background:"linear-gradient(90deg,transparent,var(--goldd),transparent)",margin:"0 auto 32px"}}/>
+        {/* Story text */}
+        <div style={{maxWidth:"600px",width:"100%",padding:"clamp(32px,5vh,48px) clamp(20px,5vw,40px) clamp(60px,10vw,100px)",opacity:after?1:0,transition:"opacity 1.2s ease 0.5s"}}>
           {STORY_LINES.map((line,i)=>{
             const isQ=line.startsWith('"');
             return(
