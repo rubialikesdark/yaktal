@@ -30,11 +30,15 @@ body{background:var(--bg);color:var(--tx);font-family:var(--fb);overflow:hidden;
 @keyframes slamFlash{0%{opacity:0}30%{opacity:.3}100%{opacity:0}}
 @keyframes lineExpand{0%{transform:scaleX(0);opacity:0}100%{transform:scaleX(1);opacity:1}}
 .card-flip{perspective:800px;}
-.card-flip-inner{position:relative;width:100%;height:100%;transition:transform 0.7s cubic-bezier(0.16,1,0.3,1);transform-style:preserve-3d;}
+.card-flip-inner{position:relative;width:100%;height:100%;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);transform-style:preserve-3d;}
 .card-flip-inner.flipped{transform:rotateY(180deg);}
 .card-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
 .card-front{transform:rotateY(0deg);}
 .card-back{transform:rotateY(180deg);}
+@media(max-width:768px){
+  .sec-nav{display:none!important;}
+  .bgm-player span.bgm-label{display:none!important;}
+}
 `;
 document.head.appendChild(css);
 
@@ -55,17 +59,17 @@ const LOCATIONS=[
   {name:"카슈닥 설산",desc:"용족에게 치명적인 만년설",icon:"🏔"},
 ];
 const MAIN_CHARS=[
-  {name:"하칸",title:"타야르 대왕",route:true,img:"/images/chars/hakan.webp",modalImg:"/images/chars/modal/hakan.webp",appear:["흑요석 눈","장대한 체격","구릿빛","용 비늘 갑주"],personality:"냉철, 적에게 잔혹, 플레이어 한정 다정·소유욕, 책임감",speech:"명령조, 무뚝뚝, 플레이어 한정 애틋·열정, 직설",intro:"드래곤의 땅을 다스리는 젊은 대왕. 냉혹한 정복자의 얼굴 아래, 한 번도 꺼내본 적 없는 감정이 잠들어 있다.",detail:"형 라이칸이 대신 사망한 것에 대한 죄책감을 안고 있다. 형수 가레트와의 혼인을 거부하며 후계 압박을 받고 있다. 10년 전 용 형태의 자신을 치유해 준 소녀의 기억을 간직하고 있다.",color:"#D4A54A"},
-  {name:"길라이",title:"귀족 · 학자",route:true,img:"/images/chars/gilai.webp",modalImg:"/images/chars/modal/gilai.webp",appear:["흑단 머리","호리호리","비단 가운"],personality:"계산적, 냉소, 지적",speech:"비아냥, 논리적",intro:"비단 가운 아래 날카로운 계산을 숨긴 학자. 냉소 뒤에 감춘 것이 경멸인지 다른 무언가인지는 가까이 가봐야 안다.",detail:"가레트의 동생. 흑주술 부작용으로 심장병을 앓고 있으며, 플레이어만이 그를 치유할 수 있다.",color:"#8FA07A"},
-  {name:"안드레아",title:"브리온 성황",route:true,img:"/images/chars/andrea.webp",modalImg:"/images/chars/modal/andrea.webp",appear:["금발","푸른 눈","백색 제복"],personality:"신비, 희생, 통찰",speech:"우아한 말투",intro:"달의 여신을 대리하는 브리온의 성황. 우아한 미소 너머로, 무언가를 찾아 타야르까지 온 사람.",detail:"카메르교의 수장으로서 치유와 정화의 신성력을 지닌다. 타야르까지 찾아온 진짜 이유는 아직 밝혀지지 않았다.",color:"#5A7D9E"},
-  {name:"가레트",title:"선왕비",route:false,img:"/images/chars/garet.webp",modalImg:"/images/chars/modal/garet.webp",appear:["눈부신 미모"],personality:"권력욕, 질투, 교활, 잔혹",speech:"비아냥, 명령조",intro:"왕궁에서 가장 아름답고 가장 위험한 여자. 왕비의 자리를 되찾기 위해서라면 무엇이든 한다.",detail:"하칸의 형수. 재혼 왕비를 노리며 플레이어를 제거하려 한다. 시녀 티티를 매수하여 공작을 꾸미기도 한다.",color:"#A83A25"},
-  {name:"마리사",title:"드래곤슬레이어 수장",route:false,img:"/images/chars/marisa.webp",modalImg:"/images/chars/modal/marisa.webp",appear:["하얀 갑주","검은 화살"],personality:"잔혹, 교활, 집착",speech:"현혹하는 말투",intro:"낯익은 얼굴로 나타난 드래곤슬레이어의 수장. 그녀가 들고 온 검은 화살은 용족의 비늘을 관통하는 유일한 무기다.",detail:"환술과 흑주술을 다루며, 리에르바와 동일한 얼굴을 하고 있다. 그녀의 진짜 정체와 목적은 이야기 속에서 밝혀진다.",color:"#6E4D80"},
+  {name:"하칸",title:"타야르 대왕",img:"/images/chars/hakan.webp",modalImg:"/images/chars/modal/hakan.webp",appear:["흑요석 눈","장대한 체격","구릿빛","용 비늘 갑주"],personality:"냉철, 적에게 잔혹, 플레이어 한정 다정·소유욕, 책임감",speech:"명령조, 무뚝뚝, 플레이어 한정 애틋·열정, 직설",intro:"드래곤의 땅을 다스리는 젊은 대왕. 냉혹한 정복자의 얼굴 아래, 한 번도 꺼내본 적 없는 감정이 잠들어 있다.",detail:"형 라이칸이 대신 사망한 것에 대한 죄책감을 안고 있다. 형수 가레트와의 혼인을 거부하며 후계 압박을 받고 있다. 10년 전 용 형태의 자신을 치유해 준 소녀의 기억을 간직하고 있다.",color:"#D4A54A"},
+  {name:"길라이",title:"귀족 · 학자",img:"/images/chars/gilai.webp",modalImg:"/images/chars/modal/gilai.webp",appear:["흑단 머리","호리호리","비단 가운"],personality:"계산적, 냉소, 지적",speech:"비아냥, 논리적",intro:"비단 가운 아래 날카로운 계산을 숨긴 학자. 냉소 뒤에 감춘 것이 경멸인지 다른 무언가인지는 가까이 가봐야 안다.",detail:"가레트의 동생. 흑주술 부작용으로 심장병을 앓고 있으며, 플레이어만이 그를 치유할 수 있다.",color:"#8FA07A"},
+  {name:"안드레아",title:"브리온 성황",img:"/images/chars/andrea.webp",modalImg:"/images/chars/modal/andrea.webp",appear:["금발","푸른 눈","백색 제복"],personality:"신비, 희생, 통찰",speech:"우아한 말투",intro:"달의 여신을 대리하는 브리온의 성황. 우아한 미소 너머로, 무언가를 찾아 타야르까지 온 사람.",detail:"카메르교의 수장으로서 치유와 정화의 신성력을 지닌다. 타야르까지 찾아온 진짜 이유는 아직 밝혀지지 않았다.",color:"#5A7D9E"},
+  {name:"가레트",title:"선왕비",img:"/images/chars/garet.webp",modalImg:"/images/chars/modal/garet.webp",appear:["눈부신 미모"],personality:"권력욕, 질투, 교활, 잔혹",speech:"비아냥, 명령조",intro:"왕궁에서 가장 아름답고 가장 위험한 여자. 왕비의 자리를 되찾기 위해서라면 무엇이든 한다.",detail:"하칸의 형수. 재혼 왕비를 노리며 플레이어를 제거하려 한다. 시녀 티티를 매수하여 공작을 꾸미기도 한다.",color:"#A83A25"},
+  {name:"마리사",title:"드래곤슬레이어 수장",img:"/images/chars/marisa.webp",modalImg:"/images/chars/modal/marisa.webp",appear:["하얀 갑주","검은 화살"],personality:"잔혹, 교활, 집착",speech:"현혹하는 말투",intro:"낯익은 얼굴로 나타난 드래곤슬레이어의 수장. 그녀가 들고 온 검은 화살은 용족의 비늘을 관통하는 유일한 무기다.",detail:"환술과 흑주술을 다루며, 리에르바와 동일한 얼굴을 하고 있다. 그녀의 진짜 정체와 목적은 이야기 속에서 밝혀진다.",color:"#6E4D80"},
 ];
 const SUB_CHARS=[
-  {name:"투란",title:"군단장",img:"/images/chars/turan.webp",modalImg:"/images/chars/modal/turan.webp",appear:["흉포 외모"],personality:"충성, 다혈질",speech:"군대식, 농담 투덜",intro:"하칸의 가장 오래된 칼. 험상궂은 얼굴로 투덜대면서도 누구보다 먼저 전장에 선다.",detail:"하칸의 최측근 군단장. 거친 외모와 다혈질적 성격이지만, 하칸에 대한 충성심은 누구에게도 뒤지지 않는다.",color:"#D4A54A"},
-  {name:"티티",title:"전속 시녀",img:"/images/chars/titi.webp",modalImg:"/images/chars/modal/titi.webp",appear:["곱슬머리","색실"],personality:"충직, 현실적",speech:"경어",intro:"타야르 왕궁에서의 첫 안내자. 낯선 땅의 규칙을 가장 현실적으로 알려주는 시녀.",detail:"원래 가레트 소속이었으나 플레이어의 시녀로 배정되었다. 타야르 왕궁의 정보를 알려주는 안내자 역할.",color:"#D4A54A"},
-  {name:"푸카",title:"숲 정령",img:"/images/chars/puka.webp",modalImg:"/images/chars/modal/puka.webp",appear:["통통한 꼬마","박새 변신"],personality:"장난, 통찰",speech:"반말",intro:"브리온과 타야르 사이 숲에 사는 정령. 땅콩을 바치면 도와주고, 아니면 폭풍이 온다.",detail:"날씨를 조작할 수 있는 숲의 정령. 통통한 꼬마와 박새 변신을 오가며, 땅콩을 대가로 도움을 준다.",color:"#6DA06D"},
-  {name:"아다르",title:"대왕비",img:"/images/chars/adar.webp",modalImg:"/images/chars/modal/adar.webp",appear:["쇠약한 모습","초점 없는 눈"],personality:"정신불안, 후회",speech:"유아퇴행 ↔ 회복 시 호통",intro:"왕궁 깊숙이 잊힌 대왕비. 흐려진 눈 속에 아직 꺼지지 않은 후회가 남아 있다.",detail:"하칸의 모이자 대왕비. 라이칸을 편애하고 하칸에게 무관심했던 것을 후회하고 있다.",color:"#B5A790"},
+  {name:"투란",title:"군단장",img:"/images/chars/turan.webp",modalImg:"/images/chars/modal/turan.webp",appear:["흉포 외모"],personality:"충성, 다혈질",speech:"군대식, 농담 투덜",intro:"하칸의 가장 오래된 칼. 험상궂은 얼굴로 투덜대면서도 누구보다 먼저 전장에 선다.",detail:"하칸의 최측근 군단장.",color:"#D4A54A"},
+  {name:"티티",title:"전속 시녀",img:"/images/chars/titi.webp",modalImg:"/images/chars/modal/titi.webp",appear:["곱슬머리","색실"],personality:"충직, 현실적",speech:"경어",intro:"타야르 왕궁에서의 첫 안내자. 낯선 땅의 규칙을 가장 현실적으로 알려주는 시녀.",detail:"원래 가레트 소속이었으나 플레이어의 시녀로 배정.",color:"#D4A54A"},
+  {name:"푸카",title:"숲 정령",img:"/images/chars/puka.webp",modalImg:"/images/chars/modal/puka.webp",appear:["통통한 꼬마","박새 변신"],personality:"장난, 통찰",speech:"반말",intro:"브리온과 타야르 사이 숲에 사는 정령. 땅콩을 바치면 도와주고, 아니면 폭풍이 온다.",detail:"날씨를 조작할 수 있는 숲의 정령.",color:"#6DA06D"},
+  {name:"아다르",title:"대왕비",img:"/images/chars/adar.webp",modalImg:"/images/chars/modal/adar.webp",appear:["쇠약한 모습","초점 없는 눈"],personality:"정신불안, 후회",speech:"유아퇴행 ↔ 회복 시 호통",intro:"왕궁 깊숙이 잊힌 대왕비. 흐려진 눈 속에 아직 꺼지지 않은 후회가 남아 있다.",detail:"하칸의 모이자 대왕비. 라이칸을 편애하고 하칸에게 무관심했던 것을 후회.",color:"#B5A790"},
 ];
 const CHAPTERS=[
   {n:1,title:"조우",mood:"이국적 긴장감 · 압도적 존재",teaser:"타야르에 발을 내딛는 순간, 모든 것이 바뀐다",branch:false},
@@ -77,14 +81,14 @@ const CHAPTERS=[
 const OPENING_LINES=[
   "하늘을 뒤덮은 비룡들이 뿜어내는 붉은 화염 속에서",
   "병사들의 비명이 빗발쳤다.",
-  "",
-  "칠흑 같은 날개를 펄럭이며",
+  "","칠흑 같은 날개를 펄럭이며",
   "대지를 집어삼킬 듯 포효하던 검은 용이,",
   "한 사내의 형상으로 뒤바뀌었다.",
-  "",
-  "\"감히 타야르의 메잘륵을 욕보인 자들.\"",
+  "","\"감히 타야르의 메잘륵을 욕보인 자들.\"",
   "\"남김없이 죽여라.\"",
 ];
+// Story text for hero (same content, displayed statically)
+const STORY_LINES=OPENING_LINES.filter(l=>l!=="");
 
 /* ══════════ TITLE SVG ══════════ */
 function TitleVisual(){
@@ -92,9 +96,7 @@ function TitleVisual(){
     <svg viewBox="0 0 600 100" style={{width:"min(540px,80vw)",height:"auto"}}>
       <defs>
         <linearGradient id="tg" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#D4A54A"/>
-          <stop offset="50%" stopColor="#F0DCA0"/>
-          <stop offset="100%" stopColor="#A8873A"/>
+          <stop offset="0%" stopColor="#D4A54A"/><stop offset="50%" stopColor="#F0DCA0"/><stop offset="100%" stopColor="#A8873A"/>
         </linearGradient>
         <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feComposite in="SourceGraphic" in2="b" operator="over"/></filter>
       </defs>
@@ -103,21 +105,29 @@ function TitleVisual(){
   );
 }
 
-/* ══════════ OPENING ══════════ */
+/* ══════════ OPENING (click to skip cinematic) ══════════ */
 function Opening({onCinematicEnd}){
   const [phase,setPhase]=useState(0);
   const [titleShow,setTitleShow]=useState(false);
   const [btnShow,setBtnShow]=useState(false);
   const [curLine,setCurLine]=useState(-1);
   const [lineVis,setLineVis]=useState(false);
-  const [cinematicDone,setCinematicDone]=useState(false);
   const [fadeOut,setFadeOut]=useState(false);
   const audioRef=useRef(null);
+  const cinematicRef=useRef(null); // to cancel cinematic
+  const skipRef=useRef(false);
 
   useEffect(()=>{
     setTimeout(()=>setTitleShow(true),500);
     setTimeout(()=>{setBtnShow(true);setPhase(1)},1800);
   },[]);
+
+  const finishCinematic=useCallback(()=>{
+    if(skipRef.current)return;
+    skipRef.current=true;
+    setFadeOut(true);
+    setTimeout(()=>onCinematicEnd(audioRef.current),800);
+  },[onCinematicEnd]);
 
   const handleEnter=()=>{
     if(phase!==1)return;
@@ -126,87 +136,82 @@ function Opening({onCinematicEnd}){
     setTimeout(()=>runCinematic(),800);
   };
 
+  const handleSkip=()=>{
+    if(phase===2&&!skipRef.current) finishCinematic();
+  };
+
   const runCinematic=()=>{
     let idx=0;
     const next=()=>{
-      if(idx>=OPENING_LINES.length){
-        setTimeout(()=>{setCinematicDone(true);setTimeout(()=>{setFadeOut(true);setTimeout(()=>onCinematicEnd(audioRef.current),800)},400)},400);
-        return;
-      }
+      if(skipRef.current)return;
+      if(idx>=OPENING_LINES.length){setTimeout(()=>finishCinematic(),400);return;}
       setCurLine(idx);
       if(OPENING_LINES[idx]===""){idx++;setTimeout(next,500);return;}
       setLineVis(true);
-      setTimeout(()=>{setLineVis(false);setTimeout(()=>{idx++;next()},700)},2400);
+      cinematicRef.current=setTimeout(()=>{
+        setLineVis(false);
+        cinematicRef.current=setTimeout(()=>{idx++;next()},700);
+      },2400);
     };
     next();
   };
 
-  const isQuote=(line)=>line?.startsWith('"');
+  const isQ=(l)=>l?.startsWith('"');
 
   return(
-    <div style={{position:"fixed",inset:0,zIndex:1000,background:"var(--bg)",overflow:"hidden",opacity:fadeOut?0:1,transition:"opacity 0.8s ease"}}>
+    <div onClick={handleSkip} style={{position:"fixed",inset:0,zIndex:1000,background:"var(--bg)",overflow:"hidden",opacity:fadeOut?0:1,transition:"opacity 0.8s ease",cursor:phase===2?"pointer":"default"}}>
       <audio ref={audioRef} loop src="bgm.mp3"/>
-
-      {/* GIF background for cinematic — dragon flight, fades to black on end */}
       {phase>=2&&(
-        <video autoPlay muted playsInline
-          onEnded={e=>{e.target.style.opacity="0"}}
-          style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",opacity:0.2,filter:"blur(3px)",zIndex:0,transition:"opacity 2s ease"}}>
+        <video autoPlay muted playsInline onEnded={e=>{e.target.style.opacity="0"}}
+          style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",opacity:0.35,filter:"blur(2px)",zIndex:0,transition:"opacity 2s ease"}}>
           <source src="dragon-flight.webm" type="video/webm"/>
         </video>
       )}
-
-      {/* Embers */}
-      {[...Array(16)].map((_,i)=>(
+      {[...Array(12)].map((_,i)=>(
         <div key={i} style={{position:"absolute",width:`${1+Math.random()*3}px`,height:`${1+Math.random()*3}px`,borderRadius:"50%",background:i%3===0?"var(--gold)":"#8B2D1A",left:`${Math.random()*100}%`,bottom:"-5%",animation:`ember ${4+Math.random()*7}s linear infinite`,animationDelay:`${Math.random()*8}s`,opacity:0,zIndex:1}}/>
       ))}
-
       {/* Title + Enter */}
       <div style={{position:"absolute",inset:0,zIndex:10,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",opacity:phase<2?1:0,transition:"opacity 0.8s ease",pointerEvents:phase>=2?"none":"auto"}}>
-        <div style={{opacity:titleShow?1:0,transition:"opacity 1.2s ease"}}>
-          <TitleVisual/>
-        </div>
+        <div style={{opacity:titleShow?1:0,transition:"opacity 1.2s ease"}}><TitleVisual/></div>
         {phase<=1&&(
-          <button onClick={handleEnter} style={{marginTop:"52px",padding:"15px 60px",background:"transparent",border:"1px solid var(--gold)",color:"var(--gold)",fontFamily:"var(--fd)",fontSize:"16px",fontWeight:600,letterSpacing:"6px",cursor:"pointer",opacity:btnShow?1:0,transform:btnShow?"translateY(0)":"translateY(10px)",transition:"all 0.8s ease",animation:btnShow?"glowPulse 3s ease-in-out infinite":"none"}}
+          <button onClick={e=>{e.stopPropagation();handleEnter()}} style={{marginTop:"clamp(32px,6vw,52px)",padding:"clamp(12px,2vw,15px) clamp(36px,8vw,60px)",background:"transparent",border:"1px solid var(--gold)",color:"var(--gold)",fontFamily:"var(--fd)",fontSize:"clamp(14px,2vw,16px)",fontWeight:600,letterSpacing:"clamp(3px,1vw,6px)",cursor:"pointer",opacity:btnShow?1:0,transform:btnShow?"translateY(0)":"translateY(10px)",transition:"all 0.8s ease",animation:btnShow?"glowPulse 3s ease-in-out infinite":"none"}}
           onMouseEnter={e=>{e.target.style.background="rgba(212,165,74,0.1)"}}
           onMouseLeave={e=>{e.target.style.background="transparent"}}
           >이야기 속으로</button>
         )}
       </div>
-
       {/* Cinematic text */}
-      {phase>=2&&!cinematicDone&&(
-        <div style={{position:"absolute",inset:0,zIndex:20,display:"flex",alignItems:"center",justifyContent:"center",padding:"0 40px",background:"rgba(13,10,7,0.7)"}}>
+      {phase>=2&&!fadeOut&&(
+        <div style={{position:"absolute",inset:0,zIndex:20,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"0 clamp(20px,5vw,40px)",background:"rgba(13,10,7,0.65)"}}>
           <p style={{
             fontFamily:"var(--fd)",
-            fontSize:isQuote(OPENING_LINES[curLine])?"clamp(20px,3.2vw,28px)":"clamp(16px,2.5vw,20px)",
-            color:isQuote(OPENING_LINES[curLine])?"var(--red)":"var(--tx2)",
-            textShadow:isQuote(OPENING_LINES[curLine])?"0 0 30px rgba(168,58,37,0.6), 0 0 60px rgba(168,58,37,0.3)":"none",
-            fontStyle:isQuote(OPENING_LINES[curLine])?"normal":"italic",
-            fontWeight:isQuote(OPENING_LINES[curLine])?700:400,
+            fontSize:isQ(OPENING_LINES[curLine])?"clamp(18px,3vw,28px)":"clamp(14px,2.2vw,20px)",
+            color:isQ(OPENING_LINES[curLine])?"var(--red)":"var(--tx2)",
+            textShadow:isQ(OPENING_LINES[curLine])?"0 0 30px rgba(168,58,37,0.6), 0 0 60px rgba(168,58,37,0.3)":"none",
+            fontStyle:isQ(OPENING_LINES[curLine])?"normal":"italic",
+            fontWeight:isQ(OPENING_LINES[curLine])?700:400,
             textAlign:"center",lineHeight:1.8,
             opacity:lineVis?1:0,transform:lineVis?"translateY(0)":"translateY(10px)",
             transition:"opacity 0.9s ease, transform 0.9s ease",
-          }}>
-            {curLine>=0?OPENING_LINES[curLine]:""}
-          </p>
+          }}>{curLine>=0?OPENING_LINES[curLine]:""}</p>
+          <p style={{position:"absolute",bottom:"clamp(20px,4vw,40px)",fontSize:"clamp(10px,1.5vw,12px)",color:"var(--txd)",letterSpacing:"2px"}}>클릭하여 건너뛰기</p>
         </div>
       )}
     </div>
   );
 }
 
-/* ══════════ BGM PLAYER ══════════ */
+/* ══════════ BGM ══════════ */
 function BGMPlayer({audioEl}){
-  const [playing,setPlaying]=useState(true);
-  const [vol,setVol]=useState(0.35);
-  useEffect(()=>{if(!audioEl)return;audioEl.volume=vol;if(playing)audioEl.play().catch(()=>{});else audioEl.pause()},[playing,vol,audioEl]);
+  const [p,setP]=useState(true);
+  const [v,setV]=useState(0.35);
+  useEffect(()=>{if(!audioEl)return;audioEl.volume=v;if(p)audioEl.play().catch(()=>{});else audioEl.pause()},[p,v,audioEl]);
   if(!audioEl)return null;
   return(
-    <div style={{position:"fixed",bottom:"20px",right:"20px",zIndex:900,display:"flex",alignItems:"center",gap:"8px",padding:"8px 14px",background:"rgba(13,10,7,0.88)",backdropFilter:"blur(12px)",border:"1px solid var(--brd)"}}>
-      <button onClick={()=>setPlaying(!playing)} style={{background:"none",border:"none",color:"var(--gold)",cursor:"pointer",fontSize:"15px",padding:"2px"}}>{playing?"⏸":"▶"}</button>
-      <input type="range" min="0" max="1" step="0.05" value={vol} onChange={e=>setVol(+e.target.value)} style={{width:"52px",accentColor:"var(--gold)",cursor:"pointer",opacity:0.7}}/>
-      <span style={{fontSize:"10px",color:"var(--txd)",letterSpacing:"1px"}}>BGM</span>
+    <div className="bgm-player" style={{position:"fixed",bottom:"clamp(12px,2vw,20px)",right:"clamp(12px,2vw,20px)",zIndex:900,display:"flex",alignItems:"center",gap:"8px",padding:"8px clamp(10px,1.5vw,14px)",background:"rgba(13,10,7,0.88)",backdropFilter:"blur(12px)",border:"1px solid var(--brd)"}}>
+      <button onClick={()=>setP(!p)} style={{background:"none",border:"none",color:"var(--gold)",cursor:"pointer",fontSize:"14px",padding:"2px"}}>{p?"⏸":"▶"}</button>
+      <input type="range" min="0" max="1" step="0.05" value={v} onChange={e=>setV(+e.target.value)} style={{width:"52px",accentColor:"var(--gold)",cursor:"pointer",opacity:0.7}}/>
+      <span className="bgm-label" style={{fontSize:"10px",color:"var(--txd)",letterSpacing:"1px"}}>BGM</span>
     </div>
   );
 }
@@ -215,7 +220,7 @@ function BGMPlayer({audioEl}){
 const SEC_LABELS=["인트로","세력","장소","인물","스토리","시스템","입장"];
 function SectionNav({current,total,onGo}){
   return(
-    <div style={{position:"fixed",right:"20px",top:"50%",transform:"translateY(-50%)",zIndex:800,display:"flex",flexDirection:"column",alignItems:"flex-end",gap:"14px"}}>
+    <div className="sec-nav" style={{position:"fixed",right:"20px",top:"50%",transform:"translateY(-50%)",zIndex:800,display:"flex",flexDirection:"column",alignItems:"flex-end",gap:"14px"}}>
       {Array.from({length:total}).map((_,i)=>(
         <button key={i} onClick={()=>onGo(i)} style={{display:"flex",alignItems:"center",gap:"8px",background:"none",border:"none",cursor:"pointer",padding:0}}>
           <span style={{fontSize:"11px",letterSpacing:"1px",color:current===i?"var(--gold)":"transparent",fontFamily:"var(--fb)",transition:"color 0.3s",whiteSpace:"nowrap"}}>{SEC_LABELS[i]}</span>
@@ -226,80 +231,85 @@ function SectionNav({current,total,onGo}){
   );
 }
 
-/* ══════════ SECTION TITLE ══════════ */
+/* ══════════ STITLE ══════════ */
 function STitle({sub,main}){
   return(
-    <div style={{textAlign:"center",marginBottom:"40px"}}>
-      <div style={{fontFamily:"var(--fd)",fontSize:"13px",letterSpacing:"6px",color:"var(--gold)",marginBottom:"12px",fontWeight:600}}>{sub}</div>
-      <h2 style={{fontFamily:"var(--fd)",fontSize:"clamp(28px,5vw,44px)",fontWeight:700,lineHeight:1.3}}>{main}</h2>
+    <div style={{textAlign:"center",marginBottom:"clamp(24px,4vw,40px)"}}>
+      <div style={{fontFamily:"var(--fd)",fontSize:"clamp(11px,1.5vw,13px)",letterSpacing:"6px",color:"var(--gold)",marginBottom:"12px",fontWeight:600}}>{sub}</div>
+      <h2 style={{fontFamily:"var(--fd)",fontSize:"clamp(24px,5vw,44px)",fontWeight:700,lineHeight:1.3}}>{main}</h2>
       <div style={{width:"36px",height:"1px",margin:"18px auto 0",background:"linear-gradient(90deg,transparent,var(--gold),transparent)"}}/>
     </div>
   );
 }
 
-/* ══════════ SEC 1 — HERO ══════════ */
+/* ══════════ SEC 1 — HERO (with story text) ══════════ */
 function HeroSection(){
   const [slam,setSlam]=useState(false);
-  const [afterSlam,setAfterSlam]=useState(false);
-  useEffect(()=>{
-    const t1=setTimeout(()=>setSlam(true),100);
-    const t2=setTimeout(()=>setAfterSlam(true),700);
-    return()=>{clearTimeout(t1);clearTimeout(t2)};
-  },[]);
+  const [after,setAfter]=useState(false);
+  useEffect(()=>{setTimeout(()=>setSlam(true),100);setTimeout(()=>setAfter(true),700)},[]);
   return(
-    <div style={{height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",position:"relative",overflow:"hidden"}}>
-      {/* Dragon breath GIF background */}
+    <div style={{height:"100%",display:"flex",flexDirection:"column",overflow:"hidden",position:"relative"}}>
       <video autoPlay muted playsInline style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",opacity:0.15,filter:"blur(3px)",zIndex:0}}>
         <source src="dragon-breath.webm" type="video/webm"/>
       </video>
       <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 70% 50% at 50% 45%,rgba(212,165,74,0.04) 0%,transparent 70%)",zIndex:1}}/>
-
-      {/* Screen flash */}
       {slam&&<div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse at center,rgba(212,165,74,0.3),transparent 70%)",animation:"slamFlash 0.8s ease-out forwards",pointerEvents:"none",zIndex:5}}/>}
 
-      <div style={{position:"relative",zIndex:2,textAlign:"center",padding:"0 28px"}}>
-        <div style={{width:"1px",height:"44px",background:"linear-gradient(180deg,transparent,var(--goldd))",margin:"0 auto 28px",opacity:afterSlam?1:0,transition:"opacity 0.8s ease"}}/>
-
-        {/* SLAM TITLE */}
-        <div style={{animation:slam?"slam 0.6s cubic-bezier(0.16,1,0.3,1) forwards":"none",opacity:slam?undefined:0}}>
-          <h1 style={{fontFamily:"var(--fd)",fontSize:"clamp(48px,11vw,90px)",fontWeight:900,letterSpacing:"8px",textShadow:afterSlam?"0 0 80px rgba(212,165,74,0.25), 0 2px 30px rgba(0,0,0,0.5)":"none",transition:"text-shadow 0.5s ease"}}>약탈신부</h1>
+      {/* Scrollable content */}
+      <div style={{flex:1,overflowY:"auto",display:"flex",flexDirection:"column",alignItems:"center",position:"relative",zIndex:2}} className="inner-scroll">
+        <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"clamp(60px,10vw,100px) clamp(16px,4vw,28px) 40px",textAlign:"center",flexShrink:0}}>
+          <div style={{width:"1px",height:"44px",background:"linear-gradient(180deg,transparent,var(--goldd))",marginBottom:"28px",opacity:after?1:0,transition:"opacity 0.8s ease"}}/>
+          <div style={{animation:slam?"slam 0.6s cubic-bezier(0.16,1,0.3,1) forwards":"none",opacity:slam?undefined:0}}>
+            <h1 style={{fontFamily:"var(--fd)",fontSize:"clamp(40px,10vw,90px)",fontWeight:900,letterSpacing:"clamp(4px,1vw,8px)",textShadow:after?"0 0 80px rgba(212,165,74,0.25), 0 2px 30px rgba(0,0,0,0.5)":"none",transition:"text-shadow 0.5s ease"}}>약탈신부</h1>
+          </div>
+          <div style={{width:"clamp(60px,20vw,120px)",height:"1px",margin:"16px auto",background:"linear-gradient(90deg,transparent,var(--gold),transparent)",animation:after?"lineExpand 0.8s ease forwards":"none",opacity:after?undefined:0,transformOrigin:"center"}}/>
+          <p style={{fontFamily:"var(--fd)",fontSize:"clamp(13px,2vw,17px)",color:"var(--tx2)",letterSpacing:"3px",marginBottom:"8px",opacity:after?1:0,transition:"all 0.7s ease 0.1s",lineHeight:1.8,fontStyle:"italic"}}>불과 유황 냄새가 맴도는 이교도의 땅.</p>
+          <p style={{fontFamily:"var(--fd)",fontSize:"clamp(13px,2vw,17px)",color:"var(--tx2)",letterSpacing:"3px",opacity:after?1:0,transition:"all 0.7s ease 0.2s",lineHeight:1.8,fontStyle:"italic"}}>타야르에서 살아남기.</p>
         </div>
 
-        {/* Gold line expand */}
-        <div style={{width:"120px",height:"1px",margin:"16px auto",background:"linear-gradient(90deg,transparent,var(--gold),transparent)",animation:afterSlam?"lineExpand 0.8s ease forwards":"none",opacity:afterSlam?undefined:0,transformOrigin:"center"}}/>
-
-        <p style={{fontFamily:"var(--fd)",fontSize:"clamp(14px,2vw,17px)",color:"var(--tx2)",letterSpacing:"3px",marginBottom:"8px",opacity:afterSlam?1:0,transition:"all 0.7s ease 0.1s",lineHeight:1.8,fontStyle:"italic"}}>
-          불과 유황 냄새가 맴도는 이교도의 땅.
-        </p>
-        <p style={{fontFamily:"var(--fd)",fontSize:"clamp(14px,2vw,17px)",color:"var(--tx2)",letterSpacing:"3px",marginBottom:"0",opacity:afterSlam?1:0,transition:"all 0.7s ease 0.2s",lineHeight:1.8,fontStyle:"italic"}}>
-          타야르에서 살아남기.
-        </p>
+        {/* Story text (cinematic content, always visible) */}
+        <div style={{maxWidth:"600px",width:"100%",padding:"0 clamp(20px,5vw,40px) clamp(60px,10vw,100px)",opacity:after?1:0,transition:"opacity 1.2s ease 0.5s"}}>
+          <div style={{width:"36px",height:"1px",background:"linear-gradient(90deg,transparent,var(--goldd),transparent)",margin:"0 auto 32px"}}/>
+          {STORY_LINES.map((line,i)=>{
+            const isQ=line.startsWith('"');
+            return(
+              <p key={i} style={{
+                fontFamily:"var(--fd)",
+                fontSize:isQ?"clamp(15px,2vw,18px)":"clamp(13px,1.8vw,16px)",
+                color:isQ?"var(--red)":"var(--tx2)",
+                textShadow:isQ?"0 0 20px rgba(168,58,37,0.3)":"none",
+                fontStyle:isQ?"normal":"italic",fontWeight:isQ?600:400,
+                textAlign:"center",lineHeight:2.2,
+                marginBottom:i<STORY_LINES.length-1?"4px":"0",
+              }}>{line}</p>
+            );
+          })}
+        </div>
       </div>
 
-      <div style={{position:"absolute",bottom:"28px",left:"50%",transform:"translateX(-50%)",display:"flex",flexDirection:"column",alignItems:"center",gap:"6px",animation:"float 3s ease-in-out infinite",opacity:afterSlam?1:0,transition:"opacity 0.8s ease 0.5s",zIndex:2}}>
-        <span style={{fontSize:"11px",letterSpacing:"3px",color:"var(--txd)"}}>SCROLL</span>
+      <div style={{position:"absolute",bottom:"clamp(16px,3vw,28px)",left:"50%",transform:"translateX(-50%)",display:"flex",flexDirection:"column",alignItems:"center",gap:"6px",animation:"float 3s ease-in-out infinite",opacity:after?1:0,transition:"opacity 0.8s ease 0.5s",zIndex:2}}>
+        <span style={{fontSize:"clamp(9px,1.2vw,11px)",letterSpacing:"3px",color:"var(--txd)"}}>SCROLL</span>
         <div style={{width:"1px",height:"20px",background:"linear-gradient(180deg,var(--goldd),transparent)"}}/>
       </div>
     </div>
   );
 }
 
-/* ══════════ SEC 2 — FACTIONS (fullscreen) ══════════ */
+/* ══════════ SEC 2 — FACTIONS ══════════ */
 function FactionsSection(){
   return(
-    <div style={{height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"44px 24px"}}>
+    <div style={{height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"clamp(32px,5vw,44px) clamp(12px,3vw,16px)"}}>
       <STitle sub="WORLD" main="세력"/>
-      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(260px,1fr))",gap:"20px",maxWidth:"960px",width:"100%"}}>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(260px,100%),1fr))",gap:"clamp(12px,2vw,20px)",maxWidth:"960px",width:"100%"}}>
         {FACTIONS.map((f,i)=>(
-          <div key={i} style={{background:f.bg,border:`1px solid ${f.color}22`,padding:"36px 28px",transition:"border-color 0.3s"}}
+          <div key={i} style={{background:f.bg,border:`1px solid ${f.color}22`,padding:"clamp(20px,4vw,36px) clamp(16px,3vw,28px)",transition:"border-color 0.3s"}}
           onMouseEnter={e=>e.currentTarget.style.borderColor=f.color+"55"}
-          onMouseLeave={e=>e.currentTarget.style.borderColor=f.color+"22"}
-          >
-            <h3 style={{fontFamily:"var(--fd)",fontSize:"24px",fontWeight:700,color:f.color,marginBottom:"14px",letterSpacing:"2px"}}>{f.name}</h3>
+          onMouseLeave={e=>e.currentTarget.style.borderColor=f.color+"22"}>
+            <h3 style={{fontFamily:"var(--fd)",fontSize:"clamp(18px,3vw,24px)",fontWeight:700,color:f.color,marginBottom:"14px",letterSpacing:"2px"}}>{f.name}</h3>
             <div style={{display:"flex",flexWrap:"wrap",gap:"6px",marginBottom:"16px"}}>
-              {f.kw.map((k,j)=>(<span key={j} style={{padding:"3px 10px",border:`1px solid ${f.color}44`,fontSize:"12px",color:f.color,letterSpacing:"1px"}}>{k}</span>))}
+              {f.kw.map((k,j)=>(<span key={j} style={{padding:"3px 10px",border:`1px solid ${f.color}44`,fontSize:"clamp(10px,1.3vw,12px)",color:f.color,letterSpacing:"1px"}}>{k}</span>))}
             </div>
-            <p style={{fontSize:"14px",lineHeight:1.9,fontWeight:300,color:"var(--tx)"}}>{f.desc}</p>
+            <p style={{fontSize:"clamp(13px,1.5vw,14px)",lineHeight:1.9,fontWeight:300}}>{f.desc}</p>
           </div>
         ))}
       </div>
@@ -307,23 +317,23 @@ function FactionsSection(){
   );
 }
 
-/* ══════════ SEC 3 — LOCATIONS (scrollable) ══════════ */
+/* ══════════ SEC 3 — LOCATIONS ══════════ */
 function LocationsSection(){
   return(
     <div style={{height:"100%",display:"flex",flexDirection:"column",overflow:"hidden"}}>
-      <div style={{padding:"44px 24px 0",flexShrink:0}}><STitle sub="TAYAR" main="주요 장소"/></div>
-      <div style={{flex:1,overflowY:"auto",padding:"0 24px 44px",maxWidth:"960px",margin:"0 auto",width:"100%"}} className="inner-scroll">
-        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(220px,1fr))",gap:"12px"}}>
+      <div style={{padding:"clamp(32px,5vw,44px) clamp(12px,3vw,16px) 0",flexShrink:0}}><STitle sub="TAYAR" main="주요 장소"/></div>
+      <div style={{flex:1,overflowY:"auto",padding:"0 clamp(12px,3vw,16px) 44px",maxWidth:"960px",margin:"0 auto",width:"100%"}} className="inner-scroll">
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(min(200px,100%),1fr))",gap:"12px"}}>
           {LOCATIONS.map((l,i)=>(
             <div key={i} style={{background:"var(--bgc)",border:"1px solid var(--brd)",transition:"border-color 0.3s",overflow:"hidden"}}
             onMouseEnter={e=>e.currentTarget.style.borderColor="var(--goldd)"}
             onMouseLeave={e=>e.currentTarget.style.borderColor="rgba(212,165,74,0.18)"}>
               <div style={{width:"100%",aspectRatio:"16/9",background:`linear-gradient(135deg,var(--bg2),${i%2===0?"rgba(212,165,74,0.05)":"rgba(139,45,26,0.05)"})`,display:"flex",alignItems:"center",justifyContent:"center",borderBottom:"1px solid var(--brd)"}}>
-                <span style={{fontSize:"28px",opacity:0.4}}>{l.icon}</span>
+                <span style={{fontSize:"clamp(22px,4vw,28px)",opacity:0.4}}>{l.icon}</span>
               </div>
-              <div style={{padding:"14px 16px"}}>
-                <div style={{fontFamily:"var(--fd)",fontSize:"16px",fontWeight:700,marginBottom:"4px"}}>{l.name}</div>
-                <p style={{fontSize:"13px",color:"var(--tx2)",lineHeight:1.6,fontWeight:300}}>{l.desc}</p>
+              <div style={{padding:"clamp(10px,2vw,14px) clamp(12px,2vw,16px)"}}>
+                <div style={{fontFamily:"var(--fd)",fontSize:"clamp(14px,2vw,16px)",fontWeight:700,marginBottom:"4px"}}>{l.name}</div>
+                <p style={{fontSize:"clamp(11px,1.4vw,13px)",color:"var(--tx2)",lineHeight:1.6,fontWeight:300}}>{l.desc}</p>
               </div>
             </div>
           ))}
@@ -337,145 +347,81 @@ function LocationsSection(){
 function CharModal({char,onClose}){
   if(!char)return null;
   return(
-    <div onClick={onClose} style={{position:"fixed",inset:0,zIndex:2000,background:"rgba(0,0,0,0.82)",backdropFilter:"blur(10px)",display:"flex",alignItems:"center",justifyContent:"center",animation:"fadeIn 0.3s ease",padding:"20px"}}>
-      <div onClick={e=>e.stopPropagation()} style={{width:"100%",maxWidth:"480px",maxHeight:"85vh",overflowY:"auto",background:"var(--bg2)",border:`1px solid ${char.color}33`,padding:"36px 32px",position:"relative",animation:"fadeUp 0.4s ease"}} className="inner-scroll">
+    <div onClick={onClose} style={{position:"fixed",inset:0,zIndex:2000,background:"rgba(0,0,0,0.82)",backdropFilter:"blur(10px)",display:"flex",alignItems:"center",justifyContent:"center",animation:"fadeIn 0.3s ease",padding:"clamp(12px,3vw,20px)"}}>
+      <div onClick={e=>e.stopPropagation()} style={{width:"100%",maxWidth:"480px",maxHeight:"85vh",overflowY:"auto",background:"var(--bg2)",border:`1px solid ${char.color}33`,padding:"clamp(24px,4vw,36px) clamp(20px,3vw,32px)",position:"relative",animation:"fadeUp 0.4s ease"}} className="inner-scroll">
         <button onClick={onClose} style={{position:"absolute",top:"12px",right:"12px",background:"none",border:"none",color:"var(--tx2)",fontSize:"20px",cursor:"pointer",zIndex:10}}>✕</button>
-        <div style={{width:"100%",aspectRatio:"1/1",maxHeight:"300px",overflow:"hidden",border:"1px solid var(--brd)",marginBottom:"24px",position:"relative"}}>
+        <div style={{width:"100%",aspectRatio:"1/1",maxHeight:"min(300px,50vw)",overflow:"hidden",border:"1px solid var(--brd)",marginBottom:"24px"}}>
           {char.modalImg?<img src={char.modalImg} alt={char.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>:
           char.img?<img src={char.img} alt={char.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>:
           <div style={{width:"100%",height:"100%",background:`linear-gradient(170deg,${char.color}15,var(--bgc))`,display:"flex",alignItems:"center",justifyContent:"center"}}>
             <span style={{fontFamily:"var(--fd)",fontSize:"42px",fontWeight:900,color:`${char.color}20`}}>{char.name[0]}</span>
           </div>}
         </div>
-        <div style={{display:"flex",alignItems:"center",gap:"10px",marginBottom:"4px",flexWrap:"wrap"}}>
-          <h3 style={{fontFamily:"var(--fd)",fontSize:"26px",fontWeight:700}}>{char.name}</h3>
-        </div>
-        <div style={{fontSize:"14px",color:"var(--tx2)",letterSpacing:"1px",marginBottom:"18px"}}>{char.title}</div>
-        {char.appear&&<div style={{display:"flex",flexWrap:"wrap",gap:"5px",marginBottom:"16px"}}>{char.appear.map((a,i)=>(<span key={i} style={{padding:"3px 10px",background:"var(--bg)",fontSize:"12px",color:"var(--tx2)"}}>{a}</span>))}</div>}
-        {char.personality&&<div style={{marginBottom:"10px"}}><span style={{fontSize:"12px",color:char.color,letterSpacing:"2px",fontWeight:600}}>성격</span><p style={{fontSize:"14px",color:"var(--tx2)",lineHeight:1.7,fontWeight:300,marginTop:"3px"}}>{char.personality}</p></div>}
-        {char.speech&&<div style={{marginBottom:"14px"}}><span style={{fontSize:"12px",color:char.color,letterSpacing:"2px",fontWeight:600}}>말투</span><p style={{fontSize:"14px",color:"var(--tx2)",lineHeight:1.7,fontWeight:300,marginTop:"3px"}}>{char.speech}</p></div>}
+        <h3 style={{fontFamily:"var(--fd)",fontSize:"clamp(22px,4vw,26px)",fontWeight:700,marginBottom:"4px"}}>{char.name}</h3>
+        <div style={{fontSize:"clamp(12px,1.5vw,14px)",color:"var(--tx2)",letterSpacing:"1px",marginBottom:"18px"}}>{char.title}</div>
+        {char.appear&&<div style={{display:"flex",flexWrap:"wrap",gap:"5px",marginBottom:"16px"}}>{char.appear.map((a,i)=>(<span key={i} style={{padding:"3px 10px",background:"var(--bg)",fontSize:"clamp(10px,1.3vw,12px)",color:"var(--tx2)"}}>{a}</span>))}</div>}
+        {char.personality&&<div style={{marginBottom:"10px"}}><span style={{fontSize:"12px",color:char.color,letterSpacing:"2px",fontWeight:600}}>성격</span><p style={{fontSize:"clamp(12px,1.5vw,14px)",color:"var(--tx2)",lineHeight:1.7,fontWeight:300,marginTop:"3px"}}>{char.personality}</p></div>}
+        {char.speech&&<div style={{marginBottom:"14px"}}><span style={{fontSize:"12px",color:char.color,letterSpacing:"2px",fontWeight:600}}>말투</span><p style={{fontSize:"clamp(12px,1.5vw,14px)",color:"var(--tx2)",lineHeight:1.7,fontWeight:300,marginTop:"3px"}}>{char.speech}</p></div>}
         <div style={{padding:"14px",borderLeft:`2px solid ${char.color}33`,background:`${char.color}06`,marginBottom:"14px"}}>
-          <p style={{fontSize:"15px",lineHeight:1.8,fontWeight:300,fontStyle:"italic"}}>{char.intro}</p>
+          <p style={{fontSize:"clamp(13px,1.6vw,15px)",lineHeight:1.8,fontWeight:300,fontStyle:"italic"}}>{char.intro}</p>
         </div>
-        {char.detail&&<p style={{fontSize:"14px",color:"var(--tx2)",lineHeight:1.8,fontWeight:300}}>{char.detail}</p>}
+        {char.detail&&<p style={{fontSize:"clamp(12px,1.5vw,14px)",color:"var(--tx2)",lineHeight:1.8,fontWeight:300}}>{char.detail}</p>}
       </div>
     </div>
   );
 }
 
-/* ══════════ SEC 4 — CHARACTERS (tarot flip → fly to center → modal) ══════════ */
-function CharacterSection({onOpenModal,onFlyCard}){
-  const [hv,setHv]=useState(-1);
-  const [flippedIdx,setFlippedIdx]=useState(-1);
-  const [flippedSub,setFlippedSub]=useState(-1);
-  const cardRefs=useRef({});
-  const subRefs=useRef({});
-  const busy=useRef(false);
-
-  const handleClick=(e,idx,char,isSub)=>{
-    if(busy.current)return;
-    busy.current=true;
-    const el=isSub?subRefs.current[idx]:cardRefs.current[idx];
-    const rect=el?el.getBoundingClientRect():null;
-
-    // Phase 1: Flip
-    if(isSub) setFlippedSub(idx); else setFlippedIdx(idx);
-
-    // Phase 2: After flip, launch flying card
-    setTimeout(()=>{
-      if(rect) onFlyCard({char,rect});
-      // Phase 3: After fly, open modal
-      setTimeout(()=>{
-        onOpenModal(char);
-        onFlyCard(null);
-        if(isSub) setFlippedSub(-1); else setFlippedIdx(-1);
-        busy.current=false;
-      },700);
-    },700);
-  };
+/* ══════════ SEC 4 — CHARACTERS (hover=flip, click=modal) ══════════ */
+function CharacterSection({onOpenModal}){
+  const [hvMain,setHvMain]=useState(-1);
+  const [hvSub,setHvSub]=useState(-1);
 
   return(
     <div style={{height:"100%",display:"flex",flexDirection:"column",overflow:"hidden"}}>
-      <div style={{padding:"44px 24px 0",flexShrink:0}}>
+      <div style={{padding:"clamp(32px,5vw,44px) clamp(12px,3vw,16px) 0",flexShrink:0}}>
         <STitle sub="CHARACTERS" main="등장인물"/>
-        <p style={{fontSize:"14px",color:"var(--tx2)",textAlign:"center",marginTop:"-24px",marginBottom:"12px",fontWeight:300}}>카드를 선택하여 인물을 확인하세요</p>
+        <p style={{fontSize:"clamp(12px,1.5vw,14px)",color:"var(--tx2)",textAlign:"center",marginTop:"-20px",marginBottom:"12px",fontWeight:300}}>카드에 마우스를 올려 인물을 확인하세요</p>
       </div>
-      <div style={{flex:1,overflowY:"auto",padding:"0 24px 40px",display:"flex",flexDirection:"column",alignItems:"center"}} className="inner-scroll">
-        {/* Main characters */}
-        <div style={{display:"flex",justifyContent:"center",gap:"16px",flexWrap:"wrap",maxWidth:"900px",marginBottom:"32px",paddingTop:"20px"}}>
-          {MAIN_CHARS.map((c,i)=>{
-            const isH=hv===i;
-            const isFlipped=flippedIdx===i;
-            return(
-              <div key={i} ref={el=>cardRefs.current[i]=el}
-                onClick={(e)=>handleClick(e,i,c,false)}
-                onMouseEnter={()=>setHv(i)} onMouseLeave={()=>setHv(-1)}
-                className="card-flip"
-                style={{width:"155px",height:"232px",cursor:"pointer",transform:isH&&!isFlipped?"translateY(-10px)":"translateY(0)",transition:"transform 0.35s cubic-bezier(0.16,1,0.3,1)"}}>
-                <div className={`card-flip-inner${isFlipped?" flipped":""}`}>
-                  <div className="card-face card-front" style={{width:"100%",height:"100%",overflow:"hidden",border:`1px solid ${isH?"rgba(212,165,74,0.5)":"rgba(212,165,74,0.2)"}`,boxShadow:isH?"0 14px 40px rgba(0,0,0,0.6), 0 0 20px rgba(212,165,74,0.1)":"0 4px 16px rgba(0,0,0,0.3)",transition:"all 0.35s ease"}}>
-                    <img src="/images/tarot-back.webp" alt="tarot" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-                  </div>
-                  <div className="card-face card-back" style={{width:"100%",height:"100%",overflow:"hidden",border:`1px solid ${c.color}55`}}>
-                    <img src={c.img} alt={c.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-                  </div>
+      <div style={{flex:1,overflowY:"auto",padding:"0 clamp(12px,3vw,16px) 40px",display:"flex",flexDirection:"column",alignItems:"center"}} className="inner-scroll">
+        {/* Main */}
+        <div style={{display:"flex",justifyContent:"center",gap:"clamp(8px,1.5vw,16px)",flexWrap:"wrap",maxWidth:"900px",marginBottom:"clamp(24px,4vw,32px)",paddingTop:"16px"}}>
+          {MAIN_CHARS.map((c,i)=>(
+            <div key={i}
+              onClick={()=>onOpenModal(c)}
+              onMouseEnter={()=>setHvMain(i)} onMouseLeave={()=>setHvMain(-1)}
+              className="card-flip"
+              style={{width:"clamp(100px,17vw,155px)",height:"clamp(150px,25.5vw,232px)",cursor:"pointer",transition:"transform 0.3s",transform:hvMain===i?"translateY(-8px)":"translateY(0)"}}>
+              <div className={`card-flip-inner${hvMain===i?" flipped":""}`}>
+                <div className="card-face card-front" style={{width:"100%",height:"100%",overflow:"hidden",border:"1px solid rgba(212,165,74,0.2)",boxShadow:"0 4px 16px rgba(0,0,0,0.3)"}}>
+                  <img src="/images/tarot-back.webp" alt="tarot" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
+                </div>
+                <div className="card-face card-back" style={{width:"100%",height:"100%",overflow:"hidden",border:`1px solid ${c.color}55`,boxShadow:`0 8px 30px rgba(0,0,0,0.5), 0 0 20px ${c.color}15`}}>
+                  <img src={c.img} alt={c.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
-
-        {/* Sub characters */}
-        <div style={{fontFamily:"var(--fd)",fontSize:"12px",letterSpacing:"4px",color:"var(--txd)",textAlign:"center",marginBottom:"16px",fontWeight:600}}>SUB CHARACTERS</div>
-        <div style={{display:"flex",justifyContent:"center",gap:"12px",flexWrap:"wrap",maxWidth:"700px"}}>
-          {SUB_CHARS.map((c,i)=>{
-            const isFlipped=flippedSub===i;
-            return(
-              <div key={i} ref={el=>subRefs.current[i]=el}
-                onClick={(e)=>handleClick(e,i,c,true)}
-                className="card-flip"
-                style={{width:"120px",height:"170px",cursor:"pointer",transition:"transform 0.3s"}}
-                onMouseEnter={e=>e.currentTarget.style.transform="translateY(-6px)"}
-                onMouseLeave={e=>e.currentTarget.style.transform="translateY(0)"}>
-                <div className={`card-flip-inner${isFlipped?" flipped":""}`}>
-                  <div className="card-face card-front" style={{width:"100%",height:"100%",overflow:"hidden",border:"1px solid var(--brd)"}}>
-                    <img src="/images/tarot-back.webp" alt="tarot" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-                  </div>
-                  <div className="card-face card-back" style={{width:"100%",height:"100%",overflow:"hidden",border:"1px solid var(--brd)"}}>
-                    <img src={c.img} alt={c.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-                  </div>
+        {/* Sub */}
+        <div style={{fontFamily:"var(--fd)",fontSize:"clamp(10px,1.3vw,12px)",letterSpacing:"4px",color:"var(--txd)",textAlign:"center",marginBottom:"16px",fontWeight:600}}>SUB CHARACTERS</div>
+        <div style={{display:"flex",justifyContent:"center",gap:"clamp(6px,1.5vw,12px)",flexWrap:"wrap",maxWidth:"700px"}}>
+          {SUB_CHARS.map((c,i)=>(
+            <div key={i}
+              onClick={()=>onOpenModal(c)}
+              onMouseEnter={()=>setHvSub(i)} onMouseLeave={()=>setHvSub(-1)}
+              className="card-flip"
+              style={{width:"clamp(80px,13vw,120px)",height:"clamp(120px,19.5vw,170px)",cursor:"pointer",transition:"transform 0.3s",transform:hvSub===i?"translateY(-6px)":"translateY(0)"}}>
+              <div className={`card-flip-inner${hvSub===i?" flipped":""}`}>
+                <div className="card-face card-front" style={{width:"100%",height:"100%",overflow:"hidden",border:"1px solid var(--brd)"}}>
+                  <img src="/images/tarot-back.webp" alt="tarot" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
+                </div>
+                <div className="card-face card-back" style={{width:"100%",height:"100%",overflow:"hidden",border:"1px solid var(--brd)"}}>
+                  <img src={c.img} alt={c.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
-      </div>
-    </div>
-  );
-}
-
-/* ══════════ FLYING CARD OVERLAY (at app root) ══════════ */
-function FlyingCard({data}){
-  const [arrived,setArrived]=useState(false);
-  useEffect(()=>{if(data)requestAnimationFrame(()=>setTimeout(()=>setArrived(true),30));else setArrived(false)},[data]);
-  if(!data)return null;
-  const vw=window.innerWidth,vh=window.innerHeight;
-  const fw=240,fh=360;
-  const cx=(vw-fw)/2,cy=(vh-fh)/2;
-  return(
-    <div style={{position:"fixed",inset:0,zIndex:1500,pointerEvents:"none",background:arrived?"rgba(0,0,0,0.6)":"transparent",transition:"background 0.5s ease"}}>
-      <div style={{
-        position:"fixed",
-        left:arrived?`${cx}px`:`${data.rect.left}px`,
-        top:arrived?`${cy}px`:`${data.rect.top}px`,
-        width:arrived?`${fw}px`:`${data.rect.width}px`,
-        height:arrived?`${fh}px`:`${data.rect.height}px`,
-        transition:"all 0.6s cubic-bezier(0.16,1,0.3,1)",
-        overflow:"hidden",
-        border:`1px solid ${data.char.color}55`,
-        boxShadow:`0 20px 60px rgba(0,0,0,0.8), 0 0 40px ${data.char.color}20`,
-      }}>
-        <img src={data.char.img} alt={data.char.name} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
       </div>
     </div>
   );
@@ -485,23 +431,23 @@ function FlyingCard({data}){
 function RoadmapSection(){
   return(
     <div style={{height:"100%",display:"flex",flexDirection:"column",overflow:"hidden"}}>
-      <div style={{padding:"44px 24px 0",flexShrink:0}}><STitle sub="STORY" main="스토리 로드맵"/></div>
-      <div style={{flex:1,overflowY:"auto",padding:"0 24px 44px",maxWidth:"620px",margin:"0 auto",width:"100%"}} className="inner-scroll">
+      <div style={{padding:"clamp(32px,5vw,44px) clamp(12px,3vw,16px) 0",flexShrink:0}}><STitle sub="STORY" main="스토리 로드맵"/></div>
+      <div style={{flex:1,overflowY:"auto",padding:"0 clamp(12px,3vw,16px) 44px",maxWidth:"620px",margin:"0 auto",width:"100%"}} className="inner-scroll">
         <div style={{position:"relative"}}>
           <div style={{position:"absolute",left:"16px",top:0,bottom:0,width:"1px",background:"linear-gradient(180deg,var(--goldd),var(--brd),transparent)"}}/>
           {CHAPTERS.map((ch,i)=>(
-            <div key={i} style={{display:"flex",gap:"24px",marginBottom:i<CHAPTERS.length-1?"36px":0,position:"relative"}}>
+            <div key={i} style={{display:"flex",gap:"clamp(16px,3vw,24px)",marginBottom:i<CHAPTERS.length-1?"clamp(24px,4vw,36px)":0,position:"relative"}}>
               <div style={{width:"32px",height:"32px",flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",position:"relative",zIndex:2}}>
                 <div style={{width:ch.branch?"12px":"8px",height:ch.branch?"12px":"8px",background:ch.branch?"var(--gold)":"var(--bgc)",border:`2px solid ${ch.branch?"var(--gold)":"var(--goldd)"}`,transform:"rotate(45deg)",boxShadow:ch.branch?"0 0 18px rgba(212,165,74,0.4)":"none"}}/>
               </div>
               <div style={{flex:1}}>
                 <div style={{display:"flex",alignItems:"baseline",gap:"8px",marginBottom:"4px",flexWrap:"wrap"}}>
-                  <span style={{fontFamily:"var(--fd)",fontSize:"12px",letterSpacing:"3px",color:"var(--goldd)",fontWeight:600}}>CH{ch.n}</span>
-                  <span style={{fontFamily:"var(--fd)",fontSize:"20px",fontWeight:700}}>{ch.title}</span>
+                  <span style={{fontFamily:"var(--fd)",fontSize:"clamp(10px,1.3vw,12px)",letterSpacing:"3px",color:"var(--goldd)",fontWeight:600}}>CH{ch.n}</span>
+                  <span style={{fontFamily:"var(--fd)",fontSize:"clamp(16px,2.5vw,20px)",fontWeight:700}}>{ch.title}</span>
                 </div>
-                <div style={{fontSize:"12px",color:"var(--txd)",letterSpacing:"1px",marginBottom:"5px"}}>{ch.mood}</div>
-                <p style={{fontSize:"14px",color:"var(--tx2)",lineHeight:1.7,fontWeight:300,fontStyle:"italic"}}>{ch.teaser}</p>
-                {ch.branch&&<div style={{marginTop:"10px",padding:"9px 14px",background:"rgba(212,165,74,0.06)",borderLeft:"2px solid var(--gold)",fontSize:"13px",color:"var(--gold)",fontWeight:400}}>이 챕터에서 특정 인물을 향한 선택이 이후 이야기를 결정합니다</div>}
+                <div style={{fontSize:"clamp(10px,1.3vw,12px)",color:"var(--txd)",letterSpacing:"1px",marginBottom:"5px"}}>{ch.mood}</div>
+                <p style={{fontSize:"clamp(12px,1.5vw,14px)",color:"var(--tx2)",lineHeight:1.7,fontWeight:300,fontStyle:"italic"}}>{ch.teaser}</p>
+                {ch.branch&&<div style={{marginTop:"10px",padding:"clamp(8px,1.5vw,10px) clamp(10px,2vw,14px)",background:"rgba(212,165,74,0.06)",borderLeft:"2px solid var(--gold)",fontSize:"clamp(11px,1.4vw,13px)",color:"var(--gold)",fontWeight:400}}>이 챕터에서 특정 인물을 향한 선택이 이후 이야기를 결정합니다</div>}
               </div>
             </div>
           ))}
@@ -514,24 +460,24 @@ function RoadmapSection(){
 /* ══════════ SEC 6 — SYSTEM ══════════ */
 function SystemSection(){
   return(
-    <div style={{height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"44px 24px"}}>
+    <div style={{height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"clamp(32px,5vw,44px) clamp(12px,3vw,16px)"}}>
       <div style={{maxWidth:"680px",width:"100%"}}>
         <STitle sub="SYSTEM" main="시스템 가이드"/>
-        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:"14px",marginBottom:"44px"}}>
-          {[{label:"스토리 모드",desc:"CH1~CH5 순차 진행. 챕터별 이벤트와 루트 분기를 따라간다.",icon:"📖"},{label:"자유 모드",desc:"챕터 제약 없음. 프롤로그 이후 자유롭게 진행한다.",icon:"🌊"}].map((m,i)=>(
-            <div key={i} style={{padding:"24px",background:"var(--bgc)",border:"1px solid var(--brd)"}}>
-              <div style={{fontSize:"24px",marginBottom:"10px"}}>{m.icon}</div>
-              <h3 style={{fontFamily:"var(--fd)",fontSize:"19px",fontWeight:700,marginBottom:"8px"}}>{m.label}</h3>
-              <p style={{fontSize:"14px",color:"var(--tx2)",lineHeight:1.8,fontWeight:300}}>{m.desc}</p>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(240px,100%),1fr))",gap:"14px",marginBottom:"clamp(28px,5vw,44px)"}}>
+          {[{l:"스토리 모드",d:"CH1~CH5 순차 진행. 챕터별 이벤트와 루트 분기를 따라간다.",ic:"📖"},{l:"자유 모드",d:"챕터 제약 없음. 프롤로그 이후 자유롭게 진행한다.",ic:"🌊"}].map((m,i)=>(
+            <div key={i} style={{padding:"clamp(18px,3vw,24px)",background:"var(--bgc)",border:"1px solid var(--brd)"}}>
+              <div style={{fontSize:"24px",marginBottom:"10px"}}>{m.ic}</div>
+              <h3 style={{fontFamily:"var(--fd)",fontSize:"clamp(16px,2vw,19px)",fontWeight:700,marginBottom:"8px"}}>{m.l}</h3>
+              <p style={{fontSize:"clamp(12px,1.5vw,14px)",color:"var(--tx2)",lineHeight:1.8,fontWeight:300}}>{m.d}</p>
             </div>
           ))}
         </div>
-        <div style={{fontFamily:"var(--fd)",fontSize:"12px",letterSpacing:"4px",color:"var(--goldd)",textAlign:"center",marginBottom:"16px",fontWeight:600}}>COMMANDS</div>
+        <div style={{fontFamily:"var(--fd)",fontSize:"clamp(10px,1.3vw,12px)",letterSpacing:"4px",color:"var(--goldd)",textAlign:"center",marginBottom:"16px",fontWeight:600}}>COMMANDS</div>
         <div style={{display:"flex",flexDirection:"column",gap:"8px"}}>
-          {[{cmd:"!요약",desc:"지금까지의 이야기를 키워드 형식으로 정리하여 출력"},{cmd:"!챕터",desc:"현재 챕터 진행도와 다음 챕터 조건을 점검 (스토리 모드 전용)"},{cmd:"!디버그",desc:"이미지 출력 오류를 점검하고 수정·재출력"}].map((c,i)=>(
-            <div key={i} style={{display:"flex",gap:"14px",alignItems:"baseline",padding:"12px 16px",background:"var(--bgc)",border:"1px solid var(--brd)"}}>
-              <code style={{fontFamily:"'JetBrains Mono',monospace",fontSize:"14px",color:"var(--gold)",fontWeight:600,background:"rgba(212,165,74,0.08)",padding:"3px 8px",flexShrink:0}}>{c.cmd}</code>
-              <span style={{fontSize:"13px",color:"var(--tx2)",fontWeight:300,lineHeight:1.6}}>{c.desc}</span>
+          {[{c:"!요약",d:"지금까지의 이야기를 키워드 형식으로 정리하여 출력"},{c:"!챕터",d:"현재 챕터 진행도와 다음 챕터 조건을 점검 (스토리 모드 전용)"},{c:"!디버그",d:"이미지 출력 오류를 점검하고 수정·재출력"}].map((x,i)=>(
+            <div key={i} style={{display:"flex",gap:"clamp(8px,2vw,14px)",alignItems:"baseline",padding:"12px clamp(12px,2vw,16px)",background:"var(--bgc)",border:"1px solid var(--brd)",flexWrap:"wrap"}}>
+              <code style={{fontFamily:"'JetBrains Mono',monospace",fontSize:"clamp(12px,1.5vw,14px)",color:"var(--gold)",fontWeight:600,background:"rgba(212,165,74,0.08)",padding:"3px 8px",flexShrink:0}}>{x.c}</code>
+              <span style={{fontSize:"clamp(11px,1.4vw,13px)",color:"var(--tx2)",fontWeight:300,lineHeight:1.6}}>{x.d}</span>
             </div>
           ))}
         </div>
@@ -544,78 +490,74 @@ function SystemSection(){
 function CTASection(){
   const [hv,setHv]=useState(false);
   return(
-    <div style={{height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",position:"relative"}}>
-      <div style={{position:"absolute",bottom:0,left:"50%",transform:"translateX(-50%)",width:"450px",height:"250px",background:"radial-gradient(ellipse at center bottom,rgba(212,165,74,0.05) 0%,transparent 70%)",pointerEvents:"none"}}/>
-      <div style={{position:"relative",zIndex:2,textAlign:"center",padding:"0 24px"}}>
+    <div style={{height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",position:"relative",padding:"0 clamp(12px,3vw,16px)"}}>
+      <div style={{position:"absolute",bottom:0,left:"50%",transform:"translateX(-50%)",width:"min(450px,90vw)",height:"250px",background:"radial-gradient(ellipse at center bottom,rgba(212,165,74,0.05) 0%,transparent 70%)",pointerEvents:"none"}}/>
+      <div style={{position:"relative",zIndex:2,textAlign:"center"}}>
         <div style={{width:"1px",height:"40px",background:"linear-gradient(180deg,transparent,var(--goldd))",margin:"0 auto 28px"}}/>
-        <div style={{fontFamily:"var(--fd)",fontSize:"clamp(26px,4vw,38px)",fontWeight:700,marginBottom:"44px"}}>이야기를 시작하세요</div>
+        <div style={{fontFamily:"var(--fd)",fontSize:"clamp(22px,4vw,38px)",fontWeight:700,marginBottom:"clamp(28px,5vw,44px)"}}>이야기를 시작하세요</div>
         <button onMouseEnter={()=>setHv(true)} onMouseLeave={()=>setHv(false)} onClick={()=>alert("URL 추후 삽입")} style={{
-          padding:"18px 64px",background:hv?"rgba(212,165,74,0.1)":"transparent",
+          padding:"clamp(14px,2vw,18px) clamp(40px,8vw,64px)",
+          background:hv?"rgba(212,165,74,0.1)":"transparent",
           border:"1px solid var(--gold)",color:"var(--gold)",
-          fontFamily:"var(--fd)",fontSize:"18px",fontWeight:600,letterSpacing:"4px",
+          fontFamily:"var(--fd)",fontSize:"clamp(15px,2vw,18px)",fontWeight:600,letterSpacing:"clamp(2px,0.5vw,4px)",
           cursor:"pointer",transition:"all 0.4s",boxShadow:hv?"0 0 40px rgba(212,165,74,0.12)":"none",
         }}>이야기에 입장하기</button>
-        <p style={{fontSize:"11px",color:"var(--txd)",marginTop:"20px",letterSpacing:"1px"}}>URL 추후 연결 예정</p>
+        <p style={{fontSize:"clamp(9px,1.2vw,11px)",color:"var(--txd)",marginTop:"20px",letterSpacing:"1px"}}>URL 추후 연결 예정</p>
       </div>
-      <div style={{position:"absolute",bottom:"20px",width:"100%",textAlign:"center",fontSize:"11px",color:"var(--txd)",letterSpacing:"1px"}}>원작 · 강희자매 《약탈 신부》</div>
+      <div style={{position:"absolute",bottom:"20px",width:"100%",textAlign:"center",fontSize:"clamp(9px,1.2vw,11px)",color:"var(--txd)",letterSpacing:"1px"}}>원작 · 강희자매 《약탈 신부》</div>
     </div>
   );
 }
 
 /* ══════════ APP ══════════ */
-const SECTIONS_COMP=[HeroSection,FactionsSection,LocationsSection,CharacterSection,RoadmapSection,SystemSection,CTASection];
-const SC=SECTIONS_COMP.length; // 7
+const SECS=[HeroSection,FactionsSection,LocationsSection,CharacterSection,RoadmapSection,SystemSection,CTASection];
+const SC=SECS.length;
 
 export default function App(){
-  const [showOpening,setShowOpening]=useState(true);
+  const [showOp,setShowOp]=useState(true);
   const [entered,setEntered]=useState(false);
   const [audioEl,setAudioEl]=useState(null);
   const [cur,setCur]=useState(0);
-  const [modalChar,setModalChar]=useState(null);
-  const [flyCard,setFlyCard]=useState(null);
-  const trans=useRef(false);
+  const [modal,setModal]=useState(null);
+  const tr=useRef(false);
 
-  const done=(audio)=>{setAudioEl(audio);setShowOpening(false);setEntered(true)};
-  const goTo=useCallback((idx)=>{
-    if(idx<0||idx>=SC||trans.current)return;
-    trans.current=true;setCur(idx);setTimeout(()=>{trans.current=false},850);
-  },[]);
+  const done=(a)=>{setAudioEl(a);setShowOp(false);setEntered(true)};
+  const goTo=useCallback((i)=>{if(i<0||i>=SC||tr.current)return;tr.current=true;setCur(i);setTimeout(()=>{tr.current=false},850)},[]);
 
   useEffect(()=>{
     if(!entered)return;
     const onW=(e)=>{
-      if(modalChar||flyCard)return;
+      if(modal)return;
       const s=e.target.closest('.inner-scroll');
       if(s){const{scrollTop:t,scrollHeight:h,clientHeight:c}=s;if(e.deltaY>0&&t+c<h-2)return;if(e.deltaY<0&&t>2)return;}
       e.preventDefault();if(e.deltaY>0)goTo(cur+1);else if(e.deltaY<0)goTo(cur-1);
     };
     let ty=0;
     const tS=(e)=>{ty=e.touches[0].clientY};
-    const tE=(e)=>{if(modalChar||flyCard)return;const d=ty-e.changedTouches[0].clientY;if(Math.abs(d)>50){d>0?goTo(cur+1):goTo(cur-1)}};
-    const kD=(e)=>{if(modalChar||flyCard)return;if(e.key==="ArrowDown"||e.key===" "){e.preventDefault();goTo(cur+1)}if(e.key==="ArrowUp"){e.preventDefault();goTo(cur-1)}};
+    const tE=(e)=>{if(modal)return;const d=ty-e.changedTouches[0].clientY;if(Math.abs(d)>60){d>0?goTo(cur+1):goTo(cur-1)}};
+    const kD=(e)=>{if(modal)return;if(e.key==="ArrowDown"||e.key===" "){e.preventDefault();goTo(cur+1)}if(e.key==="ArrowUp"){e.preventDefault();goTo(cur-1)}};
     window.addEventListener("wheel",onW,{passive:false});
     window.addEventListener("touchstart",tS,{passive:true});
     window.addEventListener("touchend",tE,{passive:true});
     window.addEventListener("keydown",kD);
     return()=>{window.removeEventListener("wheel",onW);window.removeEventListener("touchstart",tS);window.removeEventListener("touchend",tE);window.removeEventListener("keydown",kD)};
-  },[entered,cur,goTo,modalChar,flyCard]);
+  },[entered,cur,goTo,modal]);
 
   return(
     <div style={{width:"100vw",height:"100vh",overflow:"hidden",background:"var(--bg)",position:"relative"}}>
-      {showOpening&&<Opening onCinematicEnd={done}/>}
+      {showOp&&<Opening onCinematicEnd={done}/>}
       {entered&&(
         <>
           <BGMPlayer audioEl={audioEl}/>
           <SectionNav current={cur} total={SC} onGo={goTo}/>
           <div style={{transform:`translateY(-${cur*100}vh)`,transition:"transform 0.8s cubic-bezier(0.65,0,0.35,1)",height:`${SC*100}vh`}}>
-            {SECTIONS_COMP.map((S,i)=>(
+            {SECS.map((S,i)=>(
               <div key={i} style={{height:"100vh",width:"100vw"}}>
-                {i===3?<S onOpenModal={setModalChar} onFlyCard={setFlyCard}/>:<S/>}
+                {i===3?<S onOpenModal={setModal}/>:<S/>}
               </div>
             ))}
           </div>
-          <CharModal char={modalChar} onClose={()=>setModalChar(null)}/>
-          <FlyingCard data={flyCard}/>
+          <CharModal char={modal} onClose={()=>setModal(null)}/>
         </>
       )}
     </div>
