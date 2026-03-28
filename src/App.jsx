@@ -34,7 +34,7 @@ body { background:var(--bg); color:var(--tx); font-family:var(--fb); overflow:hi
 @keyframes slamFlash { 0%{opacity:0} 30%{opacity:.3} 100%{opacity:0} }
 @keyframes lineExpand { 0%{transform:scaleX(0);opacity:0} 100%{transform:scaleX(1);opacity:1} }
 @keyframes langFade { from{opacity:0;transform:scale(.96)} to{opacity:1;transform:scale(1)} }
-@media(max-width:768px) { .sec-nav{display:none!important;} .bgm-player span.bgm-label{display:none!important;} }
+@media(max-width:768px) { .sec-nav { gap:0!important; } .sec-nav .nav-label { display:none!important; } .bgm-player span.bgm-label{display:none!important;} }
 `;
 document.head.appendChild(css);
 
@@ -492,11 +492,11 @@ function BGMPlayer({ audioEl }) {
 function Nav({ cur, total, onGo }) {
   const t = useT();
   return (
-    <div className="sec-nav" style={{ position:"fixed", right:"20px", top:"50%", transform:"translateY(-50%)", zIndex:800, display:"flex", flexDirection:"column", alignItems:"flex-end", gap:"14px" }}>
+    <div className="sec-nav" style={{ position:"fixed", top:0, left:0, right:0, zIndex:800, display:"flex", alignItems:"center", justifyContent:"center", gap:"clamp(4px,2vw,20px)", padding:"clamp(10px,1.5vw,16px) clamp(12px,3vw,20px)", background:"linear-gradient(180deg,rgba(13,10,7,0.85) 0%,rgba(13,10,7,0.4) 70%,transparent 100%)" }}>
       {Array.from({ length: total }).map((_, i) => (
-        <button key={i} onClick={() => onGo(i)} style={{ display:"flex", alignItems:"center", gap:"8px", background:"none", border:"none", cursor:"pointer", padding:0 }}>
-          <span style={{ fontSize:"11px", letterSpacing:"1px", color:cur===i?"var(--gold)":"transparent", fontFamily:"var(--fb)", transition:"color 0.3s", whiteSpace:"nowrap" }}>{t.nav[i]}</span>
-          <div style={{ width:cur===i?"20px":"6px", height:"6px", background:cur===i?"var(--gold)":"var(--goldd)", opacity:cur===i?1:0.35, transition:"all 0.4s ease" }}/>
+        <button key={i} onClick={() => onGo(i)} style={{ display:"flex", alignItems:"center", gap:"6px", background:"none", border:"none", cursor:"pointer", padding:"4px 6px" }}>
+          <div style={{ width:cur===i?"16px":"6px", height:"6px", background:cur===i?"var(--gold)":"var(--goldd)", opacity:cur===i?1:0.35, transition:"all 0.4s ease" }}/>
+          <span className="nav-label" style={{ fontSize:"10px", letterSpacing:"1px", color:cur===i?"var(--gold)":"var(--txd)", fontFamily:"var(--fb)", transition:"color 0.3s", whiteSpace:"nowrap" }}>{t.nav[i]}</span>
         </button>
       ))}
     </div>
@@ -542,10 +542,7 @@ function Hero() {
           })}
         </div>
       </div>
-      <div style={{ position:"absolute", bottom:"clamp(20px,4vw,36px)", left:"50%", transform:"translateX(-50%)", display:"flex", flexDirection:"column", alignItems:"center", gap:"6px", animation:"float 3s ease-in-out infinite", opacity:after?1:0, transition:"opacity 0.8s ease 0.5s", zIndex:2 }}>
-        <span style={{ fontSize:"clamp(12px,1.8vw,15px)", letterSpacing:"3px", paddingLeft:"3px", color:"var(--tx2)", fontFamily:"var(--fb)", fontWeight:400 }}>{t.scroll}</span>
-        <div style={{ width:"1px", height:"20px", background:"linear-gradient(180deg,var(--goldd),transparent)" }}/>
-      </div>
+
     </div>
   );
 }
