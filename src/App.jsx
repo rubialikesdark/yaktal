@@ -66,7 +66,7 @@ const T = {
     worldT:"World", worldS:"WORLD", locL:"LOCATIONS",
     storyT:"Story Roadmap", storyS:"STORY", branch:"Your choices in this chapter will shape the rest of the story",
     sysT:"System Guide", sysS:"SYSTEM", cmdL:"COMMANDS",
-    sm:"Story Mode", smd:"Progress through CH1–CH5 sequentially with branching events.",
+    sm:"Story Mode", smd:"Proceed through Chapters 1 to 5 in order, following each chapter's events and branching paths.",
     fm:"Free Mode", fmd:"No chapter restrictions. Explore freely after the prologue.",
     c1:"!summary", c1d:"Summarize the story so far in keyword format",
     c2:"!chapter", c2d:"Check current chapter progress and next chapter conditions",
@@ -80,7 +80,7 @@ const T = {
     nav:["イントロ","登場人物","世界観","ストーリー","システム","開始"],
     charT:"登場人物", charS:"CHARACTERS", charTap:"カードをめくって人物を確認してください",
     worldT:"世界観", worldS:"WORLD", locL:"LOCATIONS",
-    storyT:"ストーリーロードマップ", storyS:"STORY", branch:"この章での選択がその後の物語を決定します",
+    storyT:"ストーリーロードマップ", storyS:"STORY", branch:"この章での特定の人物に向けた選択がその後の物語を決定します",
     sysT:"システムガイド", sysS:"SYSTEM", cmdL:"COMMANDS",
     sm:"ストーリーモード", smd:"CH1〜CH5を順番に進行。チャプターごとにイベントとルート分岐。",
     fm:"フリーモード", fmd:"チャプター制限なし。プロローグ後、自由に進行。",
@@ -119,13 +119,13 @@ const OP = {
     "The moment the roaring beast, wings dark as midnight, set foot upon the earth—",
     "a grotesque flame erupted, and it shifted into the shape of a man.",
     "",
-    "\"Those who dared disgrace the dragonkin. Kill them all.\"",
+    "\"Those who dared to disgrace the dragonkin. Kill them all.\"",
   ],
   ja:[
     "「ひ、飛竜だ！蛮族が攻めてきた！」",
     "",
     "空を覆い尽くす紅蓮の炎の中で、人々の悲鳴が響き渡った。",
-    "砕けた残骸が宙を舞う中、刺すような煙を貫いて巨大な影が降りた。",
+    "砕けた残骸が宙を舞う中、むせ返る煙を突いて巨大な影が差した。",
     "黒い飛竜だった。",
     "",
     "漆黒の翼をはためかせ咆哮していた竜が大地に降り立ったその瞬間。",
@@ -183,10 +183,10 @@ const LO = {
   ],
   ja:[
     { n:"タヤール王宮", d:"大理石と黄金で造られた王の居所", ic:"🏛", img:"/images/locations/palace.webp" },
-    { n:"王の露天風呂", d:"王に選ばれた者だけに許された場所", ic:"♨", img:"/images/locations/bath.webp" },
+    { n:"王の露天湯", d:"王に選ばれた者だけに許された場所", ic:"♨", img:"/images/locations/bath.webp" },
     { n:"誕生の洞窟", d:"繁栄期の聖域", ic:"🕳", img:"/images/locations/cave.webp" },
-    { n:"メジャルク", d:"竜族が神聖視する祖先の墓", ic:"⛩", img:"/images/locations/mejalluk.webp" },
-    { n:"火の谷", d:"罪人を閉じ込める牢獄", ic:"🌋", img:"/images/locations/fire-valley.webp" },
+    { n:"メザルク", d:"竜族が神聖視する祖先の墓", ic:"⛩", img:"/images/locations/mejalluk.webp" },
+    { n:"炎の谷", d:"溶岩に囲まれた罪人の牢獄", ic:"🌋", img:"/images/locations/fire-valley.webp" },
     { n:"プカの森", d:"いたずら好きな精霊のすみか", ic:"🌲", img:"/images/locations/puka-forest.webp" },
   ],
 };
@@ -238,7 +238,7 @@ const SC_DATA = {
     { name:"トゥラン", title:"軍団長", per:"忠誠、多血質", intro:"ハカンの最も信頼する刃。険しい顔で文句を言いながらも、誰よりも先に戦場に立つ。", color:"#D4A54A", img:"/images/chars/turan.webp", modalImg:"/images/chars/modal/turan.webp", tarot:"/images/tarot-back-sub.webp" },
     { name:"ティティ", title:"専属侍女", per:"忠実、現実的", intro:"タヤール王宮での最初の案内人。異国の掟を最も現実的に教えてくれる侍女。", color:"#D4A54A", img:"/images/chars/titi.webp", modalImg:"/images/chars/modal/titi.webp", tarot:"/images/tarot-back-sub.webp" },
     { name:"プカ", title:"森の精霊", per:"悪戯、洞察", intro:"ブリオンとタヤールの間の森に住む精霊。ピーナッツを捧げれば助けてくれるが、さもなくば嵐が来る。", color:"#6DA06D", img:"/images/chars/puka.webp", modalImg:"/images/chars/modal/puka.webp", tarot:"/images/tarot-back-sub.webp" },
-    { name:"アダル", title:"大王妃", per:"精神不安、後悔", intro:"王宮の奥深くに忘れ去られた大王妃。霞んだ瞳の中に、まだ消えない後悔が残っている。", color:"#B5A790", img:"/images/chars/adar.webp", modalImg:"/images/chars/modal/adar.webp", tarot:"/images/tarot-back-sub.webp" },
+    { name:"アダル", title:"大王妃", per:"認知の衰え、後悔", intro:"王宮の奥深くに忘れ去られた大王妃。霞んだ瞳の中に、まだ消えない後悔が残っている。", color:"#B5A790", img:"/images/chars/adar.webp", modalImg:"/images/chars/modal/adar.webp", tarot:"/images/tarot-back-sub.webp" },
   ],
 };
 
@@ -353,8 +353,24 @@ function LangSelect({ onPick }) {
     <div style={{ position:"fixed", inset:0, zIndex:2000, background:"var(--bg)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", opacity:show?1:0, transition:"opacity 0.8s ease" }}>
       <Embers count={8}/>
       <div style={{ width:"1px", height:"50px", background:"linear-gradient(180deg,transparent,var(--goldd))", marginBottom:"28px" }}/>
-      <TitleSVG/>
-      <div style={{ width:"clamp(40px,12vw,80px)", height:"1px", margin:"20px auto 28px", background:"linear-gradient(90deg,transparent,var(--gold),transparent)" }}/>
+      {/* ── C안 확정: 소설 표지풍 SVG 타이틀 ── */}
+      <svg viewBox="0 0 580 250" style={{ width:"min(510px,88vw)", height:"auto", overflow:"visible" }}>
+        <defs>
+          <linearGradient id="tgL" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#D4A54A"/>
+            <stop offset="40%" stopColor="#F0DCA0"/>
+            <stop offset="60%" stopColor="#D4A54A"/>
+            <stop offset="100%" stopColor="#A8873A"/>
+          </linearGradient>
+          <filter id="glL"><feGaussianBlur stdDeviation="2" result="b"/><feComposite in="SourceGraphic" in2="b" operator="over"/></filter>
+        </defs>
+        <text x="290" y="26" textAnchor="middle" fontFamily="'Cinzel',serif" fontSize="22" fontWeight="700" fill="url(#tgL)" letterSpacing="3">THE</text>
+        <text x="290" y="96" textAnchor="middle" fontFamily="'Cinzel',serif" fontSize="60" fontWeight="700" fill="url(#tgL)" filter="url(#glL)" letterSpacing="1">DRAGON KING'S</text>
+        <text x="290" y="170" textAnchor="middle" fontFamily="'Cinzel',serif" fontSize="66" fontWeight="900" fill="url(#tgL)" filter="url(#glL)" letterSpacing="4">BRIDE</text>
+        <line x1="170" y1="192" x2="410" y2="192" stroke="#A8873A" strokeWidth="0.5" opacity="0.35"/>
+        <text x="290" y="230" textAnchor="middle" fontFamily="'Gowun Batang',serif" fontSize="22" fill="#B5A790" letterSpacing="6">약탈신부</text>
+      </svg>
+      <div style={{ width:"clamp(40px,12vw,80px)", height:"1px", margin:"clamp(16px,3vw,24px) auto clamp(20px,4vw,28px)", background:"linear-gradient(90deg,transparent,var(--gold),transparent)" }}/>
       <p style={{ fontFamily:"var(--fd)", fontSize:"clamp(10px,1.3vw,12px)", color:"var(--goldd)", marginBottom:"clamp(20px,4vw,32px)", fontWeight:600, letterSpacing:"5px" }}>SELECT LANGUAGE</p>
       <div style={{ display:"flex", gap:"clamp(8px,2vw,16px)", animation:show ? "langFade 0.6s ease 0.4s both" : "none" }}>
         {items.map((x, i) => (
