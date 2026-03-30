@@ -34,6 +34,7 @@ body { background:var(--bg); color:var(--tx); font-family:var(--fb); overflow:hi
 @keyframes slamFlash { 0%{opacity:0} 30%{opacity:.3} 100%{opacity:0} }
 @keyframes lineExpand { 0%{transform:scaleX(0);opacity:0} 100%{transform:scaleX(1);opacity:1} }
 @keyframes langFade { from{opacity:0;transform:scale(.96)} to{opacity:1;transform:scale(1)} }
+@keyframes scrollBounce { 0%,100%{transform:translateY(0);opacity:.6} 50%{transform:translateY(6px);opacity:1} }
 @media(max-width:768px) { .sec-nav { gap:0!important; } .sec-nav .nav-label { display:none!important; } .bgm-player span.bgm-label{display:none!important;} }
 `;
 document.head.appendChild(css);
@@ -71,7 +72,7 @@ const T = {
     c2:"!chapter", c2d:"Check current chapter progress and next chapter conditions",
     c3:"!debug", c3d:"Fix image output errors",
     ctaT:"Begin Your Story", ctaB:"Enter the Story", ctaN:"URL coming soon",
-    credit:"Original work by 강희자매 «Abducted Bride»",
+    credit:"Original work by 강희자매 «The Dragon King's Bride»",
     per:"Personality", tone:"Tone",
   },
   ja: {
@@ -87,7 +88,7 @@ const T = {
     c2:"!チャプター", c2d:"現在のチャプター進行度と次の条件を確認",
     c3:"!デバッグ", c3d:"画像表示エラーの修正",
     ctaT:"物語を始めましょう", ctaB:"物語に入場する", ctaN:"URLは後日追加予定です",
-    credit:"原作 · 강희자매《略奪花嫁》",
+    credit:"原作 · 강희자매《略奪された花嫁》",
     per:"性格", tone:"口調",
   },
 };
@@ -282,9 +283,9 @@ const useT = () => { const l = useLang(); return T[l]; };
 /* 타이틀 SVG */
 function TitleSVG() {
   const l = useLang();
-  const titles = { ko:"약탈신부", en:"Abducted Bride", ja:"略奪花嫁" };
-  const sizes = { ko:72, en:48, ja:64 };
-  const spacing = { ko:10, en:6, ja:8 };
+  const titles = { ko:"약탈신부", en:"The Dragon King's Bride", ja:"略奪された花嫁" };
+  const sizes = { ko:72, en:36, ja:56 };
+  const spacing = { ko:10, en:4, ja:6 };
   const fonts = { ko:"'Gowun Batang',serif", en:"'Cinzel',serif", ja:"'Shippori Mincho',serif" };
   return (
     <svg viewBox="0 0 600 100" style={{ width:"min(540px,80vw)", height:"auto" }}>
@@ -376,22 +377,16 @@ function LangSelect({ onPick }) {
 
 /* ═══════════════════════════════════════════
    오프닝 시네마틱
+   — "이야기 속으로" 버튼 삭제, 언어 선택 직후 바로 BGM+나레이션 시작
    ═══════════════════════════════════════════ */
 function Opening({ onEnd }) {
   const t = useT(), l = useLang(), lines = OP[l];
-  const [phase, setPhase] = useState(0);
-  const [titleShow, setTitleShow] = useState(false);
-  const [btnShow, setBtnShow] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
   const [curLine, setCurLine] = useState(-1);
   const [lineVis, setLineVis] = useState(false);
-  const [fadeOut, setFadeOut] = useState(false);
   const audioRef = useRef(null);
   const skipRef = useRef(false);
-
-  useEffect(() => {
-    setTimeout(() => setTitleShow(true), 500);
-    setTimeout(() => { setBtnShow(true); setPhase(1); }, 1800);
-  }, []);
+  const startedRef = useRef(false);
 
   const finish = useCallback(() => {
     if (skipRef.current) return;
@@ -400,16 +395,9 @@ function Opening({ onEnd }) {
     setTimeout(() => onEnd(audioRef.current), 800);
   }, [onEnd]);
 
-  const enter = () => {
-    if (phase !== 1) return;
-    setPhase(2);
-    if (audioRef.current) { audioRef.current.volume = 0.35; audioRef.current.play().catch(() => {}); }
-    setTimeout(() => run(), 800);
-  };
-  const skip = () => { if (phase === 2 && !skipRef.current) finish(); };
   const isQ = s => s && (s[0] === '"' || s[0] === '\u201C' || s[0] === '「');
 
-  const run = () => {
+  const run = useCallback(() => {
     let i = 0;
     const go = () => {
       if (skipRef.current) return;
@@ -420,50 +408,43 @@ function Opening({ onEnd }) {
       setTimeout(() => { setLineVis(false); setTimeout(() => { i++; go(); }, 700); }, 2400);
     };
     go();
-  };
+  }, [lines, finish]);
+
+  /* 마운트 직후 BGM 재생 + 나레이션 시작 */
+  useEffect(() => {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    if (audioRef.current) {
+      audioRef.current.volume = 0.35;
+      audioRef.current.play().catch(() => {});
+    }
+    setTimeout(() => run(), 600);
+  }, [run]);
+
+  const skip = () => { if (!skipRef.current) finish(); };
 
   return (
-    <div onClick={skip} style={{ position:"fixed", inset:0, zIndex:1000, background:"var(--bg)", overflow:"hidden", opacity:fadeOut?0:1, transition:"opacity 0.8s ease", cursor:phase===2?"pointer":"default" }}>
+    <div onClick={skip} style={{ position:"fixed", inset:0, zIndex:1000, background:"var(--bg)", overflow:"hidden", opacity:fadeOut?0:1, transition:"opacity 0.8s ease", cursor:"pointer" }}>
       <audio ref={audioRef} loop src="bgm.mp3"/>
-      {phase >= 2 && (
-        <video autoPlay muted playsInline onEnded={e => { e.target.style.opacity = "0"; }}
-          style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", opacity:0.35, filter:"blur(2px)", zIndex:0, transition:"opacity 2s ease" }}>
-          <source src="dragon-flight.webm" type="video/webm"/>
-        </video>
-      )}
+      <video autoPlay muted playsInline onEnded={e => { e.target.style.opacity = "0"; }}
+        style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", opacity:0.50, filter:"blur(2px)", zIndex:0, transition:"opacity 2s ease" }}>
+        <source src="dragon-flight.webm" type="video/webm"/>
+      </video>
       <Embers count={12}/>
-      <div style={{ position:"absolute", inset:0, zIndex:10, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", opacity:phase<2?1:0, transition:"opacity 0.8s ease", pointerEvents:phase>=2?"none":"auto" }}>
-        <div style={{ opacity:titleShow?1:0, transition:"opacity 1.2s ease" }}><TitleSVG/></div>
-        {phase <= 1 && (
-          <button onClick={e => { e.stopPropagation(); enter(); }} style={{
-            marginTop:"clamp(32px,6vw,52px)", padding:"clamp(12px,2vw,15px) clamp(36px,8vw,60px)",
-            background:"transparent", border:"1px solid var(--gold)", color:"var(--gold)",
-            fontFamily:"var(--fd)", fontSize:"clamp(14px,2vw,16px)", fontWeight:600, letterSpacing:"clamp(3px,1vw,6px)",
-            cursor:"pointer", opacity:btnShow?1:0, transform:btnShow?"translateY(0)":"translateY(10px)",
-            transition:"all 0.8s ease", animation:btnShow?"glowPulse 3s ease-in-out infinite":"none",
-          }}
-            onMouseEnter={e => { e.target.style.background = "rgba(212,165,74,0.1)"; }}
-            onMouseLeave={e => { e.target.style.background = "transparent"; }}>
-            {t.enter}
-          </button>
-        )}
+      <div style={{ position:"absolute", inset:0, zIndex:20, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"0 clamp(20px,5vw,40px)", background:"rgba(13,10,7,0.65)" }}>
+        <p style={{
+          fontFamily:"var(--fd)",
+          fontSize: isQ(lines[curLine]) ? "clamp(36px,6vw,56px)" : "clamp(28px,4.4vw,40px)",
+          color: isQ(lines[curLine]) ? "var(--red)" : "var(--tx2)",
+          textShadow: isQ(lines[curLine]) ? "0 0 30px rgba(168,58,37,0.6)" : "none",
+          fontStyle: isQ(lines[curLine]) ? "normal" : "italic",
+          fontWeight: isQ(lines[curLine]) ? 700 : 400,
+          textAlign:"center", lineHeight:1.8,
+          opacity:lineVis?1:0, transform:lineVis?"translateY(0)":"translateY(10px)",
+          transition:"opacity 0.9s ease, transform 0.9s ease",
+        }}>{curLine >= 0 ? lines[curLine] : ""}</p>
+        <p style={{ position:"absolute", bottom:"clamp(20px,4vw,40px)", fontSize:"clamp(10px,1.5vw,12px)", color:"var(--txd)", letterSpacing:"2px" }}>{t.skip}</p>
       </div>
-      {phase >= 2 && !fadeOut && (
-        <div style={{ position:"absolute", inset:0, zIndex:20, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"0 clamp(20px,5vw,40px)", background:"rgba(13,10,7,0.65)" }}>
-          <p style={{
-            fontFamily:"var(--fd)",
-            fontSize: isQ(lines[curLine]) ? "clamp(18px,3vw,28px)" : "clamp(14px,2.2vw,20px)",
-            color: isQ(lines[curLine]) ? "var(--red)" : "var(--tx2)",
-            textShadow: isQ(lines[curLine]) ? "0 0 30px rgba(168,58,37,0.6)" : "none",
-            fontStyle: isQ(lines[curLine]) ? "normal" : "italic",
-            fontWeight: isQ(lines[curLine]) ? 700 : 400,
-            textAlign:"center", lineHeight:1.8,
-            opacity:lineVis?1:0, transform:lineVis?"translateY(0)":"translateY(10px)",
-            transition:"opacity 0.9s ease, transform 0.9s ease",
-          }}>{curLine >= 0 ? lines[curLine] : ""}</p>
-          <p style={{ position:"absolute", bottom:"clamp(20px,4vw,40px)", fontSize:"clamp(10px,1.5vw,12px)", color:"var(--txd)", letterSpacing:"2px" }}>{t.skip}</p>
-        </div>
-      )}
     </div>
   );
 }
@@ -507,6 +488,22 @@ function Nav({ cur, total, onGo }) {
 }
 
 /* ═══════════════════════════════════════════
+   스크롤 다운 인디케이터
+   ═══════════════════════════════════════════ */
+function ScrollDown() {
+  const t = useT();
+  return (
+    <div style={{ position:"absolute", bottom:"clamp(20px,4vw,36px)", left:"50%", transform:"translateX(-50%)", display:"flex", flexDirection:"column", alignItems:"center", gap:"6px", zIndex:10 }}>
+      <span style={{ fontSize:"clamp(11px,1.5vw,13px)", color:"var(--txd)", letterSpacing:"3px", fontFamily:"var(--fd)", fontWeight:600 }}>{t.scroll}</span>
+      <svg width="16" height="24" viewBox="0 0 16 24" fill="none" style={{ animation:"scrollBounce 2s ease-in-out infinite" }}>
+        <path d="M8 4 L8 18" stroke="var(--goldd)" strokeWidth="1.2" strokeLinecap="round" opacity="0.6"/>
+        <path d="M2 14 L8 20 L14 14" stroke="var(--gold)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" opacity="0.8"/>
+      </svg>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
    SEC 1 — 히어로 (인트로)
    ═══════════════════════════════════════════ */
 function Hero() {
@@ -518,7 +515,7 @@ function Hero() {
   const isQ = s => s && (s[0] === '"' || s[0] === '\u201C' || s[0] === '「');
   return (
     <div style={{ height:"100%", display:"flex", flexDirection:"column", overflow:"hidden", position:"relative" }}>
-      <video autoPlay muted playsInline style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", opacity:0.15, filter:"blur(3px)", zIndex:0 }}>
+      <video autoPlay muted playsInline style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", opacity:0.30, filter:"blur(3px)", zIndex:0 }}>
         <source src="dragon-breath.webm" type="video/webm"/>
       </video>
       <div style={{ position:"absolute", inset:0, background:"radial-gradient(ellipse 70% 50% at 50% 45%,rgba(212,165,74,0.04) 0%,transparent 70%)", zIndex:1 }}/>
@@ -545,7 +542,6 @@ function Hero() {
           })}
         </div>
       </div>
-
     </div>
   );
 }
@@ -890,8 +886,9 @@ export default function App() {
           <Nav cur={cur} total={TOTAL} onGo={goTo}/>
           <div style={{ transform:`translateY(calc(-${cur} * var(--vh)))`, transition:"transform 0.8s cubic-bezier(0.65,0,0.35,1)", height:`calc(${TOTAL} * var(--vh))` }}>
             {SECS.map((S, i) => (
-              <div key={i} style={{ height:"var(--vh)", width:"100vw" }}>
+              <div key={i} style={{ height:"var(--vh)", width:"100vw", position:"relative" }}>
                 {i === 1 ? <S onOpen={setModal}/> : <S/>}
+                {i < TOTAL - 1 && <ScrollDown/>}
               </div>
             ))}
           </div>
