@@ -66,7 +66,7 @@ const T = {
     worldT:"World", worldS:"WORLD", locL:"LOCATIONS",
     storyT:"Story Roadmap", storyS:"STORY", branch:"Your choices in this chapter will shape the rest of the story",
     sysT:"System Guide", sysS:"SYSTEM", cmdL:"COMMANDS",
-    sm:"Story Mode", smd:"Proceed through Chapters 1 to 5 in order, following each chapter's events and branching paths.",
+    sm:"Story Mode", smd:"Progress through CH1–CH5 sequentially with branching events.",
     fm:"Free Mode", fmd:"No chapter restrictions. Explore freely after the prologue.",
     c1:"!summary", c1d:"Summarize the story so far in keyword format",
     c2:"!chapter", c2d:"Check current chapter progress and next chapter conditions",
@@ -88,7 +88,7 @@ const T = {
     c2:"!チャプター", c2d:"現在のチャプター進行度と次の条件を確認",
     c3:"!デバッグ", c3d:"画像表示エラーの修正",
     ctaT:"物語を始めましょう", ctaB:"物語に入場する", ctaN:"URLは後日追加予定です",
-    credit:"原作 · 강희자매《略奪された花嫁》",
+    credit:"原作 · 강희자매《略奪花嫁》",
     per:"性格", tone:"口調",
   },
 };
@@ -98,11 +98,11 @@ const T = {
    ═══════════════════════════════════════════ */
 const OP = {
   ko:[
-    "\"비, 비룡이다! 야만족들이 쳐들어왔다!\"",
+    "\"수, 수호룡이다! 야만족들이 쳐들어왔다!\"",
     "",
     "하늘을 뒤덮은 붉은 화염 속에서 사람들의 비명이 울려퍼졌다.",
     "부서진 잔해가 허공에 나부끼던 중, 매캐한 연기를 뚫고 드리워진 거대한 그림자.",
-    "검은 비룡이었다.",
+    "타야르를 지배하는 검은 수호룡이었다.",
     "",
     "칠흑 같은 날개를 펄럭이며 포효하던 용이 대지에 발을 디딘 그 순간.",
     "기괴한 불꽃이 타오르며 한 사내의 형상으로 바뀌었다.",
@@ -110,23 +110,23 @@ const OP = {
     "\"감히 용족을 욕보인 자들. 모두 죽여라.\"",
   ],
   en:[
-    "\"D-Dragons! The savages are attacking!\"",
+    "\"G-Guardian dragon! The savages are attacking!\"",
     "",
     "Amid the crimson flames that engulfed the sky, screams echoed through the air.",
     "As shattered debris drifted through the void, a massive shadow fell through the acrid smoke.",
-    "It was a black dragon.",
+    "It was the black guardian dragon that ruled Tayar.",
     "",
     "The moment the roaring beast, wings dark as midnight, set foot upon the earth—",
     "a grotesque flame erupted, and it shifted into the shape of a man.",
     "",
-    "\"Those who dared to disgrace the dragonkin. Kill them all.\"",
+    "\"Those who dared disgrace the dragonkin. Kill them all.\"",
   ],
   ja:[
-    "「ひ、飛竜だ！蛮族が攻めてきた！」",
+    "「し、守護竜だ！蛮族が攻めてきた！」",
     "",
     "空を覆い尽くす紅蓮の炎の中で、人々の悲鳴が響き渡った。",
     "砕けた残骸が宙を舞う中、むせ返る煙を突いて巨大な影が差した。",
-    "黒い飛竜だった。",
+    "タヤールを支配する黒き守護竜だった。",
     "",
     "漆黒の翼をはためかせ咆哮していた竜が大地に降り立ったその瞬間。",
     "奇怪な炎が燃え上がり、一人の男の姿へと変わった。",
@@ -183,7 +183,7 @@ const LO = {
   ],
   ja:[
     { n:"タヤール王宮", d:"大理石と黄金で造られた王の居所", ic:"🏛", img:"/images/locations/palace.webp" },
-    { n:"王の露天湯", d:"王に選ばれた者だけに許された場所", ic:"♨", img:"/images/locations/bath.webp" },
+    { n:"王の露天湯", d:"ハカン専用の湯殿", ic:"♨", img:"/images/locations/bath.webp" },
     { n:"誕生の洞窟", d:"繁栄期の聖域", ic:"🕳", img:"/images/locations/cave.webp" },
     { n:"メザルク", d:"竜族が神聖視する祖先の墓", ic:"⛩", img:"/images/locations/mejalluk.webp" },
     { n:"炎の谷", d:"溶岩に囲まれた罪人の牢獄", ic:"🌋", img:"/images/locations/fire-valley.webp" },
@@ -353,24 +353,8 @@ function LangSelect({ onPick }) {
     <div style={{ position:"fixed", inset:0, zIndex:2000, background:"var(--bg)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", opacity:show?1:0, transition:"opacity 0.8s ease" }}>
       <Embers count={8}/>
       <div style={{ width:"1px", height:"50px", background:"linear-gradient(180deg,transparent,var(--goldd))", marginBottom:"28px" }}/>
-      {/* ── C안 확정: 소설 표지풍 SVG 타이틀 ── */}
-      <svg viewBox="0 0 580 250" style={{ width:"min(510px,88vw)", height:"auto", overflow:"visible" }}>
-        <defs>
-          <linearGradient id="tgL" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#D4A54A"/>
-            <stop offset="40%" stopColor="#F0DCA0"/>
-            <stop offset="60%" stopColor="#D4A54A"/>
-            <stop offset="100%" stopColor="#A8873A"/>
-          </linearGradient>
-          <filter id="glL"><feGaussianBlur stdDeviation="2" result="b"/><feComposite in="SourceGraphic" in2="b" operator="over"/></filter>
-        </defs>
-        <text x="290" y="26" textAnchor="middle" fontFamily="'Cinzel',serif" fontSize="22" fontWeight="700" fill="url(#tgL)" letterSpacing="3">THE</text>
-        <text x="290" y="96" textAnchor="middle" fontFamily="'Cinzel',serif" fontSize="60" fontWeight="700" fill="url(#tgL)" filter="url(#glL)" letterSpacing="1">DRAGON KING'S</text>
-        <text x="290" y="170" textAnchor="middle" fontFamily="'Cinzel',serif" fontSize="66" fontWeight="900" fill="url(#tgL)" filter="url(#glL)" letterSpacing="4">BRIDE</text>
-        <line x1="170" y1="192" x2="410" y2="192" stroke="#A8873A" strokeWidth="0.5" opacity="0.35"/>
-        <text x="290" y="230" textAnchor="middle" fontFamily="'Gowun Batang',serif" fontSize="22" fill="#B5A790" letterSpacing="6">약탈신부</text>
-      </svg>
-      <div style={{ width:"clamp(40px,12vw,80px)", height:"1px", margin:"clamp(16px,3vw,24px) auto clamp(20px,4vw,28px)", background:"linear-gradient(90deg,transparent,var(--gold),transparent)" }}/>
+      <TitleSVG/>
+      <div style={{ width:"clamp(40px,12vw,80px)", height:"1px", margin:"20px auto 28px", background:"linear-gradient(90deg,transparent,var(--gold),transparent)" }}/>
       <p style={{ fontFamily:"var(--fd)", fontSize:"clamp(10px,1.3vw,12px)", color:"var(--goldd)", marginBottom:"clamp(20px,4vw,32px)", fontWeight:600, letterSpacing:"5px" }}>SELECT LANGUAGE</p>
       <div style={{ display:"flex", gap:"clamp(8px,2vw,16px)", animation:show ? "langFade 0.6s ease 0.4s both" : "none" }}>
         {items.map((x, i) => (
