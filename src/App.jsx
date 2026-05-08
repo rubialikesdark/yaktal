@@ -55,7 +55,8 @@ const T = {
     c1:"!요약", c1d:"지금까지의 이야기를 키워드 형식으로 정리하여 출력",
     c2:"!챕터", c2d:"현재 챕터 진행도와 다음 챕터 조건을 점검",
     c3:"!디버그", c3d:"이미지 출력 오류를 점검하고 수정·재출력",
-    ctaT:"이야기를 시작하세요", ctaB:"이야기에 입장하기", ctaN:"URL 추후 연결 예정",
+    c4:"!지도", c4d:"대륙 지도 출력",
+    ctaT:"이야기를 시작하세요", ctaB:"이야기에 입장하기", ctaN:"",
     credit:"원작 · 강희자매 《약탈 신부》",
     per:"성격", tone:"말투",
   },
@@ -71,6 +72,7 @@ const T = {
     c1:"!summary", c1d:"Summarize the story so far in keyword format",
     c2:"!chapter", c2d:"Check current chapter progress and next chapter conditions",
     c3:"!debug", c3d:"Fix image output errors",
+    c4:"!map", c4d:"Display the continent map",
     ctaT:"Begin Your Story", ctaB:"Enter the Story", ctaN:"URL coming soon",
     credit:"Original work by 강희자매 «The Dragon King's Bride»",
     per:"Personality", tone:"Tone",
@@ -87,6 +89,7 @@ const T = {
     c1:"!あらすじ", c1d:"これまでの物語をキーワード形式で整理して出力",
     c2:"!チャプター", c2d:"現在のチャプター進行度と次の条件を確認",
     c3:"!デバッグ", c3d:"画像表示エラーの修正",
+    c4:"!マップ", c4d:"大陸の地図を表示",
     ctaT:"物語を始めましょう", ctaB:"物語に入場する", ctaN:"URLは後日追加予定です",
     credit:"原作 · 강희자매《略奪花嫁》",
     per:"性格", tone:"口調",
@@ -755,7 +758,7 @@ function System() {
         </div>
         <div style={{ fontFamily:"var(--fd)", fontSize:"clamp(10px,1.3vw,12px)", letterSpacing:"4px", color:"var(--goldd)", textAlign:"center", marginBottom:"16px", fontWeight:600 }}>{t.cmdL}</div>
         <div style={{ display:"flex", flexDirection:"column", gap:"8px" }}>
-          {[{ c:t.c1, d:t.c1d }, { c:t.c2, d:t.c2d }, { c:t.c3, d:t.c3d }].map((x, i) => (
+          {[{ c:t.c1, d:t.c1d }, { c:t.c2, d:t.c2d }, { c:t.c3, d:t.c3d }, { c:t.c4, d:t.c4d }].map((x, i) => (
             <div key={i} style={{ display:"flex", gap:"clamp(8px,2vw,14px)", alignItems:"baseline", padding:"12px clamp(12px,2vw,16px)", background:"var(--bgc)", border:"1px solid var(--brd)", flexWrap:"wrap" }}>
               <code style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:"clamp(12px,1.5vw,14px)", color:"var(--gold)", fontWeight:600, background:"rgba(212,165,74,0.08)", padding:"3px 8px", flexShrink:0 }}>{x.c}</code>
               <span style={{ fontSize:"clamp(11px,1.4vw,13px)", color:"var(--tx2)", fontWeight:300, lineHeight:1.6 }}>{x.d}</span>
@@ -771,7 +774,7 @@ function System() {
    SEC 6 — CTA (입장)
    ═══════════════════════════════════════════ */
 function CTA() {
-  const t = useT();
+  const t = useT(), l = useLang();
   const [hv, setHv] = useState(false);
   return (
     <div style={{ height:"100%", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", position:"relative", padding:"0 clamp(12px,3vw,16px)" }}>
@@ -781,7 +784,10 @@ function CTA() {
         <div style={{ fontFamily:"var(--fd)", fontSize:"clamp(22px,4vw,38px)", fontWeight:700, marginBottom:"clamp(28px,5vw,44px)" }}>{t.ctaT}</div>
         <button
           onMouseEnter={() => setHv(true)} onMouseLeave={() => setHv(false)}
-          onClick={() => alert("URL 추후 삽입")}
+          onClick={() => {
+            if (l === "ko") window.open("https://velvetalk.com/contents/e5fda706-8822-4104-b688-40f5750a0d85", "_blank");
+            else alert("URL 추후 삽입");
+          }}
           style={{
             padding:"clamp(14px,2vw,18px) clamp(40px,8vw,64px)",
             background: hv ? "rgba(212,165,74,0.1)" : "transparent",
@@ -790,7 +796,7 @@ function CTA() {
             cursor:"pointer", transition:"all 0.4s",
             boxShadow: hv ? "0 0 40px rgba(212,165,74,0.12)" : "none",
           }}>{t.ctaB}</button>
-        <p style={{ fontSize:"clamp(9px,1.2vw,11px)", color:"var(--txd)", marginTop:"20px", letterSpacing:"1px" }}>{t.ctaN}</p>
+        {t.ctaN && <p style={{ fontSize:"clamp(9px,1.2vw,11px)", color:"var(--txd)", marginTop:"20px", letterSpacing:"1px" }}>{t.ctaN}</p>}
       </div>
       <div style={{ position:"absolute", bottom:"20px", width:"100%", textAlign:"center", fontSize:"clamp(9px,1.2vw,11px)", color:"var(--txd)", letterSpacing:"1px" }}>{t.credit}</div>
     </div>
