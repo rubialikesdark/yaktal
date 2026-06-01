@@ -785,7 +785,7 @@ function CTA() {
         <button
           onMouseEnter={() => setHv(true)} onMouseLeave={() => setHv(false)}
           onClick={() => {
-            if (l === "ko") window.open("https://velvetalk.com/contents/e5fda706-8822-4104-b688-40f5750a0d85", "_blank");
+            if (l === "ko") window.open("https://velvetalk.com/contents/0722b4bc-ed5d-46e9-9829-5e745360989f", "_blank");
             else alert("URL 추후 삽입");
           }}
           style={{
