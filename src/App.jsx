@@ -204,6 +204,7 @@ const MC = {
     { name:"안드레아", title:"브리온 성황", per:"온화, 통찰, 도덕적", tone:"우아한 말투", intro:"달의 여신을 대리하는 브리온의 성황. 우아한 미소 너머로, 무언가를 찾아 타야르까지 온 사람.", color:"#5A7D9E", img:"/images/chars/andrea.webp", modalImg:"/images/chars/modal/andrea.webp", tarot:"/images/tarot-back.webp" },
     { name:"가레트", title:"선왕비", per:"권력욕, 질투, 교활, 잔혹", tone:"비아냥, 명령조", intro:"왕궁에서 가장 아름답고 가장 위험한 여자. 왕비의 자리를 되찾기 위해서라면 무엇이든 한다.", color:"#A83A25", img:"/images/chars/garet.webp", modalImg:"/images/chars/modal/garet.webp", tarot:"/images/tarot-back.webp" },
     { name:"마리사", title:"쉬프터의 수장", per:"잔혹, 교활, 집착", tone:"현혹하는 말투", intro:"낯익은 얼굴로 나타난 쉬프터의 수장. 그녀가 들고 온 검은 화살은 용족의 비늘을 관통하는 유일한 무기다.", color:"#6E4D80", img:"/images/chars/marisa.webp", modalImg:"/images/chars/modal/marisa.webp", tarot:"/images/tarot-back.webp" },
+    { name:"루시나", title:"남작가의 숨겨진 사생아", quote:"저, 저는... 직접 보고 느끼고 싶어요. 당신이 어떤 분인지.", intro:"천한 핏줄이라며 손가락질 받던 구박데기 사생아. 그러나 그녀의 안에는 용조차 탐낼 비밀이 깃들어 있다.", color:"#C49AAE", img:"/images/chars/lucina.webp", modalImg:"/images/chars/modal/lucina.webp", tarot:"/images/tarot-back.webp" },
   ],
   en:[
     { name:"Hakan", title:"Great King of Tayar", per:"Cold, cruel, blunt", tone:"Commanding, blunt", intro:"The young king who rules the land of dragons. Beneath the mask of a ruthless conqueror, an emotion he has never once drawn out lies dormant.", color:"#D4A54A", img:"/images/chars/hakan.webp", modalImg:"/images/chars/modal/hakan.webp", tarot:"/images/tarot-back.webp" },
@@ -211,6 +212,7 @@ const MC = {
     { name:"Andrea", title:"Holy Emperor of Brion", per:"Gentle, insightful, righteous", tone:"Elegant, refined", intro:"The Holy Emperor who speaks for the Moon Goddess. Beyond his graceful smile, a man who came all the way to Tayar searching for something.", color:"#5A7D9E", img:"/images/chars/andrea.webp", modalImg:"/images/chars/modal/andrea.webp", tarot:"/images/tarot-back.webp" },
     { name:"Garet", title:"Former Queen", per:"Power-hungry, jealous, cunning, cruel", tone:"Sardonic, commanding", intro:"The most beautiful and most dangerous woman in the palace. She will do anything to reclaim the queen's throne.", color:"#A83A25", img:"/images/chars/garet.webp", modalImg:"/images/chars/modal/garet.webp", tarot:"/images/tarot-back.webp" },
     { name:"Marisa", title:"Leader of the Shifters", per:"Cruel, cunning, obsessive", tone:"Beguiling", intro:"The leader of the Shifters, appearing with a hauntingly familiar face. The black arrows she carries are the only weapon that can pierce dragonkin scales.", color:"#6E4D80", img:"/images/chars/marisa.webp", modalImg:"/images/chars/modal/marisa.webp", tarot:"/images/tarot-back.webp" },
+    { name:"Lucina", title:"The Baron's Hidden Illegitimate Daughter", quote:"I-I... want to see and feel it for myself. What kind of person you are.", intro:"A scorned illegitimate child, mocked for her lowly blood. Yet within her dwells a secret that even dragons would covet.", color:"#C49AAE", img:"/images/chars/lucina.webp", modalImg:"/images/chars/modal/lucina.webp", tarot:"/images/tarot-back.webp" },
   ],
   ja:[
     { name:"ハカン", title:"タヤール大王", per:"冷徹、残酷、無骨", tone:"命令口調、無骨", intro:"竜の地を治める若き大王。冷酷な征服者の顔の下に、一度も引き出したことのない感情が眠っている。", color:"#D4A54A", img:"/images/chars/hakan.webp", modalImg:"/images/chars/modal/hakan.webp", tarot:"/images/tarot-back.webp" },
@@ -218,6 +220,7 @@ const MC = {
     { name:"アンドレア", title:"ブリオン聖皇", per:"温和、洞察力、道徳的", tone:"優雅で気品のある話し方", intro:"月の女神を代理するブリオンの聖皇。優雅な微笑みの向こうに、何かを探してタヤールまで訪れた人物。", color:"#5A7D9E", img:"/images/chars/andrea.webp", modalImg:"/images/chars/modal/andrea.webp", tarot:"/images/tarot-back.webp" },
     { name:"ガレット", title:"先王妃", per:"権力欲、嫉妬、狡猾、残酷", tone:"皮肉、命令口調", intro:"王宮で最も美しく、最も危険な女。王妃の座を取り戻すためなら何でもする。", color:"#A83A25", img:"/images/chars/garet.webp", modalImg:"/images/chars/modal/garet.webp", tarot:"/images/tarot-back.webp" },
     { name:"マリサ", title:"シフターの首長", per:"残酷、狡猾、執着", tone:"惑わす話し方", intro:"見覚えのある顔で現れたシフターの首長。彼女が携える黒い矢は、竜族の鱗を貫く唯一の武器だ。", color:"#6E4D80", img:"/images/chars/marisa.webp", modalImg:"/images/chars/modal/marisa.webp", tarot:"/images/tarot-back.webp" },
+    { name:"ルシナ", title:"男爵家の隠された庶子", quote:"わ、私は……自分の目で見て、感じたいんです。あなたがどんな方なのか。", intro:"卑しい血筋だと後ろ指を指されてきた、虐げられた庶子。しかし彼女の内には、竜さえも欲しがる秘密が宿っている。", color:"#C49AAE", img:"/images/chars/lucina.webp", modalImg:"/images/chars/modal/lucina.webp", tarot:"/images/tarot-back.webp" },
   ],
 };
 
@@ -571,6 +574,7 @@ function CharModal({ c, onClose }) {
         </div>
         <h3 style={{ fontFamily:"var(--fd)", fontSize:"clamp(22px,4vw,26px)", fontWeight:700, marginBottom:"4px" }}>{c.name}</h3>
         <div style={{ fontSize:"clamp(12px,1.5vw,14px)", color:"var(--tx2)", letterSpacing:"1px", marginBottom:"18px" }}>{c.title}</div>
+        {c.quote && <p style={{ fontFamily:"var(--fd)", fontSize:"clamp(14px,1.8vw,16px)", color:c.color, lineHeight:1.7, marginBottom:"18px" }}>“{c.quote}”</p>}
         {c.per && <div style={{ marginBottom:"10px" }}>
           <span style={{ fontSize:"12px", color:c.color, letterSpacing:"2px", fontWeight:600 }}>{t.per}</span>
           <p style={{ fontSize:"clamp(12px,1.5vw,14px)", color:"var(--tx2)", lineHeight:1.7, fontWeight:300, marginTop:"3px" }}>{c.per}</p>
