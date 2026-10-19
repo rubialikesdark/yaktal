@@ -46,7 +46,7 @@ const T = {
   ko: {
     enter:"이야기 속으로", skip:"클릭하여 건너뛰기", scroll:"아래로 스크롤",
     nav:["인트로","등장인물","세계관","스토리","시스템","입장"],
-    charT:"등장인물", charS:"CHARACTERS", charTap:"카드를 뒤집어 인물을 확인하세요", heroL:"주인공",
+    charT:"등장인물", charS:"CHARACTERS", charTap:"카드를 뒤집어 인물을 확인하세요",
     worldT:"세계관", worldS:"WORLD", locL:"LOCATIONS",
     storyT:"스토리 로드맵", storyS:"STORY", branch:"이 챕터에서 특정 인물을 향한 선택이 이후 이야기를 결정합니다",
     sysT:"시스템 가이드", sysS:"SYSTEM", cmdL:"COMMANDS",
@@ -63,7 +63,7 @@ const T = {
   en: {
     enter:"Enter the Story", skip:"Click to skip", scroll:"Scroll Down",
     nav:["Intro","Characters","World","Story","System","Enter"],
-    charT:"Characters", charS:"CHARACTERS", charTap:"Flip a card to reveal the character", heroL:"PROTAGONIST",
+    charT:"Characters", charS:"CHARACTERS", charTap:"Flip a card to reveal the character",
     worldT:"World", worldS:"WORLD", locL:"LOCATIONS",
     storyT:"Story Roadmap", storyS:"STORY", branch:"Your choices in this chapter will shape the rest of the story",
     sysT:"System Guide", sysS:"SYSTEM", cmdL:"COMMANDS",
@@ -80,7 +80,7 @@ const T = {
   ja: {
     enter:"物語の中へ", skip:"クリックでスキップ", scroll:"下にスクロール",
     nav:["イントロ","登場人物","世界観","ストーリー","システム","開始"],
-    charT:"登場人物", charS:"CHARACTERS", charTap:"カードをめくって人物を確認してください", heroL:"主人公",
+    charT:"登場人物", charS:"CHARACTERS", charTap:"カードをめくって人物を確認してください",
     worldT:"世界観", worldS:"WORLD", locL:"LOCATIONS",
     storyT:"ストーリーロードマップ", storyS:"STORY", branch:"この章での特定の人物に向けた選択がその後の物語を決定します",
     sysT:"システムガイド", sysS:"SYSTEM", cmdL:"COMMANDS",
@@ -647,7 +647,6 @@ function Chars({ onOpen }) {
       </div>
       <div style={{ flex:1, overflowY:"auto", display:"flex", flexDirection:"column", alignItems:"center", padding:"clamp(8px,2vw,16px) clamp(12px,3vw,16px) 40px" }} className="iscroll">
         {HN > 0 && <>
-          <div style={{ fontFamily:"var(--fd)", fontSize:"clamp(10px,1.2vw,12px)", letterSpacing:"4px", color:"var(--gold)", marginBottom:"clamp(8px,1.5vw,12px)", opacity:0.85 }}>✦ {t.heroL} ✦</div>
           <div style={{ display:"flex", justifyContent:"center", gap:"clamp(10px,2vw,20px)", marginBottom:"clamp(20px,3.5vw,32px)" }}>
             {hero.map((c, i) => card(c, i, "clamp(130px,32vw,210px)"))}
           </div>
