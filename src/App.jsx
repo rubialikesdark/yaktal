@@ -46,7 +46,7 @@ const T = {
   ko: {
     enter:"이야기 속으로", skip:"클릭하여 건너뛰기", scroll:"아래로 스크롤",
     nav:["인트로","등장인물","세계관","스토리","시스템","입장"],
-    charT:"등장인물", charS:"CHARACTERS", charTap:"카드를 뒤집어 인물을 확인하세요",
+    charT:"등장인물", charS:"CHARACTERS", charTap:"카드를 뒤집어 인물을 확인하세요", heroL:"주인공",
     worldT:"세계관", worldS:"WORLD", locL:"LOCATIONS",
     storyT:"스토리 로드맵", storyS:"STORY", branch:"이 챕터에서 특정 인물을 향한 선택이 이후 이야기를 결정합니다",
     sysT:"시스템 가이드", sysS:"SYSTEM", cmdL:"COMMANDS",
@@ -63,7 +63,7 @@ const T = {
   en: {
     enter:"Enter the Story", skip:"Click to skip", scroll:"Scroll Down",
     nav:["Intro","Characters","World","Story","System","Enter"],
-    charT:"Characters", charS:"CHARACTERS", charTap:"Flip a card to reveal the character",
+    charT:"Characters", charS:"CHARACTERS", charTap:"Flip a card to reveal the character", heroL:"PROTAGONIST",
     worldT:"World", worldS:"WORLD", locL:"LOCATIONS",
     storyT:"Story Roadmap", storyS:"STORY", branch:"Your choices in this chapter will shape the rest of the story",
     sysT:"System Guide", sysS:"SYSTEM", cmdL:"COMMANDS",
@@ -80,7 +80,7 @@ const T = {
   ja: {
     enter:"物語の中へ", skip:"クリックでスキップ", scroll:"下にスクロール",
     nav:["イントロ","登場人物","世界観","ストーリー","システム","開始"],
-    charT:"登場人物", charS:"CHARACTERS", charTap:"カードをめくって人物を確認してください",
+    charT:"登場人物", charS:"CHARACTERS", charTap:"カードをめくって人物を確認してください", heroL:"主人公",
     worldT:"世界観", worldS:"WORLD", locL:"LOCATIONS",
     storyT:"ストーリーロードマップ", storyS:"STORY", branch:"この章での特定の人物に向けた選択がその後の物語を決定します",
     sysT:"システムガイド", sysS:"SYSTEM", cmdL:"COMMANDS",
@@ -204,7 +204,7 @@ const MC = {
     { name:"안드레아", title:"브리온 성황", per:"온화, 통찰, 도덕적", tone:"우아한 말투", intro:"달의 여신을 대리하는 브리온의 성황. 우아한 미소 너머로, 무언가를 찾아 타야르까지 온 사람.", color:"#5A7D9E", img:"/images/chars/andrea.webp", modalImg:"/images/chars/modal/andrea.webp", tarot:"/images/tarot-back.webp" },
     { name:"가레트", title:"선왕비", per:"권력욕, 질투, 교활, 잔혹", tone:"비아냥, 명령조", intro:"왕궁에서 가장 아름답고 가장 위험한 여자. 왕비의 자리를 되찾기 위해서라면 무엇이든 한다.", color:"#A83A25", img:"/images/chars/garet.webp", modalImg:"/images/chars/modal/garet.webp", tarot:"/images/tarot-back.webp" },
     { name:"마리사", title:"쉬프터의 수장", per:"잔혹, 교활, 집착", tone:"현혹하는 말투", intro:"낯익은 얼굴로 나타난 쉬프터의 수장. 그녀가 들고 온 검은 화살은 용족의 비늘을 관통하는 유일한 무기다.", color:"#6E4D80", img:"/images/chars/marisa.webp", modalImg:"/images/chars/modal/marisa.webp", tarot:"/images/tarot-back.webp" },
-    { name:"루시나", title:"남작가의 숨겨진 사생아", quote:"저, 저는... 직접 보고 느끼고 싶어요. 당신이 어떤 분인지.", intro:"천한 핏줄이라며 손가락질 받던 구박데기 사생아. 그러나 그녀의 안에는 용조차 탐낼 비밀이 깃들어 있다.", color:"#C49AAE", img:"/images/chars/lucina.webp", modalImg:"/images/chars/modal/lucina.webp", tarot:"/images/tarot-back.webp" },
+    { hero:true, name:"루시나", title:"남작가의 숨겨진 사생아", quote:"저, 저는... 직접 보고 느끼고 싶어요. 당신이 어떤 분인지.", intro:"천한 핏줄이라며 손가락질 받던 구박데기 사생아. 그러나 그녀의 안에는 용조차 탐낼 비밀이 깃들어 있다.", color:"#C49AAE", img:"/images/chars/lucina.webp", modalImg:"/images/chars/modal/lucina.webp", tarot:"/images/tarot-back.webp" },
   ],
   en:[
     { name:"Hakan", title:"Great King of Tayar", per:"Cold, cruel, blunt", tone:"Commanding, blunt", intro:"The young king who rules the land of dragons. Beneath the mask of a ruthless conqueror, an emotion he has never once drawn out lies dormant.", color:"#D4A54A", img:"/images/chars/hakan.webp", modalImg:"/images/chars/modal/hakan.webp", tarot:"/images/tarot-back.webp" },
@@ -212,7 +212,7 @@ const MC = {
     { name:"Andrea", title:"Holy Emperor of Brion", per:"Gentle, insightful, righteous", tone:"Elegant, refined", intro:"The Holy Emperor who speaks for the Moon Goddess. Beyond his graceful smile, a man who came all the way to Tayar searching for something.", color:"#5A7D9E", img:"/images/chars/andrea.webp", modalImg:"/images/chars/modal/andrea.webp", tarot:"/images/tarot-back.webp" },
     { name:"Garet", title:"Former Queen", per:"Power-hungry, jealous, cunning, cruel", tone:"Sardonic, commanding", intro:"The most beautiful and most dangerous woman in the palace. She will do anything to reclaim the queen's throne.", color:"#A83A25", img:"/images/chars/garet.webp", modalImg:"/images/chars/modal/garet.webp", tarot:"/images/tarot-back.webp" },
     { name:"Marisa", title:"Leader of the Shifters", per:"Cruel, cunning, obsessive", tone:"Beguiling", intro:"The leader of the Shifters, appearing with a hauntingly familiar face. The black arrows she carries are the only weapon that can pierce dragonkin scales.", color:"#6E4D80", img:"/images/chars/marisa.webp", modalImg:"/images/chars/modal/marisa.webp", tarot:"/images/tarot-back.webp" },
-    { name:"Lucina", title:"The Baron's Hidden Illegitimate Daughter", quote:"I-I... want to see and feel it for myself. What kind of person you are.", intro:"A scorned illegitimate child, mocked for her lowly blood. Yet within her dwells a secret that even dragons would covet.", color:"#C49AAE", img:"/images/chars/lucina.webp", modalImg:"/images/chars/modal/lucina.webp", tarot:"/images/tarot-back.webp" },
+    { hero:true, name:"Lucina", title:"The Baron's Hidden Illegitimate Daughter", quote:"I-I... want to see and feel it for myself. What kind of person you are.", intro:"A scorned illegitimate child, mocked for her lowly blood. Yet within her dwells a secret that even dragons would covet.", color:"#C49AAE", img:"/images/chars/lucina.webp", modalImg:"/images/chars/modal/lucina.webp", tarot:"/images/tarot-back.webp" },
   ],
   ja:[
     { name:"ハカン", title:"タヤール大王", per:"冷徹、残酷、無骨", tone:"命令口調、無骨", intro:"竜の地を治める若き大王。冷酷な征服者の顔の下に、一度も引き出したことのない感情が眠っている。", color:"#D4A54A", img:"/images/chars/hakan.webp", modalImg:"/images/chars/modal/hakan.webp", tarot:"/images/tarot-back.webp" },
@@ -220,7 +220,7 @@ const MC = {
     { name:"アンドレア", title:"ブリオン聖皇", per:"温和、洞察力、道徳的", tone:"優雅で気品のある話し方", intro:"月の女神を代理するブリオンの聖皇。優雅な微笑みの向こうに、何かを探してタヤールまで訪れた人物。", color:"#5A7D9E", img:"/images/chars/andrea.webp", modalImg:"/images/chars/modal/andrea.webp", tarot:"/images/tarot-back.webp" },
     { name:"ガレット", title:"先王妃", per:"権力欲、嫉妬、狡猾、残酷", tone:"皮肉、命令口調", intro:"王宮で最も美しく、最も危険な女。王妃の座を取り戻すためなら何でもする。", color:"#A83A25", img:"/images/chars/garet.webp", modalImg:"/images/chars/modal/garet.webp", tarot:"/images/tarot-back.webp" },
     { name:"マリサ", title:"シフターの首長", per:"残酷、狡猾、執着", tone:"惑わす話し方", intro:"見覚えのある顔で現れたシフターの首長。彼女が携える黒い矢は、竜族の鱗を貫く唯一の武器だ。", color:"#6E4D80", img:"/images/chars/marisa.webp", modalImg:"/images/chars/modal/marisa.webp", tarot:"/images/tarot-back.webp" },
-    { name:"ルシナ", title:"男爵家の隠された庶子", quote:"わ、私は……自分の目で見て、感じたいんです。あなたがどんな方なのか。", intro:"卑しい血筋だと後ろ指を指されてきた、虐げられた庶子。しかし彼女の内には、竜さえも欲しがる秘密が宿っている。", color:"#C49AAE", img:"/images/chars/lucina.webp", modalImg:"/images/chars/modal/lucina.webp", tarot:"/images/tarot-back.webp" },
+    { hero:true, name:"ルシナ", title:"男爵家の隠された庶子", quote:"わ、私は……自分の目で見て、感じたいんです。あなたがどんな方なのか。", intro:"卑しい血筋だと後ろ指を指されてきた、虐げられた庶子。しかし彼女の内には、竜さえも欲しがる秘密が宿っている。", color:"#C49AAE", img:"/images/chars/lucina.webp", modalImg:"/images/chars/modal/lucina.webp", tarot:"/images/tarot-back.webp" },
   ],
 };
 
@@ -594,7 +594,8 @@ function CharModal({ c, onClose }) {
 /* 캐릭터 섹션 */
 function Chars({ onOpen }) {
   const t = useT(), l = useLang();
-  const main = MC[l], sub = SC_DATA[l];
+  const hero = MC[l].filter(c => c.hero), main = MC[l].filter(c => !c.hero), sub = SC_DATA[l];
+  const HN = hero.length;
   const [flipped, setFlipped] = useState(new Set());
   const [hv, setHv] = useState(-1);
 
@@ -631,8 +632,8 @@ function Chars({ onOpen }) {
           </div>
         </div>
         <div style={{ textAlign:"center", marginTop:"8px", opacity:isFlipped?1:0.4, transition:"opacity 0.4s" }}>
-          <div style={{ fontFamily:"var(--fd)", fontSize:w.includes("90")?"clamp(12px,1.6vw,15px)":"clamp(11px,1.4vw,13px)", fontWeight:700, color:isFlipped?(hv===idx?c.color:"var(--tx)"):"var(--txd)" }}>{isFlipped ? c.name : "???"}</div>
-          <div style={{ fontSize:w.includes("90")?"clamp(9px,1.1vw,11px)":"clamp(8px,1vw,10px)", color:"var(--tx2)" }}>{isFlipped ? c.title : ""}</div>
+          <div style={{ fontFamily:"var(--fd)", fontSize:w.includes("130")?"clamp(15px,2vw,19px)":w.includes("90")?"clamp(12px,1.6vw,15px)":"clamp(11px,1.4vw,13px)", fontWeight:700, color:isFlipped?(hv===idx?c.color:"var(--tx)"):"var(--txd)" }}>{isFlipped ? c.name : "???"}</div>
+          <div style={{ fontSize:w.includes("130")?"clamp(10px,1.3vw,12px)":w.includes("90")?"clamp(9px,1.1vw,11px)":"clamp(8px,1vw,10px)", color:"var(--tx2)" }}>{isFlipped ? c.title : ""}</div>
         </div>
       </div>
     );
@@ -645,12 +646,18 @@ function Chars({ onOpen }) {
         <p style={{ fontSize:"clamp(12px,1.5vw,14px)", color:"var(--tx2)", textAlign:"center", marginTop:"-20px", marginBottom:"clamp(8px,1.5vw,16px)", fontWeight:300 }}>{t.charTap}</p>
       </div>
       <div style={{ flex:1, overflowY:"auto", display:"flex", flexDirection:"column", alignItems:"center", padding:"clamp(8px,2vw,16px) clamp(12px,3vw,16px) 40px" }} className="iscroll">
+        {HN > 0 && <>
+          <div style={{ fontFamily:"var(--fd)", fontSize:"clamp(10px,1.2vw,12px)", letterSpacing:"4px", color:"var(--gold)", marginBottom:"clamp(8px,1.5vw,12px)", opacity:0.85 }}>✦ {t.heroL} ✦</div>
+          <div style={{ display:"flex", justifyContent:"center", gap:"clamp(10px,2vw,20px)", marginBottom:"clamp(20px,3.5vw,32px)" }}>
+            {hero.map((c, i) => card(c, i, "clamp(130px,32vw,210px)"))}
+          </div>
+        </>}
         <div style={{ display:"flex", justifyContent:"center", gap:"clamp(6px,1.2vw,12px)", flexWrap:"wrap", maxWidth:"1060px", marginBottom:"clamp(16px,3vw,24px)" }}>
-          {main.map((c, i) => card(c, i, "clamp(90px,22vw,150px)"))}
+          {main.map((c, i) => card(c, i + HN, "clamp(90px,22vw,150px)"))}
         </div>
         <div style={{ width:"36px", height:"1px", background:"linear-gradient(90deg,transparent,var(--goldd),transparent)", marginBottom:"clamp(16px,3vw,24px)" }}/>
         <div style={{ display:"flex", justifyContent:"center", gap:"clamp(6px,1.2vw,12px)", flexWrap:"wrap", maxWidth:"1060px" }}>
-          {sub.map((c, i) => card(c, i + main.length, "clamp(80px,18vw,120px)"))}
+          {sub.map((c, i) => card(c, i + HN + main.length, "clamp(80px,18vw,120px)"))}
         </div>
       </div>
     </div>
